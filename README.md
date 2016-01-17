@@ -1,3 +1,27 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Reactuate](#reactuate)
+  - [Version](#version)
+  - [License](#license)
+- [Requirements](#requirements)
+- [Getting started](#getting-started)
+- [Webpack Layer](#webpack-layer)
+  - [Webpack Configuration](#webpack-configuration)
+  - [Running a development Webpack server](#running-a-development-webpack-server)
+    - [Development server](#development-server)
+- [Language Layer](#language-layer)
+  - [Babel Layer](#babel-layer)
+- [React Layer](#react-layer)
+  - [Redux Layer](#redux-layer)
+  - [React Routing](#react-routing)
+- [Appendix 0. Package Dependency](#appendix-0-package-dependency)
+- [Appendix A. Package file](#appendix-a-package-file)
+- [Appendix Z. Entry point](#appendix-z-entry-point)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Reactuate
 
 Reactuate is an opinionated stack for building React-based frontend applications. Core objectives are as follows:
