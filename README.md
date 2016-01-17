@@ -24,66 +24,49 @@ Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
 
 Reactuate requires the minimum of the following version of Node.js:
 
-[Node.js version](#)
+[Node.js version]()
 
     v5.4.1
 
-More recent versions are allowed, within the upper boundary of the next major version:
+More recent versions are allowed, within the upper boundary of the next major version.
 
-[](# "|eval")
+In order to produce the extracted source code of Reactuate (should you need it), you will need `litpro` npm package to be installed. Currently required version:
 
-```js
-var required = "_"Requirements: Node.js version"".split(/[v\.]/)
-var version = process.version.split(/[v\.]/)
-if (version[1] !== required[1] ||
-    parseInt(version[2]) < parseInt(required[2]) ||
-    (version[2] === required[2] && parseInt(version[3]) < parseInt(required[3]))) {
-  console.log("Node.js _"Requirements: Node.js version" or higher is required, within v" + required[1])
-  process.exit(1)
-}
-```
-
-In order to produce the extracted source code of Reactuate (should you need it),
-you will need `literate-programming` npm package to be installed. Currently required version:
-
-[literate-programming version](#)
+[litpro version]()
 
     0.8.4
 
 Building Reactute is quite simple:
 
 ```shell
-$ literate-programming README.md
+$ litpro -b . README.md
 ```
 
 # Getting started
 
-As it has been mentioned before, Reactuate is distributed as a dependency, and can, therefore, be installed with npm (assuming you already initialized your
-project with `npm init`):
+As it has been mentioned before, Reactuate is distributed as a dependency, and can, therefore, be installed with npm (assuming you already initialized your project with `npm init`):
 
 ```shell
 $ npm install --save-dev reactuate
 ```
 
-The rest of this manual will introduce you to concepts and software used in the
-stack.
+The rest of this manual will introduce you to concepts and software used in the stack.
+
 
 # Webpack Layer
 
-We serve the application in development mode and package the production version
-by employing [webpack](http://webpack.github.io). Current required version:
+We serve the application in development mode and package the production version by employing [webpack](http://webpack.github.io). Current required version:
 
-[webpack version](#)
+[webpack version]()
 
     1.12.11
 
-[Dependencies](#)
-
-```json
-DEPENDENCY(webpack/Webpack Layer),
-DEPENDENCY(webpack-dev-server/Running a development Webpack Server),
-DEPENDENCY(html-webpack-plugin/Webpack Configuration),
-DEPENDENCY(babel-loader/Webpack Configuration)
+[Dependencies](#:Dependencies ":|dependencies")
+```
+webpack/Webpack Layer
+webpack-dev-server/Running a development Webpack Server
+html-webpack-plugin/Webpack Configuration
+babel-loader/Webpack Configuration
 ```
 
 ## Webpack Configuration
@@ -92,7 +75,7 @@ There's normally little to no Webpack configuration tweaking you need to do.
 
 By default, it will assume your index.html to be this:
 
-[index.html file](#)
+[index.html]()
 ```html
 <!doctype html>
 <html lang="en">
@@ -107,89 +90,90 @@ By default, it will assume your index.html to be this:
 </html>
 ```
 
-[index.html](# "save: index.html file")
+[index.html](#:index.html "save:")
 
 When you are ready to override it, simply copy the above file to the root of your project:
 
-[index file](#)
+[index file]()
 ```js
 require('fs').existsSync(path.join(process.cwd(), 'index.html')) ?
   path.join(process.cwd(), 'index.html') : path.join(__dirname, 'index.html')
 ```
 This file will be processed with `html-webpack-plugin`, version:
 
-[html-webpack-plugin version](#)
+[html-webpack-plugin version]()
 
     1.7.0
 
+
 Reactuate will search for your source code files in this directory in your project:
 
-[source directory](#)
+[source directory]()
 
     src
 
 It will assume your main file in that directory to be
 
-[main file](#)
+[main file]()
 
     index.js
 
 All the JavaScript files are going to be process by Babel through the use of
 `babel-loader` plugin, current version:
 
-[babel-loader version](#)
+[babel-loader version]()
 
     6.2.1
 
 To enable ES2015 syntax and experimental features, the following plugins are required:
 
-[babel-preset-es2015 version](#)
+[babel-preset-es2015 version]()
 
     6.3.13
 
-[babel-preset-stage-0 version](#)
+[babel-preset-stage-0 version]()
 
     6.3.13
 
 To enable React-specific features, a number of Babel plugins is required:
 
-[babel-plugin-react-transform version](#)
+[babel-plugin-react-transform version]()
 
     2.0.0
 
-[babel-preset-react version](#)
+[babel-preset-react version]()
 
     6.3.13
 
-[babel-preset-react-hmre version](#)
+[babel-preset-react-hmre version]()
 
     1.0.1
 
 In production builds, following optimizations are used:
 
-[babel-plugin-transform-react-constant-elements version](#)
+[babel-plugin-transform-react-constant-elements version]()
 
     6.4.0
 
-[babel-plugin-transform-react-inline-elements version](#)
+[babel-plugin-transform-react-inline-elements version]()
 
     6.4.0
 
-[babel-plugin-transform-react-remove-prop-types version](#)
+[babel-plugin-transform-react-remove-prop-types version]()
 
     0.1.0
 
 Source code builds will produced into this directory in your project:
 
-[build directory](#)
+[build directory]()
 
     build
 
-[](#)
+[]()
 
 This is how the configuration is composed:
 
-[webpack-config.js](# "save: | jstidy")
+[webpack-config.js](# "save:")
 ```js
 var path = require('path')
 
@@ -269,24 +253,23 @@ An important part is being able to resolve reactuate's own dependencies
 }
 ```
 
+
 ## Running a development Webpack server
 
 It is imperative to be able to run an easy to update, hot-reloadable development version of the application before shipping an optimized version of it. This is what `webpack-dev-server` does. Reactuate currently requires the following version:
 
-[webpack-dev-server version](#)
+[webpack-dev-server version]()
 
     1.14.1
 
 In order to start a development Webpack server, you can run:
 
-[](#)
 ```shell
 $ node node_modules/reactuate/webpack-dev-server.js
 ```
 
 Alternatively, you can add a convenience helper to your `package.json`:
 
-[](#)
 ```json
 "scripts": {
   "start": "node node_modules/reactuate/webpack-dev-server.js"
@@ -295,7 +278,6 @@ Alternatively, you can add a convenience helper to your `package.json`:
 
 With this you can simply run the following to start your development server:
 
-[](#)
 ```shell
 $ npm start
 ```
@@ -331,87 +313,84 @@ new WebpackDevServer(webpack(config), { // Start a server
 
 ## Babel Layer
 
-Reactuate encourages the use of recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from
-future versions of ECMAScript to JavaScript you can run in the browser today.
+Reactuate encourages the use of recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today.
 
 Reactuate currently depends on the following version of Babel:
 
-[babel-core version](#)
+[babel-core version]()
 
     6.4.0
 
-Babel 6 is still fairly new and unfortunately, not all
-tools support it well, but this should be less of a problem going forward.
+Babel 6 is still fairly new and unfortunately, not all tools support it well, but this should be less of a problem going forward.
 
-In order to avoid generating plain JavaScript files for this package, we also
-include [babel-register](https://babeljs.io/docs/usage/require/)
+In order to avoid generating plain JavaScript files for this package, we alsoinclude [babel-register](https://babeljs.io/docs/usage/require/)
 
-[babel-register version](#)
+[babel-register version]()
 
     6.4.3
 
-[Dependencies](#)
-
-```json
-DEPENDENCY(babel-core/Babel Layer),
-DEPENDENCY(babel-register/Babel Layer),
-DEPENDENCY(babel-plugin-react-transform/Webpack Configuration),
-DEPENDENCY(babel-plugin-transform-react-constant-elements/Webpack Configuration),
-DEPENDENCY(babel-plugin-transform-react-inline-elements/Webpack Configuration),
-DEPENDENCY(babel-plugin-transform-react-remove-prop-types/Webpack Configuration),
-DEPENDENCY(babel-preset-es2015/Webpack Configuration),
-DEPENDENCY(babel-preset-react/Webpack Configuration),
-DEPENDENCY(babel-preset-react-hmre/Webpack Configuration),
-DEPENDENCY(babel-preset-stage-0/Webpack Configuration)
+[Dependencies](#:Dependencies ":|dependencies")
 ```
+babel-core/Babel Layer
+babel-register/Babel Layer
+babel-plugin-react-transform/Webpack Configuration
+babel-plugin-transform-react-constant-elements/Webpack Configuration
+babel-plugin-transform-react-inline-elements/Webpack Configuration
+babel-plugin-transform-react-remove-prop-types/Webpack Configuration
+babel-preset-es2015/Webpack Configuration
+babel-preset-react/Webpack Configuration
+babel-preset-react-hmre/Webpack Configuration
+babel-preset-stage-0/Webpack Configuration
+```
+
 # React Layer
 
 Reactuate currently depends on the following version of React:
 
-[react version](#)
+[react version]()
 
     0.14.6
 
-[Dependencies](#)
+[Dependencies](#:Dependencies ":|dependencies")
 
-    DEPENDENCY(react/)
+    react/React Layer
 
 ## Redux Layer
 
 Part of React's power lies in the so called "Flux" architecture. There are many
 different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/)
 
-[redux version](#)
+[redux version]()
 
     3.0.5
 
-[react-redux version](#)
+[react-redux version]()
 
     4.0.6
 
-[Dependencies](#)
+[Dependencies](#:Dependencies ":|dependencies")
 
-    DEPENDENCY(redux/),
-    DEPENDENCY(react-redux/)
+    redux/Redux Layer
+    react-redux/Redux Layer
 
 ## React Routing
 
 As a foundation for routing React applications, we use [react-router](https://github.com/rackt/react-router)
 
-[react-router version](#)
+[react-router version]()
 
     2.0.0-rc5
 
 We also supplement it with a [Redux extension](https://github.com/acdlite/redux-router). Although this
 one is less stable, we believe it has more comprehensive functionality comparing to [redux-simple-router](redux-simple-router).
 
-[redux-router version](#)
+[redux-router version]()
 
     1.0.0-beta7
 
 We encapsulate `ReduxRouter` into our own Router to hide some of the complexity.
 
-[Router](#)
+[Router.js]()
 ```js
 import React from 'react'
 import { ReduxRouter } from 'redux-router'
@@ -454,30 +433,43 @@ export default function(routes) {
 }
 ```
 
-[Router.js](# "save: Router")
+[Router.js](#:Router.js "save:")
 
-[Dependencies](#)
+[Dependencies](#:Dependencies ":|dependencies")
 
-    DEPENDENCY(react-router/),
-    DEPENDENCY(redux-router/)
+    react-router/React Routing
+    redux-router/React Routing
+
+
 
 # Appendix 0. Package Dependencies
 
-To simplify dependency definition, the following `dependency` macro should be used:
+To simplify dependency definition, the following `dependencies` definition should be used:
 
-[dependency](# "define:")
+[dependencies](# "define: async")
 ```js
-function(v) {
-  var vals = v.split("/"),
+function(input, args, cb) {
+  var dependencies = []
+  var lines = input.split(/\n/).filter(function (line) {
+    return !line.trim().startsWith("#")
+  })
+  lines.forEach(function(line) {
+    var vals = line.split("/"),
       dependency = vals[0],
-      section = vals[1]
-  return '"' + dependency + '": "_"' + section + ': ' + dependency + ' version""'
+      href = vals[1] || ""
+    doc.retrieve(doc.getBlock(href + ':' + dependency + ' version'), function(v) {
+      dependencies.push('"' + dependency + '": "' + v + '"')
+      if (dependencies.length === lines.length) {
+        cb(null, dependencies.join(',\n'))
+      }
+    })
+  })
 }
 ```
 
 # Appendix A. Package file
 
-[package.json](#Appendix A. Package file "save:")
+[package.json](# "save:")
 
 ```json
 {
@@ -499,36 +491,17 @@ function(v) {
   ],
   "author": "Yurii Rashkovskii <yrashk@gmail.com>",
   "license": "Apache-2.0",
-  "engines": {"node": ">=_"Requirements: Node.js version" <6.0"},
+  "engines": {"node": ">=_"Requirements:Node.js version" <6.0"},
   "dependencies": {
-    _"React Layer: Dependencies",
-    _"React Routing: Dependencies",
-    _"Redux Layer: Dependencies",
-    _"Babel Layer: Dependencies",
-    _"Webpack Layer: Dependencies"
+      _"Webpack Layer:Dependencies"
+      _"Babel Layer:Dependencies",
+      _"React Layer:Dependencies"
+      _"React Routing:Dependencies",
+      _"Redux Layer:Dependencies"
   },
   "bugs": {
     "url": "https://github.com/reactuate/reactuate/issues"
   },
   "homepage": "https://github.com/reactuate/reactuate#readme"
-}
-```
-# Appendix B. .gitignore
-
-Basically, we should ignore everything that's not this source code and the license:
-
-[.gitignore](# "save:")
-
-    *
-    !README.md
-    !LICENSE.md
-
-# Appendix Z. Entry point
-
-[index.js](# "save:")
-```js
-require('babel-register')
-module.exports = {
-  router: require('./Router')
 }
 ```
