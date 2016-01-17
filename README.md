@@ -359,7 +359,7 @@ It is important to note that it automatically injects a store enhancer for react
 
 ## React Routing
 
-As a foundation for routing React applications, we use [react-router](https://github.com/rackt/react-router) 
+As a foundation for routing React applications, we use [react-router](https://github.com/rackt/react-router)
 [react-router@1.0.3](# ":|dependency") (which requires a peer dependency of [history@1.17.0](# ":|dependency"))
 
 We also supplement it with a [Redux extension](https://github.com/acdlite/redux-router) [redux-router@1.0.0-beta7](# ":|dependency"). Although this
@@ -548,7 +548,7 @@ All produced files should be ignored:
 [index.js](# "save:")
 ```js
 require('babel-register')
-module.exports = 
+module.exports =
 {
   createRouter: require('./Router').default,
   createStore: require('./Store').default,
