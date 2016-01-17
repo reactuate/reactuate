@@ -237,7 +237,7 @@ Reactuate enables ES2015, react/react hot module replacement, and stage-0 preset
 ```js
   loaders.push({test: /\.js$/,
     loaders: jsLoaders,
-    exclude: path.join(process.cwd(), 'node_modules')
+    exclude: /node_modules/
   })
 ```
 
