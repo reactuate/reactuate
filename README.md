@@ -227,7 +227,7 @@ var jsLoaders = []
 Reactuate enables ES2015, react/react hot module replacement, and stage-0 presets:
 
 ```js
-  jsLoaders.push('babel?{presets:["react","es2015","stage-0"],env: {development: {presets: ["react-hmre"]}, production: {plugins: ["transform-react-remove-prop-types","transform-react-constant-elements"]}}}')
+  jsLoaders.push('babel-loader?{presets:["react","es2015","stage-0"],env: {development: {presets: ["react-hmre"]}, production: {plugins: ["transform-react-remove-prop-types","transform-react-constant-elements"]}}}')
 ```
 
 ```js
@@ -262,6 +262,9 @@ An important part is being able to resolve reactuate's own dependencies
 
 ```js
     resolve: {
+      root: [path.resolve(path.join(__dirname, 'node_modules')), path.resolve(path.join(process.cwd(), 'node_modules'))]
+    },
+    resolveLoader: {
       root: [path.resolve(path.join(__dirname, 'node_modules')), path.resolve(path.join(process.cwd(), 'node_modules'))]
     }
   }
