@@ -305,59 +305,91 @@ Reactuate is a React-based stack, so it naturall depends on [react@0.14.6](# ":|
 ## Redux Layer
 
 Part of React's power lies in the so called "Flux" architecture. There are many
-different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [redux@3.0.5](# ":|dependency") and its React binding [react-redux@4.0.6](# ":|dependency")
+different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [redux@3.0.5](# ":|dependency") and its React binding [react-redux@4.0.6](# ":|dependency"). To enable asynchronous action creators, [redux-thunk@1.0.3](# ":|dependency") is used.
+
+[Store.js]()
+```js
+import { createHistory }                         from 'history'
+import { createStore, applyMiddleware, compose } from 'redux'
+import { Provider }                              from 'react-redux'
+import thunk                                     from 'redux-thunk'
+import { reduxReactRouter, routerStateReducer }  from 'redux-router'
+
+export default function(routes) {
+  let store = compose(
+    applyMiddleware(thunk),
+```
+
+It is important to note that it automatically injects a store enhancer for react-router:
+
+```js
+    reduxReactRouter({routes, createHistory})
+  )(createStore)
+  return store
+}
+```
+
+[Store.js](#:Store.js "save:")
 
 ## React Routing
 
 As a foundation for routing React applications, we use [react-router](https://github.com/rackt/react-router) 
-[react-router@2.0.0-rc5](# ":|dependency")
+[react-router@1.0.3](# ":|dependency") (which requires a peer dependency of [history@1.17.0](# ":|dependency"))
 
 We also supplement it with a [Redux extension](https://github.com/acdlite/redux-router) [redux-router@1.0.0-beta7](# ":|dependency"). Although this
 one is less stable, we believe it has more comprehensive functionality comparing to [redux-simple-router](redux-simple-router).
 
-We encapsulate `ReduxRouter` into our own Router to hide some of the complexity.
+First of all, we want to define a way to create a conformant reducer:
 
-[Router.js]()
+[Reducer.js]()
+
 ```js
-import React from 'react'
-import { ReduxRouter } from 'redux-router'
+import { combineReducers }    from 'redux'
+import { routerStateReducer } from 'redux-router'
 
-class Router extends React.Component {
-
-  static propTypes = {
-     children: React.PropTypes.node
-  };
-
-  render() {
-    return (
-      <ReduxRouter>
-        {this.props.children}
-      </ReduxRouter>
-    )
-  }
+export default function(reducers) {
+   if (typeof reducers !== 'object') {
+     throw "Reactuate reducers should be an object (and not a function)"
+   }
+   return combineReducers({router: routerStateReducer, ...reducers})
 }
 ```
 
-However, since there is more than one thing that requires your routes, we
-export a function that takes your routes, and produces a `Router` component
-as well as a [store enhancer](http://rackt.org/redux/docs/Glossary.html#store-enhancer):
+[Reducer.js](#:Reducer.js "save:")
+
+Since there is more than one thing that requires your routes, we
+export a function that takes your routes, and produces a router component:
+
+[Router.js]()
 
 ```js
-import { createHistory } from 'history'
-import { reduxReactRouter, routerStateReducer } from 'redux-router'
+import React           from 'react'
+import { ReduxRouter } from 'redux-router'
+import { Provider }    from 'react-redux'
 
-export default function(routes) {
-  return {
-    Router: React.createClass({
-
-      render() {
-        return <Router>{routes}</Router>
-      }
-
-    }),
-    storeEnhancer: reduxReactRouter({routes, createHistory})
-  }
+export default function(store, routes) {
+  return <Provider store={store}><ReduxRouter>{routes}</ReduxRouter></Provider>
 }
+```
+
+You can use it this way:
+
+[Example]()
+
+```js
+import { createRouter, createStore, createReducer, render } from 'reactuate'
+import { Route } from 'react-router'
+
+const routes = (
+  <Route component={App}>
+    <Route path="/" component={HomePage} />
+  </Route>
+)
+
+const store = createStore(routes).createReducer({})
+const router = createRouter(store)
+
+render(router, document.getElementById('app'))
 ```
 
 [Router.js](#:Router.js "save:")
@@ -429,6 +461,9 @@ function() {
 require('babel-register')
 module.exports = 
 {
-  router: require('./Router').default
+  createRouter: require('./Router').default,
+  createStore: require('./Store').default,
+  createReducer: require('./Reducer').default,
+  render: function(router, element) { require('react-dom').render(router, element)}
 }
 ```
