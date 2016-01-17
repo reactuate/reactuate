@@ -47,6 +47,21 @@ you will need `literate-programming` npm package to be installed. Currently requ
 
     0.8.4
 
+## Package Dependencies
+
+Other dependencies will be mentioned on an ongoing basis and aggregated in [package.json](package.json).
+To simplify dependency definition, the following `dependency` macro should be used:
+
+[dependency](# "define:")
+```js
+function(v) {
+  var vals = v.split("/"),
+      dependency = vals[0],
+      section = vals[1]
+  return '"' + dependency + '": "_"' + section + ': ' + dependency + ' version""'
+}
+```
+
 # Getting started
 
 As it has been mentioned before, Reactuate is distributed as a dependency, and can, therefore, be installed with npm (assuming you already initialized your
@@ -71,9 +86,18 @@ by employing [webpack](http://webpack.github.io). Current required version:
 [Dependencies](#)
 
 ```json
-"webpack": "_"Webpack Layer: webpack version"",
-"webpack-dev-server": "_"Running a development Webpack Server: webpack-dev-server version"",
-"html-webpack-plugin": "_"Webpack Configuration: html-webpack-plugin version""
+DEPENDENCY(webpack/Webpack Layer),
+DEPENDENCY(webpack-dev-server/Running a development Webpack Server),
+DEPENDENCY(html-webpack-plugin/Webpack Configuration),
+DEPENDENCY(babel-loader/Webpack Configuration),
+DEPENDENCY(babel-plugin-react-transform/Webpack Configuration),
+DEPENDENCY(babel-plugin-transform-react-constant-elements/Webpack Configuration),
+DEPENDENCY(babel-plugin-transform-react-inline-elements/Webpack Configuration),
+DEPENDENCY(babel-plugin-transform-react-remove-prop-types/Webpack Configuration),
+DEPENDENCY(babel-preset-es2015/Webpack Configuration),
+DEPENDENCY(babel-preset-react/Webpack Configuration),
+DEPENDENCY(babel-preset-react-hmre/Webpack Configuration),
+DEPENDENCY(babel-preset-stage-0/Webpack Configuration)
 ```
 
 ## Webpack Configuration
@@ -123,7 +147,53 @@ It will assume your main file in that directory to be
 
     index.js
 
-It will produce builds into this directory in your project:
+All the JavaScript files are going to be process by Babel through the use of
+`babel-loader` plugin, current version:
+
+[babel-loader version](#)
+
+    6.2.1
+
+To enable ES2015 syntax and experimental features, the following plugins are required:
+
+[babel-preset-es2015 version](#)
+
+    6.3.13
+
+[babel-preset-stage-0 version](#)
+
+    6.3.13
+
+
+To enable React-specific features, a number of Babel plugins is required:
+
+[babel-plugin-react-transform version](#)
+
+    2.0.0
+
+[babel-preset-react version](#)
+
+    6.3.13
+
+[babel-preset-react-hmre version](#)
+
+    1.0.1
+
+In production builds, following optimizations are used:
+
+[babel-plugin-transform-react-constant-elements version](#)
+
+    6.4.0
+
+[babel-plugin-transform-react-inline-elements version](#)
+
+    6.4.0
+
+[babel-plugin-transform-react-remove-prop-types version](#)
+
+    0.1.0
+
+Source code builds will produced into this directory in your project:
 
 [build directory](#)
 
@@ -142,12 +212,19 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = function(options) {
   var plugins = []
+  var loaders = []
+
   var production = process.env['NODE_ENV'] === 'production'
   var src = '_":source directory"'
   var main = '_":main file"'
   var index = '_":index file"'
 
   var entry = path.resolve(__dirname, path.join(src, main))
+```
+
+When in development mode, webpack should use Webpack development server:
+
+```js
   if (!production) {
     entry = [
         "webpack-dev-server/client?http://localhost:3000", // Needed for hot reloading
@@ -155,12 +232,49 @@ module.exports = function(options) {
         entry
       ]
   }
+```
 
+and enable hot module replacement
+
+```js
   if (!production) {
     plugins.push(new webpack.HotModuleReplacementPlugin())
     plugins.push(new HtmlWebpackPlugin({template: path.resolve(process.cwd(), index), inject: true}))
   }
+```
 
+Reactuate enables ES2015, react/react hot module replacement, and stage-0 presets:
+
+```js
+  var jsLoaders = ['babel']
+  babelrc = {
+    "env": {
+      "development": {
+        "presets": ["react-hmre"]
+      },
+      "production": {
+        "plugins": [
+          "transform-react-remove-prop-types",
+          "transform-react-constant-elements",
+          "transform-react-inline-elements"
+        ]
+      }
+    },
+    "presets": ["es2015", "react", "stage-0"]
+   }
+
+```
+
+```js
+  loaders.push({test: /\.js$/,
+    loaders: jsLoaders,
+    exclude: path.join(process.cwd(), 'node_modules'),
+    query: babelrc
+  })
+```
+
+
+```js
   return {
     entry: entry,
     plugins: plugins,
@@ -168,7 +282,11 @@ module.exports = function(options) {
       path: path.resolve(process.cwd(), '_":build directory"'),
       publicPath: '/',
       filename: 'js/bundle.js'
-    }
+    },
+    module: {loders: loaders},
+    target: "web", // Make web variables accessible to webpack, e.g. window
+    stats: false, // Don't show stats in the console
+    progress: true
   }
 }
 ```
@@ -240,7 +358,7 @@ future versions of ECMAScript to JavaScript you can run in the browser today.
 
 Reactuate currently depends on the following version of Babel:
 
-[babel version](#)
+[babel-core version](#)
 
     6.4.0
 
@@ -250,7 +368,7 @@ tools support it well, but this should be less of a problem going forward.
 [Dependencies](#)
 
 ```json
-"babel-core": "_"Babel Layer: version""
+DEPENDENCY(babel-core/Babel Layer)
 ```
 # React Layer
 
@@ -287,7 +405,7 @@ Reactuate currently depends on the following version of React:
   "license": "Apache-2.0",
   "engines": {"node": ">=_"Requirements: Node.js version" <6.0"},
   "dependencies": {
-    "react": "_"React Layer: react version"",
+    DEPENDENCY(react/React Layer),
     _"Babel Layer: Dependencies",
     _"Webpack Layer: Dependencies"
   },
