@@ -446,7 +446,7 @@ as well as a [store enhancer](http://rackt.org/redux/docs/Glossary.html#store-en
 
 ```js
 import { createHistory } from 'history'
-import { routerStateReducer } from 'redux-router'
+import { reduxReactRouter, routerStateReducer } from 'redux-router'
 
 export default function(routes) {
   return {
@@ -532,5 +532,17 @@ function(input, args, cb) {
     "url": "https://github.com/reactuate/reactuate/issues"
   },
   "homepage": "https://github.com/reactuate/reactuate#readme"
+}
+```
+
+
+# Appendix Z. Entry point
+
+[index.js](# "save:")
+```js
+require('babel-register')
+module.exports = 
+{
+  router: require('./Router').default
 }
 ```
