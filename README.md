@@ -67,6 +67,7 @@ webpack/Webpack Layer
 webpack-dev-server/Running a development Webpack Server
 html-webpack-plugin/Webpack Configuration
 babel-loader/Webpack Configuration
+json-loader/Webpack Configuration
 ```
 
 ## Webpack Configuration
@@ -169,6 +170,12 @@ Source code builds will produced into this directory in your project:
 
     build
 
+Other required loaders:
+
+[json-loader version]()
+
+    0.5.4
+
 []()
 
 This is how the configuration is composed:
@@ -214,10 +221,13 @@ and enable hot module replacement
   }
 ```
 
+```js
+var jsLoaders = []
+```
 Reactuate enables ES2015, react/react hot module replacement, and stage-0 presets:
 
 ```js
-  var jsLoaders = ['babel?{presets:["react","es2015","stage-0"],env: {development: {presets: ["react-hmre"]}, production: {plugins: ["transform-react-remove-prop-types","transform-react-constant-elements"]}}}']
+  jsLoaders.push('babel?{presets:["react","es2015","stage-0"],env: {development: {presets: ["react-hmre"]}, production: {plugins: ["transform-react-remove-prop-types","transform-react-constant-elements"]}}}')
 ```
 
 ```js
@@ -227,6 +237,11 @@ Reactuate enables ES2015, react/react hot module replacement, and stage-0 preset
   })
 ```
 
+Reactuate also allows importing JSON files with [json-loader](https://github.com/webpack/json-loader) loader.
+
+```js
+  loaders.push({ test: /\.json$/, loader: 'json'})
+```
 
 ```js
   return {
@@ -264,12 +279,14 @@ It is imperative to be able to run an easy to update, hot-reloadable development
 
 In order to start a development Webpack server, you can run:
 
+[]()
 ```shell
 $ node node_modules/reactuate/webpack-dev-server.js
 ```
 
 Alternatively, you can add a convenience helper to your `package.json`:
 
+[]()
 ```json
 "scripts": {
   "start": "node node_modules/reactuate/webpack-dev-server.js"
@@ -298,7 +315,7 @@ new WebpackDevServer(webpack(config), { // Start a server
   hot: true, // With hot reloading
   inline: false,
   historyApiFallback: true,
-  quiet: true
+  quiet: false
 }).listen(3000, 'localhost', function (err, result) {
   if (err) {
     console.log(err)
@@ -493,9 +510,9 @@ function(input, args, cb) {
   "license": "Apache-2.0",
   "engines": {"node": ">=_"Requirements:Node.js version" <6.0"},
   "dependencies": {
-      _"Webpack Layer:Dependencies"
+      _"Webpack Layer:Dependencies",
       _"Babel Layer:Dependencies",
-      _"React Layer:Dependencies"
+      _"React Layer:Dependencies",
       _"React Routing:Dependencies",
       _"Redux Layer:Dependencies"
   },
