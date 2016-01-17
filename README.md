@@ -25,7 +25,7 @@ Reactuate requires the minimum of the following version of Node.js:
 
     v5.4.1
 
-More recent versions are allowed, within boundary the major version:
+More recent versions are allowed, within the upper boundary of the next major version:
 
 [](# "|eval")
 
