@@ -102,7 +102,7 @@ It will assume your main file in that directory to be
     index.js
 
 All the JavaScript files are going to be process by Babel through the use of
-[babel-loader@0.2.1](# ":|dependency") plugin, current version:
+[babel-loader@6.2.1](# ":|dependency") plugin, current version:
 
 To enable ES2015 syntax and experimental features, the following plugins are required:
 
