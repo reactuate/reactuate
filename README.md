@@ -47,21 +47,6 @@ you will need `literate-programming` npm package to be installed. Currently requ
 
     0.8.4
 
-## Package Dependencies
-
-Other dependencies will be mentioned on an ongoing basis and aggregated in [package.json](package.json).
-To simplify dependency definition, the following `dependency` macro should be used:
-
-[dependency](# "define:")
-```js
-function(v) {
-  var vals = v.split("/"),
-      dependency = vals[0],
-      section = vals[1]
-  return '"' + dependency + '": "_"' + section + ': ' + dependency + ' version""'
-}
-```
-
 # Getting started
 
 As it has been mentioned before, Reactuate is distributed as a dependency, and can, therefore, be installed with npm (assuming you already initialized your
@@ -378,6 +363,19 @@ Reactuate currently depends on the following version of React:
 
     0.14.6
 
+# Appendix 0. Package Dependencies
+
+To simplify dependency definition, the following `dependency` macro should be used:
+
+[dependency](# "define:")
+```js
+function(v) {
+  var vals = v.split("/"),
+      dependency = vals[0],
+      section = vals[1]
+  return '"' + dependency + '": "_"' + section + ': ' + dependency + ' version""'
+}
+```
 
 # Appendix A. Package file
 
