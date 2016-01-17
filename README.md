@@ -375,9 +375,14 @@ Reactuate currently depends on the following version of React:
 
     0.14.6
 
+[react-dom version]()
+
+    0.14.6
+
 [Dependencies](#:Dependencies ":|dependencies")
 
     react/React Layer
+    react-dom/React Layer
 
 ## Redux Layer
 
