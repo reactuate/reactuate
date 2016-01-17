@@ -193,7 +193,7 @@ This is how the configuration is composed:
 ```js
 var path = require('path')
 
-var webpack = require('webpack');
+var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = function(options) {
@@ -206,7 +206,7 @@ module.exports = function(options) {
   var index = _":index file"
   console.log('Using ' + index + ' as an index file')
 
-  var entry = path.resolve(__dirname, path.join(src, main))
+  var entry = path.resolve(process.cwd(), path.join(src, main))
 ```
 
 When in development mode, webpack should use Webpack development server:
@@ -233,30 +233,13 @@ and enable hot module replacement
 Reactuate enables ES2015, react/react hot module replacement, and stage-0 presets:
 
 ```js
-  var jsLoaders = ['babel']
-  babelrc = {
-    "env": {
-      "development": {
-        "presets": ["react-hmre"]
-      },
-      "production": {
-        "plugins": [
-          "transform-react-remove-prop-types",
-          "transform-react-constant-elements",
-          "transform-react-inline-elements"
-        ]
-      }
-    },
-    "presets": ["es2015", "react", "stage-0"]
-   }
-
+  var jsLoaders = ['babel?{presets:["react","es2015","stage-0"],env: {development: {presets: ["react-hmre"]}, production: {plugins: ["transform-react-remove-prop-types","transform-react-constant-elements"]}}}']
 ```
 
 ```js
   loaders.push({test: /\.js$/,
     loaders: jsLoaders,
-    exclude: path.join(process.cwd(), 'node_modules'),
-    query: babelrc
+    exclude: path.join(process.cwd(), 'node_modules')
   })
 ```
 
@@ -270,10 +253,18 @@ Reactuate enables ES2015, react/react hot module replacement, and stage-0 preset
       publicPath: '/',
       filename: 'js/bundle.js'
     },
-    module: {loders: loaders},
+    module: {loaders: loaders},
     target: "web", // Make web variables accessible to webpack, e.g. window
     stats: false, // Don't show stats in the console
-    progress: true
+    progress: true,
+```
+
+An important part is being able to resolve reactuate's own dependencies
+
+```js
+    resolve: {
+      root: [path.resolve(path.join(__dirname, 'node_modules')), path.resolve(path.join(process.cwd(), 'node_modules'))]
+    }
   }
 }
 ```
@@ -325,7 +316,7 @@ new WebpackDevServer(webpack(config), { // Start a server
   hot: true, // With hot reloading
   inline: false,
   historyApiFallback: true,
-  quiet: true // Without logging
+  quiet: true
 }).listen(3000, 'localhost', function (err, result) {
   if (err) {
     console.log(err)
@@ -352,10 +343,18 @@ Reactuate currently depends on the following version of Babel:
 Babel 6 is still fairly new and unfortunately, not all
 tools support it well, but this should be less of a problem going forward.
 
+In order to avoid generating plain JavaScript files for this package, we also
+include [babel-register](https://babeljs.io/docs/usage/require/)
+
+[babel-register version](#)
+
+    6.4.3
+
 [Dependencies](#)
 
 ```json
 DEPENDENCY(babel-core/Babel Layer),
+DEPENDENCY(babel-register/Babel Layer),
 DEPENDENCY(babel-plugin-react-transform/Webpack Configuration),
 DEPENDENCY(babel-plugin-transform-react-constant-elements/Webpack Configuration),
 DEPENDENCY(babel-plugin-transform-react-inline-elements/Webpack Configuration),
@@ -409,6 +408,53 @@ one is less stable, we believe it has more comprehensive functionality comparing
 [redux-router version](#)
 
     1.0.0-beta7
+
+We encapsulate `ReduxRouter` into our own Router to hide some of the complexity.
+
+[Router](#)
+```js
+import React from 'react'
+import { ReduxRouter } from 'redux-router'
+
+class Router extends React.Component {
+
+  static propTypes = {
+     children: React.PropTypes.node
+  };
+
+  render() {
+    return (
+      <ReduxRouter>
+        {this.props.children}
+      </ReduxRouter>
+    )
+  }
+}
+```
+
+However, since there is more than one thing that requires your routes, we
+export a function that takes your routes, and produces a `Router` component
+as well as a [store enhancer](http://rackt.org/redux/docs/Glossary.html#store-enhancer):
+
+```js
+import { createHistory } from 'history'
+import { routerStateReducer } from 'redux-router'
+
+export default function(routes) {
+  return {
+    Router: React.createClass({
+
+      render() {
+        return <Router>{routes}</Router>
+      }
+
+    }),
+    storeEnhancer: reduxReactRouter({routes, createHistory})
+  }
+}
+```
+
+[Router.js](# "save: Router")
 
 [Dependencies](#)
 
@@ -476,3 +522,13 @@ Basically, we should ignore everything that's not this source code and the licen
     *
     !README.md
     !LICENSE.md
+
+# Appendix Z. Entry point
+
+[index.js](# "save:")
+```js
+require('babel-register')
+module.exports = {
+  router: require('./Router')
+}
+```
