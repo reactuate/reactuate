@@ -16,6 +16,7 @@
 - [React Layer](#react-layer)
   - [Redux Layer](#redux-layer)
   - [React Routing](#react-routing)
+  - [Layout](#layout)
 - [Appendix 0. Package Dependency](#appendix-0-package-dependency)
 - [Appendix A. Package file](#appendix-a-package-file)
 - [Appendix B. .gitignore](#appendix-b-gitignore)
@@ -419,6 +420,56 @@ render(router, document.getElementById('app'))
 ```
 
 [Router.js](#:Router.js "save:")
+
+## Layout
+
+Many React/Redux applications adopt the following directory layout (or a variation of it):
+
+```
+src/
+   actions/
+     UserActions.js
+     FooActions.js
+   constants/
+     UserConstants.js
+     FooConstants.js
+   reducers/
+     UserReducers.js
+     FooReducers.js
+   components/
+     Login.js
+     Dashboard.js
+```
+
+We find this layout very counter-productive comparing to organizing code by domains. The above layout
+is only marginally better than organizing directories or packages by entity types. Consider doing this in Java:
+
+```
+com.foo.bar.
+           classes
+           interfaces
+           singletons
+           factories
+```
+
+Does this make a lot of sense to you? Hope not!
+
+Therefore, we propose organizing Reactuate-based
+applications by domain:
+
+```
+src/
+   user/
+      actions.js
+      reducers.js
+   small/
+      index.js
+```
+
+This way, while working
+on one domain, you don't need to jump across the
+hierarchy of the project too much, and you can easily
+rename the domain without having to rename 4-5 files!
 
 # Appendix 0. Package Dependency
 
