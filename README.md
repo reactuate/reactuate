@@ -113,7 +113,7 @@ When you are ready to override it, simply copy the above file to the root of you
 require('fs').existsSync(path.join(process.cwd(), 'index.html')) ?
   path.join(process.cwd(), 'index.html') : path.join(__dirname, 'index.html')
 ```
-This file will be processed with [html-webpack-plugin@1.7.0](# ":|dependency"). 
+This file will be processed with [html-webpack-plugin@1.7.0](# ":|dependency").
 
 Reactuate will search for your source code files in this directory in your project:
 
@@ -404,7 +404,7 @@ You can use it this way:
 [Example]()
 
 ```js
-import { createRouter, createStore, createReducer, render } from 'reactuate'
+import { createRouter, createStore, combineReducers, render } from 'reactuate'
 import { Route } from 'react-router'
 
 const routes = (
@@ -413,7 +413,7 @@ const routes = (
   </Route>
 )
 
-const store = createStore(routes).createReducer({})
+const store = createStore(routes)(combineReducers({}))
 const router = createRouter(store)
 
 render(router, document.getElementById('app'))
@@ -552,7 +552,7 @@ module.exports =
 {
   createRouter: require('./Router').default,
   createStore: require('./Store').default,
-  createReducer: require('./Reducer').default,
+  combineReducers: require('./Reducer').default,
   render: function(router, element) { require('react-dom').render(router, element)}
 }
 ```
