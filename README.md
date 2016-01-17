@@ -186,7 +186,10 @@ Reactuate enables ES2015, react/react hot module replacement, and stage-0 preset
   var es2015 = require.resolve('babel-preset-es2015')
   var stage0 = require.resolve('babel-preset-stage-0')
   var react_hmre = require.resolve('babel-preset-react-hmre')
-  jsLoaders.push('babel-loader?{presets:["' + react + '","' + es2015 + '","' + stage0 + '"],env: {development: {presets: ["' + react_hmre + '"]}, production: {plugins: ["transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}')
+  var trrpt = require.resolve('babel-plugin-transform-react-remove-prop-types')
+  var trce = require.resolve('babel-plugin-transform-react-constant-elements')
+  var trie = require.resolve('babel-plugin-transform-react-inline-elements')
+  jsLoaders.push('babel-loader?{presets:["' + react + '","' + es2015 + '","' + stage0 + '"],env: {development: {presets: ["' + react_hmre + '"]}, production: {plugins: ["' + trrpt + '","' + trce + '","' +  trie + '"]}}}')
 ```
 
 ```js
