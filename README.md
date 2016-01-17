@@ -50,6 +50,12 @@ you will need `literate-programming` npm package to be installed. Currently requ
 
     0.8.4
 
+Building Reactute is quite simple:
+
+```shell
+$ literate-programming README.md
+```
+
 # Getting started
 
 As it has been mentioned before, Reactuate is distributed as a dependency, and can, therefore, be installed with npm (assuming you already initialized your
