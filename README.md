@@ -84,38 +84,39 @@ DEPENDENCY(babel-loader/Webpack Configuration)
 
 There's normally little to no Webpack configuration tweaking you need to do.
 
-By default, it will assume your index.html file in your project to be
+By default, it will assume your index.html to be this:
 
-[index file](#)
-
-    index.html
-
-It will process this file with `html-webpack-plugin`, version:
-
-[html-webpack-plugin version](#)
-
-    1.7.0
-
-Here's a sample of how this file might look like
-
-[index.html sample](# "html")
+[index.html file](#)
 ```html
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Your application</title>
+		<title>Reactuate-based application</title>
 	</head>
 	<body>
-		<!-- The app hooks into this div -->
 		<div id="app"></div>
-		<!-- Due to the way webpack works, a lot of magic happens in this file. HtmlWebpackPlugin automatically includes all assets (e.g. bundle.js, main.css) with the correct HTML tags, which is why they are missing in this HTML file. Check out webpackconfig.js if you want to know more. -->
 	</body>
 </html>
 ```
 
-It will search for your source code files in this directory in your project:
+[index.html](# "save: index.html file")
+
+When you are ready to override it, simply copy the above file to the root of your project:
+
+[index file](#)
+```js
+require('fs').existsSync(path.join(process.cwd(), 'index.html')) ?
+  path.join(process.cwd(), 'index.html') : path.join(__dirname, 'index.html')
+```
+This file will be processed with `html-webpack-plugin`, version:
+
+[html-webpack-plugin version](#)
+
+    1.7.0
+
+Reactuate will search for your source code files in this directory in your project:
 
 [source directory](#)
 
@@ -143,7 +144,6 @@ To enable ES2015 syntax and experimental features, the following plugins are req
 [babel-preset-stage-0 version](#)
 
     6.3.13
-
 
 To enable React-specific features, a number of Babel plugins is required:
 
@@ -197,7 +197,8 @@ module.exports = function(options) {
   var production = process.env['NODE_ENV'] === 'production'
   var src = '_":source directory"'
   var main = '_":main file"'
-  var index = '_":index file"'
+  var index = _":index file"
+  console.log('Using ' + index + ' as an index file')
 
   var entry = path.resolve(__dirname, path.join(src, main))
 ```
