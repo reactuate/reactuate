@@ -3,9 +3,12 @@
 Reactuate is an opinionated stack for building React-based frontend applications. Core objectives are as follows:
 
 1. Fork-and-forget (or fork-and-follow) is not a great way to keep up with what's happening in the frontend space. Therefore, starting off from a cloned boilerplate "kit" is not an acceptable solution. Reactuateis distributed as a __dependency__.
-2. Reactuate is strictly a frontend-oriented stack and is not meant to provide a foundation for so called "universal" (server and client side) JavaScript applications.
-3. Discovering and learning the capabilities of comprehensive stack solution could be complicated. What's even worse, maintaining such stacks can be equally painful. Therefore, unconventionally, Reactuate is written as a *literate program* and is meant to be read as a small book and be a concise reference manual — while being a functional library.
-4. Don't cling on the legacy stuff. Move forward.
+1. Reactuate is strictly a frontend-oriented stack and is not meant to provide a foundation for so called "universal" (server and client side) JavaScript applications.
+1. Reducing the amount of noise. Many kits suffer from the need to create too many files for each "functional vertical" (such as
+   action creators, constants, reducer), which in turn leads to increased maintenance complexity (try renaming one of the vericals),
+   "import nightmare" and inability to have a compact overview of the functionality.
+1. Discovering and learning the capabilities of comprehensive stack solution could be complicated. What's even worse, maintaining such stacks can be equally painful. Therefore, unconventionally, Reactuate is written as a *literate program* and is meant to be read as a small book and be a concise reference manual — while being a functional library.
+1. Don't cling on the legacy stuff. Move forward.
 
 ## Version
 
@@ -363,6 +366,48 @@ Reactuate currently depends on the following version of React:
 
     0.14.6
 
+[Dependencies](#)
+
+    DEPENDENCY(react/)
+
+## Redux Layer
+
+Part of React's power lies in the so called "Flux" architecture. There are many
+different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/)
+
+[redux version](#)
+
+    3.0.5
+
+[react-redux version](#)
+
+    4.0.6
+
+[Dependencies](#)
+
+    DEPENDENCY(redux/),
+    DEPENDENCY(react-redux/)
+
+## React Routing
+
+As a foundation for routing React applications, we use [react-router](https://github.com/rackt/react-router)
+
+[react-router version](#)
+
+    2.0.0-rc5
+
+We also supplement it with a [Redux extension](https://github.com/acdlite/redux-router). Although this
+one is less stable, we believe it has more comprehensive functionality comparing to [redux-simple-router](redux-simple-router).
+
+[redux-router version](#)
+
+    1.0.0-beta7
+
+[Dependencies](#)
+
+    DEPENDENCY(react-router/),
+    DEPENDENCY(redux-router/)
+
 # Appendix 0. Package Dependencies
 
 To simplify dependency definition, the following `dependency` macro should be used:
@@ -403,7 +448,9 @@ function(v) {
   "license": "Apache-2.0",
   "engines": {"node": ">=_"Requirements: Node.js version" <6.0"},
   "dependencies": {
-    DEPENDENCY(react/React Layer),
+    _"React Layer: Dependencies",
+    _"React Routing: Dependencies",
+    _"Redux Layer: Dependencies",
     _"Babel Layer: Dependencies",
     _"Webpack Layer: Dependencies"
   },
