@@ -74,15 +74,7 @@ by employing [webpack](http://webpack.github.io). Current required version:
 DEPENDENCY(webpack/Webpack Layer),
 DEPENDENCY(webpack-dev-server/Running a development Webpack Server),
 DEPENDENCY(html-webpack-plugin/Webpack Configuration),
-DEPENDENCY(babel-loader/Webpack Configuration),
-DEPENDENCY(babel-plugin-react-transform/Webpack Configuration),
-DEPENDENCY(babel-plugin-transform-react-constant-elements/Webpack Configuration),
-DEPENDENCY(babel-plugin-transform-react-inline-elements/Webpack Configuration),
-DEPENDENCY(babel-plugin-transform-react-remove-prop-types/Webpack Configuration),
-DEPENDENCY(babel-preset-es2015/Webpack Configuration),
-DEPENDENCY(babel-preset-react/Webpack Configuration),
-DEPENDENCY(babel-preset-react-hmre/Webpack Configuration),
-DEPENDENCY(babel-preset-stage-0/Webpack Configuration)
+DEPENDENCY(babel-loader/Webpack Configuration)
 ```
 
 ## Webpack Configuration
@@ -353,7 +345,15 @@ tools support it well, but this should be less of a problem going forward.
 [Dependencies](#)
 
 ```json
-DEPENDENCY(babel-core/Babel Layer)
+DEPENDENCY(babel-core/Babel Layer),
+DEPENDENCY(babel-plugin-react-transform/Webpack Configuration),
+DEPENDENCY(babel-plugin-transform-react-constant-elements/Webpack Configuration),
+DEPENDENCY(babel-plugin-transform-react-inline-elements/Webpack Configuration),
+DEPENDENCY(babel-plugin-transform-react-remove-prop-types/Webpack Configuration),
+DEPENDENCY(babel-preset-es2015/Webpack Configuration),
+DEPENDENCY(babel-preset-react/Webpack Configuration),
+DEPENDENCY(babel-preset-react-hmre/Webpack Configuration),
+DEPENDENCY(babel-preset-stage-0/Webpack Configuration)
 ```
 # React Layer
 
