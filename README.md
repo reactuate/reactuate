@@ -18,6 +18,7 @@
   - [React Routing](#react-routing)
 - [Appendix 0. Package Dependency](#appendix-0-package-dependency)
 - [Appendix A. Package file](#appendix-a-package-file)
+- [Appendix B. .gitignore](#appendix-b-gitignore)
 - [Appendix Z. Entry point](#appendix-z-entry-point)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -478,6 +479,18 @@ function() {
 }
 ```
 
+# Appendix B. .gitignore
+
+[.gitignore](# "save:")
+
+All produced files should be ignored:
+
+```
+*
+!Makefile
+!README.md
+!LICENSE.md
+```
 
 # Appendix Z. Entry point
 
