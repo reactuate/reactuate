@@ -339,7 +339,8 @@ As a foundation for routing React applications, we use [react-router](https://gi
 We also supplement it with a [Redux extension](https://github.com/acdlite/redux-router) [redux-router@1.0.0-beta7](# ":|dependency"). Although this
 one is less stable, we believe it has more comprehensive functionality comparing to [redux-simple-router](redux-simple-router).
 
-First of all, we want to define a way to create a conformant reducer:
+First of all, we want to define a way to create a conformant reducer. It is important to have
+`routerStateReducer` injected as a `router`:
 
 [Reducer.js]()
 
