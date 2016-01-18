@@ -632,6 +632,10 @@ become clearer why we need this.
 ```js
 export default class Domain {
 
+  constructor(prefix) {
+    this.prefix = prefix || ""
+  }
+
   register(type, name, value) {
     this[type] = this[type] || {}
     this[type][name] = value
@@ -655,7 +659,7 @@ import ft from 'tcomb-form-types'
 
 import { Domain } from 'reactuate'
 
-const domain = new Domain()
+const domain = new Domain("counter")
 export default domain
 
 const State = t.struct({
@@ -670,8 +674,9 @@ In the above example, we are defining a state that has a counter. Now, we should
 import t from 'tcomb'
 
 export default function(domain, action, payload, meta) {
+  let actionString = `${domain.prefix === '' ? '' : domain.prefix + '/' }${action}`
   let actionType = t.struct({
-    type: t.refinement(t.Any, (v) => v === action, action.toString()),
+    type: t.refinement(t.Any, (v) => v === actionString, action),
     payload: t.maybe(payload || t.Any),
     error: t.maybe(t.refinement(t.Boolean, (n) => n == true, 'True')),
     meta: t.maybe(meta || t.Any)
@@ -679,7 +684,7 @@ export default function(domain, action, payload, meta) {
   actionType.prototype._action = true
   let newActionType = function(properties) {
     properties = properties || {}
-    return actionType({...properties, type: action})
+    return actionType({...properties, type: actionString})
   }
   for (var key in actionType) {
     newActionType[key] = actionType[key]
@@ -808,7 +813,7 @@ import { Domain,
 
 import domain           from './index'
 
-const asyncDomain = new Domain()
+const asyncDomain = new Domain("counterAsync")
 
 const incrementParameter = t.struct({increment: ft.Number.Integer}, 'incrementParameter')
 const IncrementCounterDelayed = createAction(asyncDomain,
