@@ -170,6 +170,8 @@ Other required packages:
 
 * [json-loader@0.5.4](# ":|dependency")
 * [css-loader@0.23.1](# ":|dependency")
+* [file-loader@0.8.5](# ":|dependency")
+* [url-loader@0.5.7](# ":|dependency")
 
 []()
 
@@ -272,6 +274,18 @@ Reactuate also allows importing CSS files with [css-loader](https://github.com/w
   loaders.push({ test: /\.css$/, loader: 'style-loader!css-loader'})
 ```
 
+Reactuate also allows importing fonts and SVG files.
+
+```js
+  loaders.push({ test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" })
+  loaders.push({ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" })
+  loaders.push({ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+   { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" })
+```
+
+```js
+  loaders.push({ test: /\.css$/, loader: 'style-loader!css-loader'})
+```
 ```js
   return {
     entry: entry,
