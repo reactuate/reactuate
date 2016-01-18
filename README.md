@@ -726,14 +726,10 @@ You can use it this way (this is the sample file you get by default, by the way!
 [Example]()
 
 ```js
-import { Application }             from 'reactuate'
-import { Route }                   from 'react-router'
-import { connect }                 from 'react-redux'
-import { bindActionCreators }      from 'redux'
+import { React, Route, Application,
+         connect, bindActionCreators } from 'reactuate'
 
-import React                       from 'react'
-
-import counter                from './counter'
+import counter from './counter'
 
 class App extends React.Component {
   render() {
@@ -881,6 +877,10 @@ module.exports =
   Application : require('./Application').default,
   Domain: require('./Domain').default,
   createReducer : require('./createReducer').default,
-  createAction : require('./createAction').default
+  createAction : require('./createAction').default,
+  React : require('react'),
+  Route : require('react-router').Route,
+  connect : require('react-redux').connect,
+  bindActionCreators : require('redux').bindActionCreators
 }
 ```
