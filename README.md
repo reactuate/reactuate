@@ -575,7 +575,7 @@ export default function ({ getState }) {
 import { createAction } from 'reactuate'
 
 const incrementParameter = t.struct({increment: ft.Number.Integer}, 'incrementParameter')
-const IncrementCounter = createAction(domain, 'INCREMENT_COUNTER',
+const IncrementCounter = createAction(domain, 'IncrementCounter',
                                       t.maybe(incrementParameter))
 
 domain.IncrementCounter = IncrementCounter
