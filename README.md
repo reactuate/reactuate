@@ -111,14 +111,14 @@ By default, it will assume your index.html to be this:
 </html>
 ```
 
-[index.html](#:index.html "save:")
+[sample/index.html](#:index.html "save:")
 
 When you are ready to override it, simply copy the above file to the root of your project:
 
 [index file]()
 ```js
 require('fs').existsSync(path.join(process.cwd(), 'index.html')) ?
-  path.join(process.cwd(), 'index.html') : path.join(__dirname, 'index.html')
+  path.join(process.cwd(), 'index.html') : path.join(__dirname, 'sample', 'index.html')
 ```
 This file will be processed with [html-webpack-plugin@1.7.0](# ":|dependency").
 
