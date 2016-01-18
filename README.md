@@ -64,7 +64,7 @@ In order to produce the extracted source code of Reactuate (should you need it),
 
     0.8.4
 
-Building Reactute is quite simple:
+Building Reactuate is quite simple:
 
 ```shell
 $ litpro -b . README.md
