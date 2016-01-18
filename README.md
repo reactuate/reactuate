@@ -43,7 +43,7 @@ Reactuate is an opinionated stack for building React-based frontend applications
 
 Current published version:
 
-    0.1.2
+    0.1.3
 
 ## License
 
@@ -601,9 +601,7 @@ All produced files should be ignored:
 
 As npm documentation says:
 
-```
-Use a .npmignore file to keep stuff out of your package. If there's no .npmignore file, but there is a .gitignore file, then npm will ignore the stuff matched by the .gitignore file. If you want to include something that is excluded by your .gitignore file, you can create an empty .npmignore file to override it
-```
+"Use a .npmignore file to keep stuff out of your package. If there's no .npmignore file, but there is a .gitignore file, then npm will ignore the stuff matched by the .gitignore file. If you want to include something that is excluded by your .gitignore file, you can create an empty .npmignore file to override it"
 
 [.npmignore](# "save:")
  ```
