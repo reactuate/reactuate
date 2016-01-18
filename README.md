@@ -302,7 +302,7 @@ Reactuate also allows importing CSS files with [css-loader](https://github.com/w
   loaders.push({ test: /\.css$/, loader: 'style-loader!css-loader'})
 ```
 
-Reactuate also allows importing fonts and SVG files with * [file-loader@0.8.5](# ":|dependency")[]() and [url-loader@0.5.7](# ":|dependency")[]().
+Reactuate also allows importing fonts and SVG files with [file-loader@0.8.5](# ":|dependency")[]() and [url-loader@0.5.7](# ":|dependency")[]().
 
 ```js
   loaders.push({ test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" })
