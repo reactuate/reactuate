@@ -166,13 +166,6 @@ Source code builds will produced into this directory in your project:
 
     build
 
-Other required packages:
-
-* [json-loader@0.5.4](# ":|dependency")
-* [css-loader@0.23.1](# ":|dependency")
-* [file-loader@0.8.5](# ":|dependency")
-* [url-loader@0.5.7](# ":|dependency")
-
 []()
 
 This is how the configuration is composed:
@@ -297,19 +290,19 @@ Reactuate enables ES2015, react/react hot module replacement, and stage-0 preset
   })
 ```
 
-Reactuate also allows importing JSON files with [json-loader](https://github.com/webpack/json-loader).
+Reactuate also allows importing JSON files with [json-loader](https://github.com/webpack/json-loader) [json-loader@0.5.4](# ":|dependency")[]().
 
 ```js
   loaders.push({ test: /\.json$/, loader: 'json'})
 ```
 
-Reactuate also allows importing CSS files with [css-loader](https://github.com/webpack/css-loader).
+Reactuate also allows importing CSS files with [css-loader](https://github.com/webpack/css-loader) [css-loader@0.23.1](# ":|dependency")[]().
 
 ```js
   loaders.push({ test: /\.css$/, loader: 'style-loader!css-loader'})
 ```
 
-Reactuate also allows importing fonts and SVG files.
+Reactuate also allows importing fonts and SVG files with * [file-loader@0.8.5](# ":|dependency")[]() and [url-loader@0.5.7](# ":|dependency")[]().
 
 ```js
   loaders.push({ test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" })
