@@ -636,6 +636,14 @@ export default class Domain {
     this.prefix = prefix || ""
   }
 
+  withPrefix(name) {
+    return (this.prefix == "" ? "" : this.prefix + "/") + name
+  }
+
+  withoutPrefix(name) {
+    return name.replace(new RegExp(`^${this.prefix}\/`),'')
+  }
+
   register(type, name, value) {
     this[type] = this[type] || {}
     this[type][name] = value
@@ -674,7 +682,7 @@ In the above example, we are defining a state that has a counter. Now, we should
 import t from 'tcomb'
 
 export default function(domain, action, payload, meta) {
-  let actionString = `${domain.prefix === '' ? '' : domain.prefix + '/' }${action}`
+  let actionString = domain.withPrefix(action)
   let actionType = t.struct({
     type: t.refinement(t.Any, (v) => v === actionString, action),
     payload: t.maybe(payload || t.Any),
@@ -737,9 +745,9 @@ export default function(domain, initialState, ...cases) {
   let reducer = (state = initialState, action) => {
     let typedAction = action
     if (action['type'] === '@@reactuate/action') {
-      let actionCreator = domain.get('actions')[action.meta.name]
+      let actionCreator = domain.get('actions')[domain.withoutPrefix(action.meta.name)]
       if (!t.Nil.is(actionCreator)) {
-        typedAction = actionCreator(action.payload)
+        typedAction = actionCreator(action.payload.payload, action.payload.error, action.payload.meta)
       }
     }
     Object.freeze(state)
