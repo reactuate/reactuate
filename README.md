@@ -22,6 +22,7 @@
 - [Appendix 0. Package Dependency](#appendix-0-package-dependency)
 - [Appendix A. Package file](#appendix-a-package-file)
 - [Appendix B. .gitignore](#appendix-b-gitignore)
+- [Appendix B1. .npmignore](#appendix-b1-npmignore)
 - [Appendix Z. Entry point](#appendix-z-entry-point)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -595,6 +596,19 @@ All produced files should be ignored:
 !README.md
 !LICENSE.md
 ```
+
+# Appendix B1. .npmignore
+
+As npm documentation says:
+
+```
+Use a .npmignore file to keep stuff out of your package. If there's no .npmignore file, but there is a .gitignore file, then npm will ignore the stuff matched by the .gitignore file. If you want to include something that is excluded by your .gitignore file, you can create an empty .npmignore file to override it
+```
+
+[.npmignore](# "save:")
+ ```
+ Makefile
+ ```
 
 # Appendix Z. Entry point
 
