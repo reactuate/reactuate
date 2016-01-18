@@ -76,7 +76,11 @@ As it has been mentioned before, Reactuate is distributed as a dependency, and c
 
 ```shell
 $ npm install --save-dev reactuate
+$ node node_modules/reactuate/webpack-dev-server.js
 ```
+
+Then open [http://localhost:3000](http://localhost:3000) and complete the TODO
+items listed there.
 
 The rest of this manual will introduce you to concepts and software used in the stack.
 
