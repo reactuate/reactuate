@@ -682,9 +682,8 @@ export default function(domain, action, payload, meta) {
     meta: t.maybe(meta || t.Any)
   }, action.toString())
   actionType.prototype._action = true
-  let newActionType = function(properties) {
-    properties = properties || {}
-    return actionType({...properties, type: actionString})
+  let newActionType = function(payload, error, meta) {
+    return actionType({payload, error, meta, type: actionString})
   }
   for (var key in actionType) {
     newActionType[key] = actionType[key]
