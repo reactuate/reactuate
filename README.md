@@ -24,7 +24,6 @@
 - [Appendix A. Package file](#appendix-a-package-file)
 - [Appendix B. .gitignore](#appendix-b-gitignore)
 - [Appendix B1. .npmignore](#appendix-b1-npmignore)
-- [Appendix Z. Entry point](#appendix-z-entry-point)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -722,6 +721,24 @@ export default class Application {
 
 [Application.js](#:Application.js "save:")
 
+[index.js]()
+```js
+require('babel-register')
+module.exports =
+{
+  Application : require('./Application').default,
+  Domain: require('./Domain').default,
+  createReducer : require('./createReducer').default,
+  createAction : require('./createAction').default,
+  React : require('react'),
+  Route : require('react-router').Route,
+  connect : require('react-redux').connect,
+  bindActionCreators : require('redux').bindActionCreators
+}
+```
+
+[index.js](#:index.js "save:")
+
 You can use it this way (this is the sample file you get by default, by the way!):
 
 [Example]()
@@ -867,21 +884,3 @@ As npm documentation says:
  ```
  Makefile
  ```
-
-# Appendix Z. Entry point
-
-[index.js](# "save:")
-```js
-require('babel-register')
-module.exports =
-{
-  Application : require('./Application').default,
-  Domain: require('./Domain').default,
-  createReducer : require('./createReducer').default,
-  createAction : require('./createAction').default,
-  React : require('react'),
-  Route : require('react-router').Route,
-  connect : require('react-redux').connect,
-  bindActionCreators : require('redux').bindActionCreators
-}
-```
