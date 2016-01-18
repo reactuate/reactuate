@@ -43,7 +43,7 @@ Reactuate is an opinionated stack for building React-based frontend applications
 
 Current published version:
 
-    0.1.1
+    0.1.2
 
 ## License
 
