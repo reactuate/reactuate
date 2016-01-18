@@ -19,6 +19,7 @@
   - [React Routing](#react-routing)
   - [Layout](#layout)
   - [Domain](#domain)
+  - [Managing effects](#managing-effects)
   - [Putting it all together](#putting-it-all-together)
 - [Appendix 0. Package Dependency](#appendix-0-package-dependency)
 - [Appendix A. Package file](#appendix-a-package-file)
@@ -145,6 +146,7 @@ To enable ES2015 syntax and experimental features, the following plugins are req
 
 * [babel-preset-es2015@6.3.13](# ":|dependency")
 * [babel-preset-stage-0@6.3.13](# ":|dependency")
+* [babel-plugin-transform-export-extensions@6.4.0](# ":|dependency")
 
 To enable React-specific features, a number of Babel plugins is required:
 
@@ -244,10 +246,11 @@ Reactuate enables ES2015, react/react hot module replacement, and stage-0 preset
   var es2015 = require.resolve('babel-preset-es2015')
   var stage0 = require.resolve('babel-preset-stage-0')
   var react_hmre = require.resolve('babel-preset-react-hmre')
+  var tee = require.resolve('babel-plugin-transform-export-extensions')
   var trrpt = require.resolve('babel-plugin-transform-react-remove-prop-types')
   var trce = require.resolve('babel-plugin-transform-react-constant-elements')
   var trie = require.resolve('babel-plugin-transform-react-inline-elements')
-  jsLoaders.push('babel-loader?{presets:["' + react + '","' + es2015 + '","' + stage0 + '"],env: {development: {presets: ["' + react_hmre + '"]}, production: {plugins: ["' + trrpt + '","' + trce + '","' +  trie + '"]}}}')
+  jsLoaders.push('babel-loader?{presets:["' + react + '","' + es2015 + '","' + stage0 + '"],env: {development: {presets: ["' + react_hmre + '"]}, production: {plugins: ["' + tee + '","' + trrpt + '","' + trce + '","' +  trie + '"]}}}')
 ```
 
 ```js
@@ -362,6 +365,8 @@ Babel 6 is still fairly new and unfortunately, not all tools support it well, bu
 
 In order to avoid generating plain JavaScript files for this package, we also include [babel-register](https://babeljs.io/docs/usage/require/) [babel-register@6.4.3](# ":|dependency")
 
+ES6 also has new APIs that are provided by [babel-polyfill@6.3.14](# ":|dependency").
+
 # React Layer
 
 Reactuate is a React-based stack, so it naturall depends on [react@0.14.6](# ":|dependency") and
@@ -382,12 +387,26 @@ import { Provider }                              from 'react-redux'
 import thunk                                     from 'redux-thunk'
 import { reduxReactRouter, routerStateReducer }  from 'redux-router'
 import createLogger                              from 'redux-logger'
+import sagaMiddleware                            from 'redux-saga'
 
 import domainMiddleware                          from './domainMiddleware'
 
-export default function(routes) {
+export default function(routes, domains) {
+  let sagas = []
+  for (var domainName in domains) {
+    let sagasDict = domains[domainName].get('sagas')
+    for (var sagaName in sagasDict) {
+      sagas.push(sagasDict[sagaName])
+    }
+  }
   let store = compose(
     applyMiddleware(
+```
+
+It enables Saga middleware for complex asynchronous operations orchestration:
+
+```js
+      sagaMiddleware(...sagas),
 ```
 
 It enables serializability of domain actions:
@@ -406,7 +425,11 @@ And adds logging in development mode:
 
 ```js
       createLogger({
-        predicate: (getState, action) => process.env.NODE_ENV === 'development',
+        predicate: (getState, action) =>
+        (process.env.NODE_ENV === 'development' &&
+        action['type'] !== 'EFFECT_TRIGGERED' &&
+        action['type'] !== 'EFFECT_RESOLVED' &&
+        !action['type'].startsWith("@@redux")),
         actionTransformer: (action) => {
           if (action['type'] === '@@reactuate/action') {
             return action.payload
@@ -537,14 +560,14 @@ become clearer why we need this.
 [Domain.js]()
 ```js
 export default class Domain {
-  constructor() {
-    this.actions = {}
+
+  register(type, name, value) {
+    this[type] = this[type] || {}
+    this[type][name] = value
   }
-  registerActionCreator(action, creator) {
-    this.actions[action] = creator
-  }
-  getActionCreator(action) {
-    return this.actions[action]
+
+  get(type) {
+    return this[type] || {}
   }
 }
 ```
@@ -556,7 +579,7 @@ Every domain begins with a state. We define state with tcomb's help:
 
 [Domain state example]()
 ```js
-import t from  'tcomb'
+import t  from 'tcomb'
 import ft from 'tcomb-form-types'
 
 import { Domain } from 'reactuate'
@@ -590,7 +613,7 @@ export default function(domain, action, payload, meta) {
   for (var key in actionType) {
     newActionType[key] = actionType[key]
   }
-  domain.registerActionCreator(action, newActionType)
+  domain.register('actions', action, newActionType)
   return newActionType
 }
 ```
@@ -639,8 +662,10 @@ export default function(domain, initialState, ...cases) {
   let reducer = (state = initialState, action) => {
     let typedAction = action
     if (action['type'] === '@@reactuate/action') {
-      let actionCreator = domain.getActionCreator(action.meta.name)
-      typedAction = actionCreator(action.payload)
+      let actionCreator = domain.get('actions')[action.meta.name]
+      if (!t.Nil.is(actionCreator)) {
+        typedAction = actionCreator(action.payload)
+      }
     }
     Object.freeze(state)
     let stateCases = cases.map(f => {
@@ -686,10 +711,63 @@ _":Domain reducer example"
 
 [sample/counter/index.js](#:Domain-example "save:")
 
+## Managing effects
+
+When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using (redux-saga)[https://github.com/yelouafi/redux-saga] [redux-saga@0.4.1](# ":|dependency") for that.
+
+[createSaga.js]()
+```js
+export default function(domain, name, saga) {
+  domain.register('sagas', name, saga)
+}
+```
+
+[createSaga.js](#:createSaga.js "save:")
+
+The below examples show handling the counter example in an async way (and we're introducing a delay as well):
+
+[Saga example]()
+```js
+import t                from 'tcomb'
+import ft               from 'tcomb-form-types'
+import { Domain,
+         createSaga,
+         createAction,
+         take, put }    from 'reactuate'
+
+import domain           from './index'
+
+const asyncDomain = new Domain()
+
+const incrementParameter = t.struct({increment: ft.Number.Integer}, 'incrementParameter')
+const IncrementCounterDelayed = createAction(asyncDomain,
+                                'IncrementCounterDelayed', t.maybe(incrementParameter))
+
+function delay(millis) {
+    return new Promise(resolve =>
+      setTimeout( () => resolve(true), millis)
+    )
+}
+
+createSaga(asyncDomain, 'IncrementCounterDelayed', function* () {
+  while(true) {
+     const nextAction = yield take(IncrementCounterDelayed.is)
+     yield delay(1000)
+     yield put(domain.get('actions').IncrementCounter({payload: nextAction.payload}))
+   }
+})
+
+export default asyncDomain
+```
+
+[sample/counter/async.js](#:Saga-example "save:")
+
+
 ## Putting it all together
 
 [Application.js]()
 ```js
+import t               from 'tcomb'
 import ReactDOM        from 'react-dom'
 
 import createStore     from './createStore'
@@ -704,10 +782,12 @@ export default class Application {
     this.domains = properties.domains || {}
     this.reducers = {}
     for (var key in this.domains) {
-      this.reducers[key] = this.domains[key].reducer
+      if (!t.Nil.is(this.domains[key].reducer)) {
+        this.reducers[key] = this.domains[key].reducer
+      }
     }
     if (!!this.routes) {
-      this.store = createStore(this.routes)(combineReducers(this.reducers))
+      this.store = createStore(this.routes, this.domains)(combineReducers(this.reducers))
       this.router = createRouter(this.store, this.routes)
     }
   }
@@ -724,20 +804,29 @@ export default class Application {
 [index.js]()
 ```js
 require('babel-register')
-module.exports =
-{
-  Application : require('./Application').default,
-  Domain: require('./Domain').default,
-  createReducer : require('./createReducer').default,
-  createAction : require('./createAction').default,
-  React : require('react'),
-  Route : require('react-router').Route,
-  connect : require('react-redux').connect,
-  bindActionCreators : require('redux').bindActionCreators
-}
+require('babel-polyfill')
+module.exports = require('./index.es6.js')
 ```
-
 [index.js](#:index.js "save:")
+
+
+[index.es6.js]()
+```js
+export Application            from './Application'
+export Domain                 from './Domain'
+export createReducer          from './createReducer'
+export createAction           from './createAction'
+export createSaga             from './createSaga'
+export React                  from 'react'
+export { Route }              from 'react-router'
+export { connect }            from 'react-redux'
+export { bindActionCreators } from 'redux'
+
+export { take, put, race, call,
+         apply, cps, fork, join,
+         cancel, as } from 'redux-saga'
+```
+[index.es6.js](#:index.es6.js "save:")
 
 You can use it this way (this is the sample file you get by default, by the way!):
 
@@ -748,6 +837,7 @@ import { React, Route, Application,
          connect, bindActionCreators } from 'reactuate'
 
 import counter from './counter'
+import counterAsync from './counter/async'
 
 class App extends React.Component {
   render() {
@@ -758,6 +848,9 @@ class App extends React.Component {
 class HomePage extends React.Component {
   handleIncrement() {
     this.props.actions.IncrementCounter()
+  }
+  handleIncrementDelayed() {
+    this.props.actions.IncrementCounterDelayed()
   }
   render() {
     return (<div>
@@ -781,6 +874,7 @@ class HomePage extends React.Component {
        <h5>Counter example</h5>
        {this.props.counter}
        <button onClick={() => this.handleIncrement()}>Increment</button>
+       <button onClick={() => this.handleIncrementDelayed()}>Increment with delay</button>
      </div>
     </div>)
   }
@@ -788,7 +882,7 @@ class HomePage extends React.Component {
 
 HomePage = connect(state => ({counter: state.counter.counter}),
                    dispatch => ({actions:
-                     bindActionCreators(counter.actions, dispatch)}))(HomePage)
+                     bindActionCreators({...counter.actions, ...counterAsync.actions}, dispatch)}))(HomePage)
 
 const routes = (
   <Route component={App}>
@@ -796,7 +890,7 @@ const routes = (
   </Route>
 )
 
-new Application({routes, domains: {counter}}).render()
+new Application({routes, domains: {counter, counterAsync}}).render()
 ```
 
 [sample/index.js](#:Example "save:")
