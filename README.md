@@ -215,13 +215,24 @@ and enable hot module replacement
   }
 ```
 
-We will also inject the location of this module into development builds:
+We will also define the location of this module into development builds:
 
 ```js
   if (!production) {
     plugins.push(new webpack.DefinePlugin({"REACTUATE_DIRNAME": JSON.stringify(__dirname)}))
   }
 ```
+
+It is quite convenient to be able to know if we're running a development or production instance in the browser:
+
+```js
+plugins.push(new webpack.DefinePlugin({
+  "process.env": {
+    NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development")
+  }
+}))
+```
+
 
 ```js
 var jsLoaders = []
