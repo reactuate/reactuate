@@ -675,7 +675,8 @@ const reducer = createReducer(domain, initialState,
     })
 ```
 
-Lets put this entire example together for the sample, exporting `reducer` (the naming is important) and the action creator.
+Lets put this entire example together for the sample, exporting `reducer` (the naming is important) and the action creator. Did you notice we avoided creating
+the whole layer of 'constants'?
 
 [Domain example]()
 ```js
