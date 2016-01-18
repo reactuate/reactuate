@@ -31,7 +31,7 @@
 
 Reactuate is an opinionated stack for building React-based frontend applications. Core objectives are as follows:
 
-1. Fork-and-forget (or fork-and-follow) is not a great way to keep up with what's happening in the frontend space. Therefore, starting off from a cloned boilerplate "kit" is not an acceptable solution. Reactuateis distributed as a __dependency__.
+1. Fork-and-forget (or fork-and-follow) is not a great way to keep up with what's happening in the frontend space. Therefore, starting off from a cloned boilerplate "kit" is not an acceptable solution. Reactuate is distributed as a __dependency__.
 1. Reactuate is strictly a frontend-oriented stack and is not meant to provide a foundation for so called "universal" (server and client side) JavaScript applications.
 1. Reducing the amount of noise. Many kits suffer from the need to create too many files for each "functional vertical" (such as
    action creators, constants, reducer), which in turn leads to increased maintenance complexity (try renaming one of the vericals),
