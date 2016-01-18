@@ -168,6 +168,7 @@ Source code builds will produced into this directory in your project:
 Other required packages:
 
 * [json-loader@0.5.4](# ":|dependency")
+* [css-loader@0.23.1](# ":|dependency")
 
 []()
 
@@ -257,10 +258,16 @@ Reactuate enables ES2015, react/react hot module replacement, and stage-0 preset
   })
 ```
 
-Reactuate also allows importing JSON files with [json-loader](https://github.com/webpack/json-loader) loader.
+Reactuate also allows importing JSON files with [json-loader](https://github.com/webpack/json-loader).
 
 ```js
   loaders.push({ test: /\.json$/, loader: 'json'})
+```
+
+Reacuate also allows importing CSS files with [css-loader](https://github.com/webpack/css-loader).
+
+```js
+  loaders.push({ test: /\.css$/, loader: 'style-loader!css-loader'})
 ```
 
 ```js
