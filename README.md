@@ -17,8 +17,8 @@
 - [React Layer](#react-layer)
   - [Redux Layer](#redux-layer)
   - [React Routing](#react-routing)
-  - [TODO](#todo)
   - [Layout](#layout)
+  - [Putting it all together](#putting-it-all-together)
 - [Appendix 0. Package Dependency](#appendix-0-package-dependency)
 - [Appendix A. Package file](#appendix-a-package-file)
 - [Appendix B. .gitignore](#appendix-b-gitignore)
@@ -354,7 +354,7 @@ Reactuate is a React-based stack, so it naturall depends on [react@0.14.6](# ":|
 Part of React's power lies in the so called "Flux" architecture. There are many
 different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [redux@3.0.5](# ":|dependency") and its React binding [react-redux@4.0.6](# ":|dependency"). To enable asynchronous action creators, [redux-thunk@1.0.3](# ":|dependency") is used.
 
-[Store.js]()
+[createStore.js]()
 ```js
 import { createHistory }                         from 'history'
 import { createStore, applyMiddleware, compose } from 'redux'
@@ -376,7 +376,7 @@ It is important to note that it automatically injects a store enhancer for react
 }
 ```
 
-[Store.js](#:Store.js "save:")
+[createStore.js](#:createStore.js "save:")
 
 ## React Routing
 
@@ -389,7 +389,7 @@ one is less stable, we believe it has more comprehensive functionality comparing
 First of all, we want to define a way to create a conformant reducer. It is important to have
 `routerStateReducer` injected as a `router`:
 
-[Reducer.js]()
+[combineReducers.js]()
 
 ```js
 import { combineReducers }    from 'redux'
@@ -403,12 +403,12 @@ export default function(reducers) {
 }
 ```
 
-[Reducer.js](#:Reducer.js "save:")
+[combineReducers.js](#:combineReducers.js "save:")
 
 Since there is more than one thing that requires your routes, we
 export a function that takes your routes, and produces a router component:
 
-[Router.js]()
+[createRouter.js]()
 
 ```js
 import React           from 'react'
@@ -420,60 +420,8 @@ export default function(store, routes) {
 }
 ```
 
-You can use it this way (this is the sample file you get by default, by the way!):
 
-[Example]()
-
-```js
-import { createRouter, createStore,
-         combineReducers, render } from 'reactuate'
-import { Route }                   from 'react-router'
-import React                       from 'react'
-
-class App extends React.Component {
-  render() {
-    return <div>{this.props.children}</div>
-  }
-}
-
-class HomePage extends React.Component {
-  render() {
-    return (<div>
-     <h1>Reactuate Application</h1>
-     <p>
-     Congratulations! You are running a Reactuate application now. Here is what you need to do to start developing your own application:
-     </p>
-     <h2>TODO</h2>
-     <ol>
-       <li>Unless you have done so already, add a start script for your npm package:
-        <pre><code>
-{`_"Running a development Webpack server:webpack-dev-server-script|trim"`}
-        </code></pre>
-        This way you can easily run your application:
-        <pre><code>
-{`_"Running a development Webpack server:webpack-dev-server-start"`}
-        </code></pre>
-       </li>
-       <li>Copy the starter file from {`${REACTUATE_DIRNAME}/sample/index.js`} to src/index.js</li>
-     </ol>
-    </div>)
-  }
-}
-
-const routes = (
-  <Route component={App}>
-    <Route path="/" component={HomePage} />
-  </Route>
-)
-
-const store = createStore(routes)(combineReducers({}))
-const router = createRouter(store)
-
-render(router, document.getElementById('app'))
-```
-
-[Router.js](#:Router.js "save:")
-[sample/index.js](#:Example "save:")
+[createRouter.js](#:createRouter.js "save:")
 
 ## Layout
 
@@ -524,6 +472,87 @@ This way, while working
 on one domain, you don't need to jump across the
 hierarchy of the project too much, and you can easily
 rename the domain without having to rename 4-5 files!
+
+## Putting it all together
+
+[Application.js]()
+```js
+import ReactDOM        from 'react-dom'
+
+import createStore     from './createStore'
+import combineReducers from './combineReducers'
+import createRouter    from './createRouter'
+
+export default class Application {
+
+  constructor(properties) {
+    this.routes = properties.routes
+    this.element = properties.element || document.getElementById('app')
+    this.domains = properties.domains || {}
+    if (!!this.routes) {
+      this.store = createStore(this.routes)(combineReducers(this.domains))
+      this.router = createRouter(this.store, this.routes)
+    }
+  }
+
+  render() {
+    ReactDOM.render(this.router, this.element)
+  }
+
+}
+```
+
+[Application.js](#:Application.js "save:")
+
+You can use it this way (this is the sample file you get by default, by the way!):
+
+[Example]()
+
+```js
+import { Application }             from 'reactuate'
+import { Route }                   from 'react-router'
+import React                       from 'react'
+
+class App extends React.Component {
+  render() {
+    return <div>{this.props.children}</div>
+  }
+}
+
+class HomePage extends React.Component {
+  render() {
+    return (<div>
+     <h1>Reactuate Application</h1>
+     <p>
+     Congratulations! You are running a Reactuate application now. Here is what you need to do to start developing your own application:
+     </p>
+     <ol>
+       <li>Unless you have done so already, add a start script for your npm package:
+        <pre><code>
+{`_"Running a development Webpack server:webpack-dev-server-script|trim"`}
+        </code></pre>
+        This way you can easily run your application:
+        <pre><code>
+{`_"Running a development Webpack server:webpack-dev-server-start"`}
+        </code></pre>
+       </li>
+       <li>Copy the starter file from {`${REACTUATE_DIRNAME}/sample/index.js`} to src/index.js</li>
+     </ol>
+    </div>)
+  }
+}
+
+const routes = (
+  <Route component={App}>
+    <Route path="/" component={HomePage} />
+  </Route>
+)
+
+new Application({routes}).render()
+```
+
+[sample/index.js](#:Example "save:")
+
 
 # Appendix 0. Package Dependency
 
@@ -615,9 +644,6 @@ As npm documentation says:
 require('babel-register')
 module.exports =
 {
-  createRouter: require('./Router').default,
-  createStore: require('./Store').default,
-  combineReducers: require('./Reducer').default,
-  render: function(router, element) { require('react-dom').render(router, element)}
+  Application : require('./Application').default
 }
 ```
