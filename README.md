@@ -364,7 +364,9 @@ Reactuate is a React-based stack, so it naturall depends on [react@0.14.6](# ":|
 ## Redux Layer
 
 Part of React's power lies in the so called "Flux" architecture. There are many
-different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [redux@3.0.5](# ":|dependency") and its React binding [react-redux@4.0.6](# ":|dependency"). To enable asynchronous action creators, [redux-thunk@1.0.3](# ":|dependency") is used.
+different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [redux@3.0.5](# ":|dependency") and its React binding [react-redux@4.0.6](# ":|dependency"). To enable asynchronous action creators, [redux-thunk@1.0.3](# ":|dependency") is used. It also uses [redux-logger@2.3.2](# ":|dependency") for logging.
+
+Our own version of `createStore` takes care of a few things automatically.
 
 [createStore.js]()
 ```js
@@ -373,13 +375,31 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider }                              from 'react-redux'
 import thunk                                     from 'redux-thunk'
 import { reduxReactRouter, routerStateReducer }  from 'redux-router'
+import createLogger                              from 'redux-logger'
 
 import domainMiddleware                          from './domainMiddleware'
 
 export default function(routes) {
   let store = compose(
-    applyMiddleware(thunk),
-    applyMiddleware(domainMiddleware),
+    applyMiddleware(
+```
+
+It enables serializability of domain actions:
+
+```js
+      domainMiddleware,
+```
+
+It also enables asynchronous action creators:
+
+```
+      thunk,
+```
+
+And adds logging in development mode:
+
+```
+      createLogger({predicate: (getState, action) => process.env.NODE_ENV === 'development'})),
 ```
 
 It is important to note that it automatically injects a store enhancer for react-router:
@@ -401,8 +421,9 @@ As a foundation for routing React applications, we use [react-router](https://gi
 We also supplement it with a [Redux extension](https://github.com/acdlite/redux-router) [redux-router@1.0.0-beta7](# ":|dependency"). Although this
 one is less stable, we believe it has more comprehensive functionality comparing to [redux-simple-router](redux-simple-router).
 
-First of all, we want to define a way to create a conformant reducer. It is important to have
-`routerStateReducer` injected as a `router`:
+First of all, we want to define a way to create a conformant reducer:
+
+* Inject `routerStateReducer` at `router`
 
 [combineReducers.js]()
 
