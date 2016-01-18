@@ -392,14 +392,23 @@ It enables serializability of domain actions:
 
 It also enables asynchronous action creators:
 
-```
+```js
       thunk,
 ```
 
 And adds logging in development mode:
 
-```
-      createLogger({predicate: (getState, action) => process.env.NODE_ENV === 'development'})),
+```js
+      createLogger({
+        predicate: (getState, action) => process.env.NODE_ENV === 'development',
+        actionTransformer: (action) => {
+          if (action['type'] === '@@reactuate/action') {
+            return action.payload
+          } else {
+            return action
+          }
+        }
+        })),
 ```
 
 It is important to note that it automatically injects a store enhancer for react-router:
@@ -623,7 +632,7 @@ import t from 'tcomb'
 export default function(domain, initialState, ...cases) {
   let reducer = (state = initialState, action) => {
     let typedAction = action
-    if (typeof action === 'object' && action.type === '@@reactuate/action') {
+    if (action['type'] === '@@reactuate/action') {
       let actionCreator = domain.getActionCreator(action.meta.name)
       typedAction = actionCreator(action.payload)
     }
