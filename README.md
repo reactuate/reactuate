@@ -577,8 +577,6 @@ import { createAction } from 'reactuate'
 const incrementParameter = t.struct({increment: ft.Number.Integer}, 'incrementParameter')
 const IncrementCounter = createAction(domain, 'IncrementCounter',
                                       t.maybe(incrementParameter))
-
-domain.IncrementCounter = IncrementCounter
 ```
 
 `IncrementCounter` in this example also becomes a synchronous action creator.
@@ -728,7 +726,7 @@ class HomePage extends React.Component {
 
 HomePage = connect(state => ({counter: state.counter.counter}),
                    dispatch => ({actions:
-                     bindActionCreators({IncrementCounter:    counter.IncrementCounter}, dispatch)}))(HomePage)
+                     bindActionCreators(counter.actions, dispatch)}))(HomePage)
 
 const routes = (
   <Route component={App}>
