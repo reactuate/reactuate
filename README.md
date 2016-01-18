@@ -264,7 +264,7 @@ Reactuate also allows importing JSON files with [json-loader](https://github.com
   loaders.push({ test: /\.json$/, loader: 'json'})
 ```
 
-Reacuate also allows importing CSS files with [css-loader](https://github.com/webpack/css-loader).
+Reactuate also allows importing CSS files with [css-loader](https://github.com/webpack/css-loader).
 
 ```js
   loaders.push({ test: /\.css$/, loader: 'style-loader!css-loader'})
