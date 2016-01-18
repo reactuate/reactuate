@@ -364,7 +364,9 @@ var path = require('path')
 var fs = require('fs')
 var configFile = path.join(process.cwd(), "webpack.config.js")
 var config = fs.existsSync(configFile) ? require(configFile) : {}
+console.log('Using webpack config ' + configFile)
 module.exports = require(path.join(__dirname, 'webpack-config'))(config)
+module.exports._config = config
 ```
 
 [default-webpack-config.js](#:default-webpack-config "save:")
@@ -403,7 +405,7 @@ $ npm start
 var path = require('path'),
     webpack = require('webpack'),
     WebpackDevServer = require('webpack-dev-server'),
-    config = require(path.join(__dirname, 'webpack-config'))()
+    config = require(path.join(__dirname, 'default-webpack-config'))
 
 console.log('Starting server...\n')
 
@@ -412,7 +414,8 @@ new WebpackDevServer(webpack(config), { // Start a server
   hot: true, // With hot reloading
   inline: false,
   historyApiFallback: true,
-  quiet: false
+  quiet: false,
+  proxy: config._config.devProxy
 }).listen(3000, 'localhost', function (err, result) {
   if (err) {
     console.log(err)
