@@ -9,6 +9,7 @@
 - [Getting started](#getting-started)
 - [Webpack Layer](#webpack-layer)
   - [Webpack Configuration](#webpack-configuration)
+- [Reactuate Application](#reactuate-application)
   - [Running a development Webpack server](#running-a-development-webpack-server)
     - [Development server](#development-server)
 - [Language Layer](#language-layer)
@@ -16,6 +17,7 @@
 - [React Layer](#react-layer)
   - [Redux Layer](#redux-layer)
   - [React Routing](#react-routing)
+  - [TODO](#todo)
   - [Layout](#layout)
 - [Appendix 0. Package Dependency](#appendix-0-package-dependency)
 - [Appendix A. Package file](#appendix-a-package-file)
@@ -96,7 +98,7 @@ By default, it will assume your index.html to be this:
 	<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Reactuate-based application</title>
+		<title>Reactuate Application</title>
 	</head>
 	<body>
 		<div id="app"></div>
@@ -121,11 +123,15 @@ Reactuate will search for your source code files in this directory in your proje
 
     src
 
-It will assume your main file in that directory to be
+It will assume your main file in that directory to be `index.js, and if there is no such file in your project yet, Reactuate will use its own sample file.
 
 [main file]()
 
-    index.js
+```js
+require('fs').existsSync(path.join(src, 'index.js')) ?
+  path.join(src, 'index.js') : path.join(__dirname, 'sample','index.js')
+```
+
 
 All the JavaScript files are going to be process by Babel through the use of
 [babel-loader@6.2.1](# ":|dependency") plugin, current version:
@@ -174,11 +180,12 @@ module.exports = function(options) {
 
   var production = process.env['NODE_ENV'] === 'production'
   var src = '_":source directory"'
-  var main = '_":main file"'
+  var main = _":main file"
+  console.log('Using ' + main + ' as an entry script')
   var index = _":index file"
   console.log('Using ' + index + ' as an index file')
 
-  var entry = path.resolve(process.cwd(), path.join(src, main))
+  var entry = path.resolve(process.cwd(), main)
 ```
 
 When in development mode, webpack should use Webpack development server:
@@ -199,6 +206,14 @@ and enable hot module replacement
   if (!production) {
     plugins.push(new webpack.HotModuleReplacementPlugin())
     plugins.push(new HtmlWebpackPlugin({template: path.resolve(process.cwd(), index), inject: true}))
+  }
+```
+
+We will also inject the location of this module into development builds:
+
+```js
+  if (!production) {
+    plugins.push(new webpack.DefinePlugin({"REACTUATE_DIRNAME": JSON.stringify(__dirname)}))
   }
 ```
 
@@ -273,7 +288,7 @@ $ node node_modules/reactuate/webpack-dev-server.js
 
 Alternatively, you can add a convenience helper to your `package.json`:
 
-[]()
+[webpack-dev-server-script]()
 ```json
 "scripts": {
   "start": "node node_modules/reactuate/webpack-dev-server.js"
@@ -282,6 +297,7 @@ Alternatively, you can add a convenience helper to your `package.json`:
 
 With this you can simply run the following to start your development server:
 
+[webpack-dev-server-start]()
 ```shell
 $ npm start
 ```
@@ -399,13 +415,45 @@ export default function(store, routes) {
 }
 ```
 
-You can use it this way:
+You can use it this way (this is the sample file you get by default, by the way!):
 
 [Example]()
 
 ```js
-import { createRouter, createStore, combineReducers, render } from 'reactuate'
-import { Route } from 'react-router'
+import { createRouter, createStore,
+         combineReducers, render } from 'reactuate'
+import { Route }                   from 'react-router'
+import React                       from 'react'
+
+class App extends React.Component {
+  render() {
+    return <div>{this.props.children}</div>
+  }
+}
+
+class HomePage extends React.Component {
+  render() {
+    return (<div>
+     <h1>Reactuate Application</h1>
+     <p>
+     Congratulations! You are running a Reactuate application now. Here is what you need to do to start developing your own application:
+     </p>
+     <h2>TODO</h2>
+     <ol>
+       <li>Unless you have done so already, add a start script for your npm package:
+        <pre><code>
+{`_"Running a development Webpack server:webpack-dev-server-script|trim"`}
+        </code></pre>
+        This way you can easily run your application:
+        <pre><code>
+{`_"Running a development Webpack server:webpack-dev-server-start"`}
+        </code></pre>
+       </li>
+       <li>Copy the starter file from {`${REACTUATE_DIRNAME}/sample/index.js`} to src/index.js</li>
+     </ol>
+    </div>)
+  }
+}
 
 const routes = (
   <Route component={App}>
@@ -420,6 +468,7 @@ render(router, document.getElementById('app'))
 ```
 
 [Router.js](#:Router.js "save:")
+[sample/index.js](#:Example "save:")
 
 ## Layout
 
