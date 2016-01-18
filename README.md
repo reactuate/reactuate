@@ -18,6 +18,7 @@
   - [Redux Layer](#redux-layer)
   - [React Routing](#react-routing)
   - [Layout](#layout)
+  - [Domain](#domain)
   - [Putting it all together](#putting-it-all-together)
 - [Appendix 0. Package Dependency](#appendix-0-package-dependency)
 - [Appendix A. Package file](#appendix-a-package-file)
@@ -362,9 +363,12 @@ import { Provider }                              from 'react-redux'
 import thunk                                     from 'redux-thunk'
 import { reduxReactRouter, routerStateReducer }  from 'redux-router'
 
+import domainMiddleware                          from './domainMiddleware'
+
 export default function(routes) {
   let store = compose(
     applyMiddleware(thunk),
+    applyMiddleware(domainMiddleware),
 ```
 
 It is important to note that it automatically injects a store enhancer for react-router:
@@ -473,6 +477,169 @@ on one domain, you don't need to jump across the
 hierarchy of the project too much, and you can easily
 rename the domain without having to rename 4-5 files!
 
+## Domain
+
+Now we have approached one of the important aspects of Reactuate. We structure our applications around domains, not types of artifacts.
+
+While JavaScript as a language is quite fluid and doesn't possess a strong type
+system, there are some great libraries available that solve this problem to an extent. Reactuate applications make a heavy use of [tcomb@2.6.0](# ":|dependency") and its helper module [tcomb-form-types@1.1.0](# ":|dependency").
+
+First of all, we need to define a class representing a domain. It will later
+become clearer why we need this.
+
+[Domain.js]()
+```js
+export default class Domain {
+  constructor() {
+    this.actions = {}
+  }
+  registerActionCreator(action, creator) {
+    this.actions[action] = creator
+  }
+  getActionCreator(action) {
+    return this.actions[action]
+  }
+}
+```
+
+[Domain.js](# "save:")
+
+
+Every domain begins with a state. We define state with tcomb's help:
+
+[Domain state example]()
+```js
+import t from  'tcomb'
+import ft from 'tcomb-form-types'
+
+import { Domain } from 'reactuate'
+
+const domain = new Domain()
+export default domain
+
+const State = t.struct({
+  counter: ft.Number.Integer
+}, State)
+```
+
+In the above example, we are defining a state that has a counter. Now, we should define an increment action. Reactuate offers helper functionality to do so, in adherence with [FSA](https://github.com/acdlite/flux-standard-action) [flux-standard-action@0.6.0](# ":|dependency") guidelines:
+
+[createAction.js]()
+```js
+import t from 'tcomb'
+
+export default function(domain, action, payload, meta) {
+  let actionType = t.struct({
+    type: t.refinement(t.Any, (v) => v === action, action.toString()),
+    payload: t.maybe(payload || t.Any),
+    error: t.maybe(t.refinement(t.Boolean, (n) => n == true, 'True')),
+    meta: t.maybe(meta || t.Any)
+  }, action.toString())
+  actionType.prototype._action = true
+  let newActionType = function(properties) {
+    properties = properties || {}
+    return actionType({...properties, type: action})
+  }
+  for (var key in actionType) {
+    newActionType[key] = actionType[key]
+  }
+  domain.registerActionCreator(action, newActionType)
+  return newActionType
+}
+```
+
+[createAction.js](#:createAction.js "save:")
+
+Unfortunately, tcomb structures do not fit the definition of a plain object
+required by redux, so we have to implement a custom middleware that strips the extra metadata.
+
+[domainMiddleware.js]()
+```js
+export default function ({ getState }) {
+  return (next) => (action) => {
+    if (typeof action._action !== 'undefined') {
+      let newAction = {type: "@@reactuate/action", payload: {...action}, meta: {name: action.type}}
+      return next(newAction)
+    } else {
+      return next(action)
+    }
+  }
+}
+```
+
+[domainMiddleware.js](#:domainMiddleware.js "save:")
+
+[Domain action example]()
+```js
+
+import { createAction } from 'reactuate'
+
+const incrementParameter = t.struct({increment: ft.Number.Integer}, 'incrementParameter')
+const IncrementCounter = createAction(domain, 'INCREMENT_COUNTER',
+                                      t.maybe(incrementParameter))
+
+domain.IncrementCounter = IncrementCounter
+```
+
+`IncrementCounter` in this example also becomes a synchronous action creator.
+
+Reactuate has helper functionality that allows creating a reducer that (again)
+can take advantage of tcomb. It also takes care of disabling state mutation (however, normally this shouldn't be necessary, if tcomb is used for action creators).
+
+[createReducer.js]()
+```js
+import t from 'tcomb'
+
+export default function(domain, initialState, ...cases) {
+  let reducer = (state = initialState, action) => {
+    let typedAction = action
+    if (typeof action === 'object' && action.type === '@@reactuate/action') {
+      let actionCreator = domain.getActionCreator(action.meta.name)
+      typedAction = actionCreator(action.payload)
+    }
+    Object.freeze(state)
+    let stateCases = cases.map(f => {
+      if (typeof f === 'function' && typeof f.meta === 'undefined') {
+        return (handler) => f(state, handler)
+      } else {
+        return f
+      }
+    })
+    return t.match(typedAction, ...stateCases, t.Any, () => state)
+  }
+  domain.reducer = reducer
+  return reducer
+}
+```
+[createReducer.js](#:createReducer.js "save:")
+
+[Domain reducer example]()
+```js
+import { createReducer } from 'reactuate'
+
+const initialState = State({counter: 0}, 'CounterState')
+
+const reducer = createReducer(domain, initialState,
+    IncrementCounter, (state, action) => {
+      let increment = 1;
+      if (incrementParameter.is(action.payload)) {
+        increment = action.payload.increment
+      }
+      return State.update(state, {counter: { $set: state.counter + increment }})
+    })
+```
+
+Lets put this entire example together for the sample, exporting `reducer` (the naming is important) and the action creator.
+
+[Domain example]()
+```js
+_":Domain state example"
+_":Domain action example"
+_":Domain reducer example"
+```
+
+[sample/counter/index.js](#:Domain-example "save:")
+
 ## Putting it all together
 
 [Application.js]()
@@ -489,8 +656,12 @@ export default class Application {
     this.routes = properties.routes
     this.element = properties.element || document.getElementById('app')
     this.domains = properties.domains || {}
+    this.reducers = {}
+    for (var key in this.domains) {
+      this.reducers[key] = this.domains[key].reducer
+    }
     if (!!this.routes) {
-      this.store = createStore(this.routes)(combineReducers(this.domains))
+      this.store = createStore(this.routes)(combineReducers(this.reducers))
       this.router = createRouter(this.store, this.routes)
     }
   }
@@ -511,7 +682,12 @@ You can use it this way (this is the sample file you get by default, by the way!
 ```js
 import { Application }             from 'reactuate'
 import { Route }                   from 'react-router'
+import { connect }                 from 'react-redux'
+import { bindActionCreators }      from 'redux'
+
 import React                       from 'react'
+
+import counter                from './counter'
 
 class App extends React.Component {
   render() {
@@ -520,6 +696,9 @@ class App extends React.Component {
 }
 
 class HomePage extends React.Component {
+  handleIncrement() {
+    this.props.actions.IncrementCounter()
+  }
   render() {
     return (<div>
      <h1>Reactuate Application</h1>
@@ -538,9 +717,18 @@ class HomePage extends React.Component {
        </li>
        <li>Copy the starter file from {`${REACTUATE_DIRNAME}/sample/index.js`} to src/index.js</li>
      </ol>
+     <div>
+       <h5>Counter example</h5>
+       {this.props.counter}
+       <button onClick={() => this.handleIncrement()}>Increment</button>
+     </div>
     </div>)
   }
 }
+
+HomePage = connect(state => ({counter: state.counter.counter}),
+                   dispatch => ({actions:
+                     bindActionCreators({IncrementCounter:    counter.IncrementCounter}, dispatch)}))(HomePage)
 
 const routes = (
   <Route component={App}>
@@ -548,7 +736,7 @@ const routes = (
   </Route>
 )
 
-new Application({routes}).render()
+new Application({routes, domains: {counter}}).render()
 ```
 
 [sample/index.js](#:Example "save:")
@@ -644,6 +832,9 @@ As npm documentation says:
 require('babel-register')
 module.exports =
 {
-  Application : require('./Application').default
+  Application : require('./Application').default,
+  Domain: require('./Domain').default,
+  createReducer : require('./createReducer').default,
+  createAction : require('./createAction').default
 }
 ```
