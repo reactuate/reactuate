@@ -91,7 +91,7 @@ The rest of this manual will introduce you to concepts and software used in the 
 
 # Webpack Layer
 
-We serve the application in development mode and package the production version by employing [webpack](http://webpack.github.io) package [webpack@1.12.11](# ":|dependency"):
+We serve the application in development mode and package the production version by employing [webpack](http://webpack.github.io) package [npm|webpack@1.12.11](# "push:"):
 
 ## Webpack Configuration
 
@@ -123,7 +123,7 @@ When you are ready to override it, simply copy the above file to the root of you
 require('fs').existsSync(path.join(process.cwd(), 'index.html')) ?
   path.join(process.cwd(), 'index.html') : path.join(__dirname, 'sample', 'index.html')
 ```
-This file will be processed with [html-webpack-plugin@1.7.0](# ":|dependency").
+This file will be processed with [npm|html-webpack-plugin@1.7.0](# "push:").
 
 Reactuate will search for your source code files in this directory in your project:
 
@@ -142,25 +142,25 @@ require('fs').existsSync(path.join(src, 'index.js')) ?
 
 
 All the JavaScript files are going to be process by Babel through the use of
-[babel-loader@6.2.1](# ":|dependency") plugin, current version:
+[npm|babel-loader@6.2.1](# "push:") plugin, current version:
 
 To enable ES2015 syntax and experimental features, the following plugins are required:
 
-* [babel-preset-es2015@6.3.13](# ":|dependency")
-* [babel-preset-stage-0@6.3.13](# ":|dependency")
-* [babel-plugin-transform-export-extensions@6.4.0](# ":|dependency")
+* [npm|babel-preset-es2015@6.3.13](# "push:")
+* [npm|babel-preset-stage-0@6.3.13](# "push:")
+* [npm|babel-plugin-transform-export-extensions@6.4.0](# "push:")
 
 To enable React-specific features, a number of Babel plugins is required:
 
-* [babel-plugin-react-transform@2.0.0](# ":|dependency")
-* [babel-preset-react@6.3.13](# ":|dependency")
-* [babel-preset-react-hmre@1.0.1](# ":|dependency")
+* [npm|babel-plugin-react-transform@2.0.0](# "push:")
+* [npm|babel-preset-react@6.3.13](# "push:")
+* [npm|babel-preset-react-hmre@1.0.1](# "push:")
 
 In production builds, following optimizations are used:
 
-* [babel-plugin-transform-react-constant-elements@6.4.0](# ":|dependency")
-* [babel-plugin-transform-react-inline-elements@6.4.0](# ":|dependency")
-* [babel-plugin-transform-react-remove-prop-types@0.1.0](# ":|dependency")
+* [npm|babel-plugin-transform-react-constant-elements@6.4.0](# "push:")
+* [npm|babel-plugin-transform-react-inline-elements@6.4.0](# "push:")
+* [npm|babel-plugin-transform-react-remove-prop-types@0.1.0](# "push:")
 
 Source code builds will produced into this directory in your project:
 
@@ -292,20 +292,20 @@ Reactuate enables ES2015, react/react hot module replacement, and stage-0 preset
   })
 ```
 
-Reactuate also allows importing JSON files with [json-loader](https://github.com/webpack/json-loader) [json-loader@0.5.4](# ":|dependency")[]().
+Reactuate also allows importing JSON files with [json-loader](https://github.com/webpack/json-loader) [npm|json-loader@0.5.4](# "push:").
 
 ```js
   loaders.push({ test: /\.json$/, loader: 'json'})
 ```
 
-Reactuate also allows importing CSS files with [ [style-loader@0.13.0](# ":|dependency")[]() [css-loader@0.23.1](# ":|dependency")[](), [less@2.5.3](# ":|dependency") with [less-loader@2.2.2](# ":|dependency")[]() and [postcss-loader@0.8.0](# ":|dependency")[]().
+Reactuate also allows importing CSS files with [npm|style-loader@0.13.0](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.5.3](# "push:") with [npm|less-loader@2.2.2](# "push:") and [npm|postcss-loader@0.8.0](# "push:").
 
 ```js
   loaders.push({ test: /\.css$/, loader: 'style'})
   loaders.push({ test: /\.less$/, loader: 'style!css!less'})
 ```
 
-Reactuate also allows importing fonts and images with [file-loader@0.8.5](# ":|dependency")[]() and [url-loader@0.5.7](# ":|dependency")[]().
+Reactuate also allows importing fonts and images with [npm|file-loader@0.8.5](# "push:") and [npm|url-loader@0.5.7](# "push:").
 
 ```js
   loaders.push({ test: /\.woff(2)?(\?.+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" })
@@ -379,7 +379,7 @@ module.exports._config = config
 
 ## Running a development Webpack server
 
-It is imperative to be able to run an easy to update, hot-reloadable development version of the application before shipping an optimized version of it. This is what [webpack-dev-server@1.14.1](# ":|dependency") does.
+It is imperative to be able to run an easy to update, hot-reloadable development version of the application before shipping an optimized version of it. This is what [npm|webpack-dev-server@1.14.1](# "push:") does.
 
 In order to start a development Webpack server, you can run:
 
@@ -436,23 +436,23 @@ new WebpackDevServer(webpack(config), { // Start a server
 
 ## Babel Layer
 
-Reactuate encourages the use of recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today [babel-core@6.4.0](# ":|dependency").
+Reactuate encourages the use of recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today [npm|babel-core@6.4.0](# "push:").
 
 Babel 6 is still fairly new and unfortunately, not all tools support it well, but this should be less of a problem going forward.
 
-In order to avoid generating plain JavaScript files for this package, we also include [babel-register](https://babeljs.io/docs/usage/require/) [babel-register@6.4.3](# ":|dependency")
+In order to avoid generating plain JavaScript files for this package, we also include [babel-register](https://babeljs.io/docs/usage/require/) [npm|babel-register@6.4.3](# "push:")
 
-ES6 also has new APIs that are provided by [babel-polyfill@6.3.14](# ":|dependency").
+ES6 also has new APIs that are provided by [npm|babel-polyfill@6.3.14](# "push:").
 
 # React Layer
 
-Reactuate is a React-based stack, so it naturall depends on [react@0.14.6](# ":|dependency") and
-[react-dom@0.14.6](# ":|dependency").
+Reactuate is a React-based stack, so it naturall depends on [npm|react@0.14.6](# "push:") and
+[npm|react-dom@0.14.6](# "push:").
 
 ## Redux Layer
 
 Part of React's power lies in the so called "Flux" architecture. There are many
-different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [redux@3.0.5](# ":|dependency") and its React binding [react-redux@4.0.6](# ":|dependency"). To enable asynchronous action creators, [redux-thunk@1.0.3](# ":|dependency") is used. It also uses [redux-logger@2.3.2](# ":|dependency") for logging.
+different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.0.5](# "push:") and its React binding [npm|react-redux@4.0.6](# "push:"). To enable asynchronous action creators, [npm|redux-thunk@1.0.3](# "push:") is used. It also uses [npm|redux-logger@2.3.2](# "push:") for logging.
 
 Our own version of `createStore` takes care of a few things automatically.
 
@@ -531,9 +531,9 @@ It is important to note that it automatically injects a store enhancer for react
 ## React Routing
 
 As a foundation for routing React applications, we use [react-router](https://github.com/rackt/react-router)
-[react-router@1.0.3](# ":|dependency") (which requires a peer dependency of [history@1.17.0](# ":|dependency"))
+[npm|react-router@1.0.3](# "push:") (which requires a peer dependency of [npm|history@1.17.0](# "push:"))
 
-We also supplement it with a [Redux extension](https://github.com/acdlite/redux-router) [redux-router@1.0.0-beta7](# ":|dependency"). Although this
+We also supplement it with a [npm|Redux extension](https://github.com/acdlite/redux-router) [redux-router@1.0.0-beta7](# "push:"). Although this
 one is less stable, we believe it has more comprehensive functionality comparing to [redux-simple-router](redux-simple-router).
 
 First of all, we want to define a way to create a conformant reducer:
@@ -629,7 +629,7 @@ rename the domain without having to rename 4-5 files!
 Now we have approached one of the important aspects of Reactuate. We structure our applications around domains, not types of artifacts.
 
 While JavaScript as a language is quite fluid and doesn't possess a strong type
-system, there are some great libraries available that solve this problem to an extent. Reactuate applications make a heavy use of [tcomb@2.6.0](# ":|dependency") and its helper module [tcomb-form-types@1.1.0](# ":|dependency").
+system, there are some great libraries available that solve this problem to an extent. Reactuate applications make a heavy use of [npm|tcomb@2.6.0](# "push:") and its helper module [npm|tcomb-form-types@1.1.0](# "push:").
 
 First of all, we need to define a class representing a domain. It will later
 become clearer why we need this.
@@ -680,7 +680,7 @@ const State = t.struct({
 }, State)
 ```
 
-In the above example, we are defining a state that has a counter. Now, we should define an increment action. Reactuate offers helper functionality to do so, in adherence with [FSA](https://github.com/acdlite/flux-standard-action) [flux-standard-action@0.6.0](# ":|dependency") guidelines:
+In the above example, we are defining a state that has a counter. Now, we should define an increment action. Reactuate offers helper functionality to do so, in adherence with [FSA](https://github.com/acdlite/flux-standard-action) [npm|flux-standard-action@0.6.0](# "push:") guidelines:
 
 <!--+ [createAction.js]() -->
 ```js
@@ -801,7 +801,7 @@ _":Domain reducer example"
 
 ## Managing effects
 
-When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [redux-saga@0.4.1](# ":|dependency") for that.
+When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [npm|redux-saga@0.4.1](# "push:") for that.
 
 <!--+ [createSaga.js]() -->
 ```js
@@ -999,29 +999,25 @@ new Application({routes, domains: {counter, counterAsync}}).render()
 
 # Appendix 0. Package Dependency
 
-To simplify dependency definition, the following `dependency` definition should be used:
+The following `dependency` command is used to generate dependencies for
+package.json:
 
 <!--+ [dependency](# "define:") -->
 ```js
-function() {
-  global.dependencies = {}
-  return function(input, args, name) {
-    name = name.split(doc.colon.v).reverse()[2]
-    var arr = name.split("@"),
+function(input, args, name) {
+    var arr = input.split("@"),
         package = arr[0],
         version = arr[1]
-    global.dependencies[package] = version
-    var deps = []
-    for (k in global.dependencies) {
-      deps.push('"' + k + '": "' + global.dependencies[k] + '"')
+    if (input.indexOf("@") < 0) {
+      console.log(name, '"' + package + '": "' + version + '"')
     }
-    doc.store("package.json dependencies", deps.join(",\n"))
-  }
-}()
+    return '"' + package + '": "' + version + '"'
+}
 ```
 
-
 # Appendix A. Package file
+
+We process all declared dependencies to produce dependencies:
 
 <!--+ [package.json](# "save:") -->
 
@@ -1047,7 +1043,8 @@ function() {
   "license": "Apache-2.0",
   "engines": {"node": ">=_"Requirements:Node.js version" <6.0"},
   "dependencies": {
-      _"package.json dependencies"
+      _"npm| .mapc dependency | .join \,\n"
+
   },
   "bugs": {
     "url": "https://github.com/reactuate/reactuate/issues"
