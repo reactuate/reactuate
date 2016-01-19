@@ -296,19 +296,22 @@ Reactuate also allows importing JSON files with [json-loader](https://github.com
   loaders.push({ test: /\.json$/, loader: 'json'})
 ```
 
-Reactuate also allows importing CSS files with [css-loader](https://github.com/webpack/css-loader) [css-loader@0.23.1](# ":|dependency")[]().
+Reactuate also allows importing CSS files with [ [style-loader@0.13.0](# ":|dependency")[]() [css-loader@0.23.1](# ":|dependency")[](), and [postcss-loader@0.8.0](# ":|dependency")[]().
 
 ```js
-  loaders.push({ test: /\.css$/, loader: 'style-loader!css-loader'})
+  loaders.push({ test: /\.css$/, loader: 'style'})
 ```
 
-Reactuate also allows importing fonts and SVG files with [file-loader@0.8.5](# ":|dependency")[]() and [url-loader@0.5.7](# ":|dependency")[]().
+Reactuate also allows importing fonts and images with [file-loader@0.8.5](# ":|dependency")[]() and [url-loader@0.5.7](# ":|dependency")[]().
 
 ```js
-  loaders.push({ test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" })
-  loaders.push({ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" })
-  loaders.push({ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
-   { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" })
+  loaders.push({ test: /\.woff(2)?(\?.+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" })
+  loaders.push({ test: /\.ttf(\?.+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" })
+  loaders.push({ test: /\.eot(\?.+)?$/, loader: "file" },
+   { test: /\.svg(\?.+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" })
+  loaders.push({ test: /\.png$/, loader: "url-loader?limit=100000" })
+  loaders.push({ test: /\.jpg$/, loader: "file-loader" })
+
 ```
 
 ```js
