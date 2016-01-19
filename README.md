@@ -802,7 +802,7 @@ _":Domain reducer example"
 
 ## Managing effects
 
-When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using (redux-saga)[https://github.com/yelouafi/redux-saga] [redux-saga@0.4.1](# ":|dependency") for that.
+When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [redux-saga@0.4.1](# ":|dependency") for that.
 
 <!-- [createSaga.js]() -->
 ```js
