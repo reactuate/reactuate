@@ -306,9 +306,6 @@ Reactuate also allows importing fonts and images with [npm|file-loader@0.8.5](# 
 ```
 
 ```js
-  loaders.push({ test: /\.css$/, loader: 'style-loader!css-loader'})
-```
-```js
   return {
     entry: entry,
     plugins: plugins,
