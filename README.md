@@ -71,7 +71,7 @@ In order to produce the extracted source code of Reactuate (should you need it),
 Building Reactuate is quite simple:
 
 ```shell
-$ litpro -b . README.md
+$ make
 ```
 
 # Getting started
