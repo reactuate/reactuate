@@ -822,6 +822,7 @@ import ft               from 'tcomb-form-types'
 import { Domain,
          createSaga,
          createAction,
+         fork,
          take, put }    from 'reactuate'
 
 import domain           from './index'
@@ -841,8 +842,10 @@ function delay(millis) {
 createSaga(asyncDomain, 'IncrementCounterDelayed', function* () {
   while(true) {
      const nextAction = yield take(IncrementCounterDelayed.is)
-     yield delay(1000)
-     yield put(domain.actions.IncrementCounter(nextAction.payload))
+     yield fork(function* () {
+       yield delay(1000)
+       yield put(domain.actions.IncrementCounter(nextAction.payload))
+     })
    }
 })
 
