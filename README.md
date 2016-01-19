@@ -24,6 +24,7 @@
   - [Managing effects](#managing-effects)
   - [Putting it all together](#putting-it-all-together)
 - [Appendix 0. Package Dependency](#appendix-0-package-dependency)
+- [Appendix 1. Post-Installation Instructions](#appendix-1-post-installation-instructions)
 - [Appendix A. Package file](#appendix-a-package-file)
 - [Appendix B. .gitignore](#appendix-b-gitignore)
 - [Appendix B1. .npmignore](#appendix-b1-npmignore)
@@ -1003,6 +1004,78 @@ function(input, args, name) {
 }
 ```
 
+# Appendix 1. Post-Installation Instructions
+
+Reactuate is nice enough to help you finalizing your setup once it is installed. This requires [npm|yesno@0.0.1](# "push:").
+
+<!--+ [postinstall.es6]() -->
+```js
+import path  from 'path'
+import yesno from 'yesno'
+import { existsSync, readFileSync, writeFileSync } from 'fs'
+
+function printInstructions() {
+  console.log(`Add this to your package.json:
+
+_"Running a development Webpack server:webpack-dev-server-script|trim"
+
+  This way you can easily run your application:
+
+_"Running a development Webpack server:webpack-dev-server-start"
+
+  Also, you can add this to your package.json
+
+_"Webpack Configuration:npm run build"
+
+  This way you can easily make a production build of your application:
+
+_"Webpack Configuration:npm run build command"
+`)
+}
+
+const cwd = process.cwd()
+const packageJson = path.join(cwd, '..', '..', 'package.json')
+
+const startScript = "node node_modules/reactuate/webpack-dev-server.js"
+const buildScript = "NODE_ENV=production webpack --config node_modules/reactuate/default-webpack-config.js --progress --colors"
+
+if (existsSync(packageJson)) {
+  let pkg = JSON.parse(readFileSync(packageJson))
+  let scripts = pkg.scripts || {}
+  if (scripts.start !== startScript ||
+      scripts.build !== buildScript) {
+      printInstructions()
+      yesno.ask('Reactuate can add these convenience helpers to your package.json automatically. Proceed? ([yes]/no)', true, function(ok) {
+        if (ok) {
+          console.log("Updating your package.json")
+          let pkg = JSON.parse(readFileSync(packageJson))
+          scripts.start = startScript
+          scripts.build = buildScript
+          pkg.scripts = scripts
+          writeFileSync(packageJson, JSON.stringify(pkg))
+        }
+        process.exit(0)
+      })
+  } else {
+    console.log("Congratulations! Your package scripts are already configured for Reactuate")
+  }
+} else {
+  console.log("WARNING: Looks like you haven't initialized your package with `npm init`")
+  printInstructions()
+}
+
+```
+
+<!--+ [postinstall.es6](#:postinstall.es6 "save:") -->
+
+<!--+ [postinstall]() -->
+```js
+require("babel-register")
+require("./postinstall.es6")
+```
+
+<!--+ [postinstall](#:postinstall "save:") -->
+
 # Appendix A. Package file
 
 We process all declared dependencies to produce dependencies:
@@ -1016,7 +1089,8 @@ We process all declared dependencies to produce dependencies:
   "description": "Reactuate is an opinionated React-based stack",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" &&   exit 1"
+    "test": "echo \"Error: no test specified\" &&   exit 1",
+    "postinstall": "node ./postinstall"
   },
   "repository": {
     "type": "git",
