@@ -1,6 +1,6 @@
 all:
 	@doctoc README.md
-	@sed -e "s/<!--\\s*\(.*\)\\s*-->/\1/g" README.md | litpro -b . -i
+	@litpro -b . README.md
 
 clean:
 	@git stash -u && git clean -xdf -e node_modules

@@ -56,7 +56,7 @@ Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
 
 Reactuate requires the minimum of the following version of Node.js:
 
-<!-- [Node.js version]() -->
+<!--+ [Node.js version]() -->
 
     v5.4.1
 
@@ -64,9 +64,9 @@ More recent versions are allowed, within the upper boundary of the next major ve
 
 In order to produce the extracted source code of Reactuate (should you need it), you will need `litpro` npm package to be installed. Currently required version:
 
-<!-- [litpro version]() -->
+<!--+ [litpro version]() -->
 
-    0.8.4
+    0.12.0
 
 Building Reactuate is quite simple:
 
@@ -99,7 +99,7 @@ There's normally little to no Webpack configuration tweaking you need to do.
 
 By default, it will assume your index.html to be this:
 
-<!-- [index.html]() -->
+<!--+ [index.html]() -->
 ```html
 <!doctype html>
 <html lang="en">
@@ -114,11 +114,11 @@ By default, it will assume your index.html to be this:
 </html>
 ```
 
-<!-- [sample/index.html](#:index.html "save:") -->
+<!--+ [sample/index.html](#:index.html "save:") -->
 
 When you are ready to override it, simply copy the above file to the root of your project:
 
-<!-- [index file]() -->
+<!--+ [index file]() -->
 ```js
 require('fs').existsSync(path.join(process.cwd(), 'index.html')) ?
   path.join(process.cwd(), 'index.html') : path.join(__dirname, 'sample', 'index.html')
@@ -127,13 +127,13 @@ This file will be processed with [html-webpack-plugin@1.7.0](# ":|dependency").
 
 Reactuate will search for your source code files in this directory in your project:
 
-<!-- [source directory]() -->
+<!--+ [source directory]() -->
 
     src
 
 It will assume your main file in that directory to be `index.js, and if there is no such file in your project yet, Reactuate will use its own sample file.
 
-<!-- [main file]() -->
+<!--+ [main file]() -->
 
 ```js
 require('fs').existsSync(path.join(src, 'index.js')) ?
@@ -164,15 +164,15 @@ In production builds, following optimizations are used:
 
 Source code builds will produced into this directory in your project:
 
-<!-- [build directory]() -->
+<!--+ [build directory]() -->
 
     build
 
-<!-- []() -->
+<!--+ []() -->
 
 This is how the configuration is composed:
 
-<!-- [webpack-config.js](# "save:") -->
+<!--+ [webpack-config.js](# "save:") -->
 ```js
 var path = require('path')
 
@@ -350,7 +350,7 @@ An important part is being able to resolve reactuate's own dependencies
 
 In order to automate your production builds, add this to your package.json:
 
-<!-- [npm run build]() -->
+<!--+ [npm run build]() -->
 ```json
 "scripts": {
   "build": "NODE_ENV=production webpack --config node_modules/reactuate/default-webpack-config.js --progress --colors"
@@ -359,12 +359,12 @@ In order to automate your production builds, add this to your package.json:
 
 You will be able to run it with
 
-<!-- [npm run build command]() -->
+<!--+ [npm run build command]() -->
 ```shell
 $ npm run build
 ```
 
-<!-- [default webpack config]() -->
+<!--+ [default webpack config]() -->
 ```js
 var path = require('path')
 var fs = require('fs')
@@ -375,7 +375,7 @@ module.exports = require(path.join(__dirname, 'webpack-config'))(config)
 module.exports._config = config
 ```
 
-<!-- [default-webpack-config.js](#:default-webpack-config "save:") -->
+<!--+ [default-webpack-config.js](#:default-webpack-config "save:") -->
 
 ## Running a development Webpack server
 
@@ -383,14 +383,14 @@ It is imperative to be able to run an easy to update, hot-reloadable development
 
 In order to start a development Webpack server, you can run:
 
-<!-- []() -->
+<!--+ []() -->
 ```shell
 $ node node_modules/reactuate/webpack-dev-server.js
 ```
 
 Alternatively, you can add a convenience helper to your `package.json`:
 
-<!-- [webpack-dev-server-script]() -->
+<!--+ [webpack-dev-server-script]() -->
 ```json
 "scripts": {
   "start": "node node_modules/reactuate/webpack-dev-server.js"
@@ -399,14 +399,14 @@ Alternatively, you can add a convenience helper to your `package.json`:
 
 With this you can simply run the following to start your development server:
 
-<!-- [webpack-dev-server-start]() -->
+<!--+ [webpack-dev-server-start]() -->
 ```shell
 $ npm start
 ```
 
 ### Development server
 
-<!-- [webpack-dev-server.js](# "save:") -->
+<!--+ [webpack-dev-server.js](# "save:") -->
 ```js
 var path = require('path'),
     webpack = require('webpack'),
@@ -456,7 +456,7 @@ different implementations of it, and Reactuate is using [Redux](http://rackt.org
 
 Our own version of `createStore` takes care of a few things automatically.
 
-<!-- [createStore.js]() -->
+<!--+ [createStore.js]() -->
 ```js
 import { createHistory }                         from 'history'
 import { createStore, applyMiddleware, compose } from 'redux'
@@ -526,7 +526,7 @@ It is important to note that it automatically injects a store enhancer for react
 }
 ```
 
-<!-- [createStore.js](#:createStore.js "save:") -->
+<!--+ [createStore.js](#:createStore.js "save:") -->
 
 ## React Routing
 
@@ -540,7 +540,7 @@ First of all, we want to define a way to create a conformant reducer:
 
 * Inject `routerStateReducer` at `router`
 
-<!-- [combineReducers.js]() -->
+<!--+ [combineReducers.js]() -->
 
 ```js
 import { combineReducers }    from 'redux'
@@ -554,12 +554,12 @@ export default function(reducers) {
 }
 ```
 
-<!-- [combineReducers.js](#:combineReducers.js "save:") -->
+<!--+ [combineReducers.js](#:combineReducers.js "save:") -->
 
 Since there is more than one thing that requires your routes, we
 export a function that takes your routes, and produces a router component:
 
-<!-- [createRouter.js]() -->
+<!--+ [createRouter.js]() -->
 
 ```js
 import React           from 'react'
@@ -572,7 +572,7 @@ export default function(store, routes) {
 ```
 
 
-<!-- [createRouter.js](#:createRouter.js "save:") -->
+<!--+ [createRouter.js](#:createRouter.js "save:") -->
 
 ## Layout
 
@@ -634,7 +634,7 @@ system, there are some great libraries available that solve this problem to an e
 First of all, we need to define a class representing a domain. It will later
 become clearer why we need this.
 
-<!-- [Domain.js]() -->
+<!--+ [Domain.js]() -->
 ```js
 export default class Domain {
 
@@ -661,12 +661,12 @@ export default class Domain {
 }
 ```
 
-<!-- [Domain.js](# "save:") -->
+<!--+ [Domain.js](# "save:") -->
 
 
 Every domain begins with a state. We define state with tcomb's help:
 
-<!-- [Domain state example]() -->
+<!--+ [Domain state example]() -->
 ```js
 import ft from 'tcomb-form-types'
 
@@ -682,7 +682,7 @@ const State = t.struct({
 
 In the above example, we are defining a state that has a counter. Now, we should define an increment action. Reactuate offers helper functionality to do so, in adherence with [FSA](https://github.com/acdlite/flux-standard-action) [flux-standard-action@0.6.0](# ":|dependency") guidelines:
 
-<!-- [createAction.js]() -->
+<!--+ [createAction.js]() -->
 ```js
 import t from 'tcomb'
 
@@ -706,12 +706,12 @@ export default function(domain, action, payload, meta) {
 }
 ```
 
-<!-- [createAction.js](#:createAction.js "save:") -->
+<!--+ [createAction.js](#:createAction.js "save:") -->
 
 Unfortunately, tcomb structures do not fit the definition of a plain object
 required by redux, so we have to implement a custom middleware that strips the extra metadata.
 
-<!-- [domainMiddleware.js]() -->
+<!--+ [domainMiddleware.js]() -->
 ```js
 export default function ({ getState }) {
   return (next) => (action) => {
@@ -725,9 +725,9 @@ export default function ({ getState }) {
 }
 ```
 
-<!-- [domainMiddleware.js](#:domainMiddleware.js "save:") -->
+<!--+ [domainMiddleware.js](#:domainMiddleware.js "save:") -->
 
-<!-- [Domain action example]() -->
+<!--+ [Domain action example]() -->
 ```js
 
 import { createAction } from 'reactuate'
@@ -742,7 +742,7 @@ const IncrementCounter = createAction(domain, 'IncrementCounter',
 Reactuate has helper functionality that allows creating a reducer that (again)
 can take advantage of tcomb. It also takes care of disabling state mutation (however, normally this shouldn't be necessary, if tcomb is used for action creators).
 
-<!-- [createReducer.js]() -->
+<!--+ [createReducer.js]() -->
 ```js
 import t from 'tcomb'
 
@@ -769,9 +769,9 @@ export default function(domain, initialState, ...cases) {
   return reducer
 }
 ```
-<!-- [createReducer.js](#:createReducer.js "save:") -->
+<!--+ [createReducer.js](#:createReducer.js "save:") -->
 
-<!-- [Domain reducer example]() -->
+<!--+ [Domain reducer example]() -->
 ```js
 import { createReducer } from 'reactuate'
 
@@ -790,31 +790,31 @@ const reducer = createReducer(domain, initialState,
 Lets put this entire example together for the sample, exporting `reducer` (the naming is important) and the action creator. Did you notice we avoided creating
 the whole layer of 'constants'?
 
-<!-- [Domain example]() -->
+<!--+ [Domain example]() -->
 ```js
 _":Domain state example"
 _":Domain action example"
 _":Domain reducer example"
 ```
 
-<!-- [sample/counter/index.js](#:Domain-example "save:") -->
+<!--+ [sample/counter/index.js](#:Domain-example "save:") -->
 
 ## Managing effects
 
 When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [redux-saga@0.4.1](# ":|dependency") for that.
 
-<!-- [createSaga.js]() -->
+<!--+ [createSaga.js]() -->
 ```js
 export default function(domain, name, saga) {
   domain.register('sagas', name, saga)
 }
 ```
 
-<!-- [createSaga.js](#:createSaga.js "save:") -->
+<!--+ [createSaga.js](#:createSaga.js "save:") -->
 
 The below examples show handling the counter example in an async way (and we're introducing a delay as well):
 
-<!-- [Saga example]() -->
+<!--+ [Saga example]() -->
 ```js
 import ft               from 'tcomb-form-types'
 import { t,
@@ -851,12 +851,12 @@ createSaga(asyncDomain, 'IncrementCounterDelayed', function* () {
 export default asyncDomain
 ```
 
-<!-- [sample/counter/async.js](#:Saga-example "save:") -->
+<!--+ [sample/counter/async.js](#:Saga-example "save:") -->
 
 
 ## Putting it all together
 
-<!-- [Application.js]() -->
+<!--+ [Application.js]() -->
 ```js
 import t               from 'tcomb'
 import ReactDOM        from 'react-dom'
@@ -890,18 +890,18 @@ export default class Application {
 }
 ```
 
-<!-- [Application.js](#:Application.js "save:") -->
+<!--+ [Application.js](#:Application.js "save:") -->
 
-<!-- [index.js]() -->
+<!--+ [index.js]() -->
 ```js
 require('babel-register')
 require('babel-polyfill')
 module.exports = require('./index.es6.js')
 ```
-<!-- [index.js](#:index.js "save:") -->
+<!--+ [index.js](#:index.js "save:") -->
 
 
-<!-- [index.es6.js]() -->
+<!--+ [index.es6.js]() -->
 ```js
 export Application            from './Application'
 export Domain                 from './Domain'
@@ -918,11 +918,11 @@ export { take, put, race, call,
          apply, cps, fork, join,
          cancel, as } from 'redux-saga'
 ```
-<!-- [index.es6.js](#:index.es6.js "save:") -->
+<!--+ [index.es6.js](#:index.es6.js "save:") -->
 
 You can use it this way (this is the sample file you get by default, by the way!):
 
-<!-- [Example]() -->
+<!--+ [Example]() -->
 
 ```js
 import { React, Route, Application,
@@ -994,14 +994,14 @@ const routes = (
 new Application({routes, domains: {counter, counterAsync}}).render()
 ```
 
-<!-- [sample/index.js](#:Example "save:") -->
+<!--+ [sample/index.js](#:Example "save:") -->
 
 
 # Appendix 0. Package Dependency
 
 To simplify dependency definition, the following `dependency` definition should be used:
 
-<!-- [dependency](# "define:") -->
+<!--+ [dependency](# "define:") -->
 ```js
 function() {
   global.dependencies = {}
@@ -1023,7 +1023,7 @@ function() {
 
 # Appendix A. Package file
 
-<!-- [package.json](# "save:") -->
+<!--+ [package.json](# "save:") -->
 
 ```json
 {
@@ -1058,7 +1058,7 @@ function() {
 
 # Appendix B. .gitignore
 
-<!-- [.gitignore](# "save:") -->
+<!--+ [.gitignore](# "save:") -->
 
 All produced files should be ignored:
 
@@ -1075,7 +1075,7 @@ As npm documentation says:
 
 "Use a .npmignore file to keep stuff out of your package. If there's no .npmignore file, but there is a .gitignore file, then npm will ignore the stuff matched by the .gitignore file. If you want to include something that is excluded by your .gitignore file, you can create an empty .npmignore file to override it"
 
-<!-- [.npmignore](# "save:") -->
+<!--+ [.npmignore](# "save:") -->
  ```
  Makefile
  ```
