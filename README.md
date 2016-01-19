@@ -237,12 +237,10 @@ if (production) {
 }
 ```
 
-We will also define the location of this module into development builds:
+We will also define the location of this module:
 
 ```js
-  if (!production) {
-    plugins.push(new webpack.DefinePlugin({"REACTUATE_DIRNAME": JSON.stringify(__dirname)}))
-  }
+plugins.push(new webpack.DefinePlugin({"REACTUATE_DIRNAME": production ? "undefined" : JSON.stringify(__dirname)}))
 ```
 
 In production, produce compacted and somewhat obscured JavaScript (no source
@@ -956,7 +954,7 @@ class HomePage extends React.Component {
 {`_"Webpack Configuration:npm run build command"`}
        </code></pre>
        </li>
-       <li>Copy the starter file from {`${REACTUATE_DIRNAME}/sample/index.js`} to src/index.js</li>
+       <li>Copy the starter file from {`${typeof REACTUATE_DIRNAME === 'undefined' ? "<reactuate package dir>" : REACTUATE_DIRNAME}/sample/index.js`} to src/index.js</li>
      </ol>
      <div>
        <h5>Counter example</h5>
