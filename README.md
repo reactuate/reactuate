@@ -274,15 +274,7 @@ var jsLoaders = []
 Reactuate enables ES2015, react/react hot module replacement, and stage-0 presets:
 
 ```js
-  var react = require.resolve('babel-preset-react')
-  var es2015 = require.resolve('babel-preset-es2015')
-  var stage0 = require.resolve('babel-preset-stage-0')
-  var react_hmre = require.resolve('babel-preset-react-hmre')
-  var tee = require.resolve('babel-plugin-transform-export-extensions')
-  var trrpt = require.resolve('babel-plugin-transform-react-remove-prop-types')
-  var trce = require.resolve('babel-plugin-transform-react-constant-elements')
-  var trie = require.resolve('babel-plugin-transform-react-inline-elements')
-  jsLoaders.push('babel-loader?{presets:["' + react + '","' + es2015 + '","' + stage0 + '"],env: {development: {presets: ["' + react_hmre + '"]}, production: {plugins: ["' + tee + '","' + trrpt + '","' + trce + '","' +  trie + '"]}}}')
+  jsLoaders.push('babel-loader?{presets:["react","es2015","stage-0"],env: {development: {presets: ["react-hmre"]}, production: {plugins: ["transform-export-extensions","transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}')
 ```
 
 ```js
@@ -335,14 +327,11 @@ Reactuate also allows importing fonts and images with [npm|file-loader@0.8.5](# 
     progress: true,
 ```
 
-An important part is being able to resolve reactuate's own dependencies
+An important part is being able to resolve application's own dependencies
 
 ```js
     resolve: {
-      root: [path.resolve(path.join(__dirname, 'node_modules')), path.resolve(path.join(process.cwd(), 'node_modules'))]
-    },
-    resolveLoader: {
-      root: [path.resolve(path.join(__dirname, 'node_modules')), path.resolve(path.join(process.cwd(), 'node_modules'))]
+      root: [path.resolve(path.join(process.cwd(), 'node_modules'))]
     }
   }
 }
@@ -1049,7 +1038,8 @@ We process all declared dependencies to produce dependencies:
   "bugs": {
     "url": "https://github.com/reactuate/reactuate/issues"
   },
-  "homepage": "https://github.com/reactuate/reactuate#readme"
+  "homepage": "https://github.com/reactuate/reactuate#readme",
+  "babel": {"presets":["react","es2015","stage-0"]}
 }
 ```
 
