@@ -257,13 +257,11 @@ if (production) {
 It is quite convenient to be able to know if we're running a development or production instance in the browser:
 
 ```js
-if (!production) {
-  plugins.push(new webpack.DefinePlugin({
-    "process.env": {
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development")
-    }
-  }))
-}
+plugins.push(new webpack.DefinePlugin({
+  "process.env": {
+    NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development")
+  }
+}))
 ```
 
 
