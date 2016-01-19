@@ -668,10 +668,9 @@ Every domain begins with a state. We define state with tcomb's help:
 
 <!-- [Domain state example]() -->
 ```js
-import t  from 'tcomb'
 import ft from 'tcomb-form-types'
 
-import { Domain } from 'reactuate'
+import { t, Domain } from 'reactuate'
 
 const domain = new Domain("counter")
 export default domain
@@ -817,9 +816,9 @@ The below examples show handling the counter example in an async way (and we're 
 
 <!-- [Saga example]() -->
 ```js
-import t                from 'tcomb'
 import ft               from 'tcomb-form-types'
-import { Domain,
+import { t,
+         Domain,
          createSaga,
          createAction,
          fork,
@@ -913,6 +912,7 @@ export React                  from 'react'
 export { Route }              from 'react-router'
 export { connect }            from 'react-redux'
 export { bindActionCreators } from 'redux'
+export t                      from 'tcomb'
 
 export { take, put, race, call,
          apply, cps, fork, join,
