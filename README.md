@@ -289,7 +289,7 @@ Reactuate also allows importing JSON files with [json-loader](https://github.com
 Reactuate also allows importing CSS files with [npm|style-loader@0.13.0](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.5.3](# "push:") with [npm|less-loader@2.2.2](# "push:") and [npm|postcss-loader@0.8.0](# "push:").
 
 ```js
-  loaders.push({ test: /\.css$/, loader: 'style'})
+  loaders.push({ test: /\.css$/, loader: 'style!css'})
   loaders.push({ test: /\.less$/, loader: 'style!css!less'})
 ```
 
