@@ -842,7 +842,7 @@ createSaga(asyncDomain, 'IncrementCounterDelayed', function* () {
   while(true) {
      const nextAction = yield take(IncrementCounterDelayed.is)
      yield delay(1000)
-     yield put(domain.get('actions').IncrementCounter({payload: nextAction.payload}))
+     yield put(domain.actions.IncrementCounter(nextAction.payload))
    }
 })
 
