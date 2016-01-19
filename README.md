@@ -271,13 +271,13 @@ var jsLoaders = []
 Reactuate enables ES2015, react/react hot module replacement, and stage-0 presets:
 
 ```js
-  jsLoaders.push('babel-loader?{presets:["react","es2015","stage-0"],plugins:["transform-export-extensions"],env: {development: {presets: ["react-hmre"]}, production: {plugins: ["transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}')
+  jsLoaders.push('babel-loader?{presets:["react","es2015","stage-0"],plugins:["transform-export-extensions"],env:{development:{presets:["react-hmre"]}, production: {plugins:["transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}')
 ```
 
 ```js
   loaders.push({test: /\.js$/,
     loaders: jsLoaders,
-    exclude: /node_modules/
+    exclude: /node_modules\/(?!reactuate)/
   })
 ```
 
