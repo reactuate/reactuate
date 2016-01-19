@@ -1,3 +1,5 @@
+[![npm package][npm-badge]][npm]
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -296,10 +298,11 @@ Reactuate also allows importing JSON files with [json-loader](https://github.com
   loaders.push({ test: /\.json$/, loader: 'json'})
 ```
 
-Reactuate also allows importing CSS files with [ [style-loader@0.13.0](# ":|dependency")[]() [css-loader@0.23.1](# ":|dependency")[](), and [postcss-loader@0.8.0](# ":|dependency")[]().
+Reactuate also allows importing CSS files with [ [style-loader@0.13.0](# ":|dependency")[]() [css-loader@0.23.1](# ":|dependency")[](), [less@2.5.3](# ":|dependency") with [less-loader@2.2.2](# ":|dependency")[]() and [postcss-loader@0.8.0](# ":|dependency")[]().
 
 ```js
   loaders.push({ test: /\.css$/, loader: 'style'})
+  loaders.push({ test: /\.less$/, loader: 'style!css!less'})
 ```
 
 Reactuate also allows importing fonts and images with [file-loader@0.8.5](# ":|dependency")[]() and [url-loader@0.5.7](# ":|dependency")[]().
@@ -1073,3 +1076,6 @@ As npm documentation says:
  ```
  Makefile
  ```
+
+[npm]: https://www.npmjs.org/package/reactuate
+[npm-badge]: https://img.shields.io/npm/v/reactuate.svg?style=flat-square
