@@ -525,7 +525,7 @@ It is important to note that it automatically injects a store enhancer for react
 As a foundation for routing React applications, we use [react-router](https://github.com/rackt/react-router)
 [npm|react-router@1.0.3](# "push:") (which requires a peer dependency of [npm|history@1.17.0](# "push:"))
 
-We also supplement it with a [npm|Redux extension](https://github.com/acdlite/redux-router) [redux-router@1.0.0-beta7](# "push:"). Although this
+We also supplement it with a [npm|Redux extension](https://github.com/acdlite/redux-router) [npm|redux-router@1.0.0-beta7](# "push:"). Although this
 one is less stable, we believe it has more comprehensive functionality comparing to [redux-simple-router](redux-simple-router).
 
 First of all, we want to define a way to create a conformant reducer:
