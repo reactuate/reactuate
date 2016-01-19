@@ -270,7 +270,7 @@ var jsLoaders = []
 Reactuate enables ES2015, react/react hot module replacement, and stage-0 presets:
 
 ```js
-  jsLoaders.push('babel-loader?{presets:["react","es2015","stage-0"],env: {development: {presets: ["react-hmre"]}, production: {plugins: ["transform-export-extensions","transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}')
+  jsLoaders.push('babel-loader?{presets:["react","es2015","stage-0"],plugins:["transform-export-extensions"],env: {development: {presets: ["react-hmre"]}, production: {plugins: ["transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}')
 ```
 
 ```js
@@ -425,6 +425,15 @@ Babel 6 is still fairly new and unfortunately, not all tools support it well, bu
 In order to avoid generating plain JavaScript files for this package, we also include [babel-register](https://babeljs.io/docs/usage/require/) [npm|babel-register@6.4.3](# "push:")
 
 ES6 also has new APIs that are provided by [npm|babel-polyfill@6.3.14](# "push:").
+
+Reactuate itself requires the following Babel configuration:
+
+<!--+ [.babelrc]() -->
+```json
+{"presets":["react","es2015","stage-0"], "plugins":["transform-export-extensions"]}
+```
+
+<!--+ [.babelrc](#:.babelrc "save:") -->
 
 # React Layer
 
@@ -1023,13 +1032,12 @@ We process all declared dependencies to produce dependencies:
   "engines": {"node": ">=_"Requirements:Node.js version" <6.0"},
   "dependencies": {
       _"npm| .mapc dependency | .join \,\n"
-
   },
   "bugs": {
     "url": "https://github.com/reactuate/reactuate/issues"
   },
   "homepage": "https://github.com/reactuate/reactuate#readme",
-  "babel": {"presets":["react","es2015","stage-0"]}
+  "babel": _"Babel Layer:.babelrc"
 }
 ```
 
