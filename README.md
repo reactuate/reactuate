@@ -990,9 +990,6 @@ function(input, args, name) {
     var arr = input.split("@"),
         package = arr[0],
         version = arr[1]
-    if (input.indexOf("@") < 0) {
-      console.log(name, '"' + package + '": "' + version + '"')
-    }
     return '"' + package + '": "' + version + '"'
 }
 ```
