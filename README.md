@@ -687,23 +687,62 @@ In the above example, we are defining a state that has a counter. Now, we should
 ```js
 import t from 'tcomb'
 
-export default function(domain, action, payload, meta) {
+export default function(domain, action, payload = t.Any, defaultValue = undefined, meta = t.Any) {
   let actionString = domain.withPrefix(action)
-  let actionType = t.struct({
-    type: t.refinement(t.Any, (v) => v === actionString, action),
-    payload: t.maybe(payload || t.Any),
-    error: t.maybe(t.refinement(t.Boolean, (n) => n == true, 'True')),
-    meta: t.maybe(meta || t.Any)
-  }, action.toString())
-  actionType.prototype._action = true
-  let newActionType = function(payload, error, meta) {
-    return actionType({payload, error, meta, type: actionString})
+  function ActionCreator(value = defaultValue, error = false,
+                         metaValue = undefined, path = [payload.displayName]) {
+
+    if (ActionCreator.is(value)) {
+      return value
+    }
+
+    value = payload(value)
+
+    if (process.env.NODE_ENV !== 'production') {
+      t(payload.is(value), function () {
+        return `Invalid value ${t.stringify(value)} supplied to ${actionString}(${ path.join('/')}) (expected ${payload.displayName})`;
+      })
+      t(t.maybe(meta).is(metaValue), function () {
+        return `Invalid meta value ${t.stringify(metaValue)} supplied to ${actionString}(${ path.join('/')}) (expected ${meta.displayName})`;
+      })
+    }
+
+    if (!(this instanceof ActionCreator)) {
+      return new ActionCreator(value, error, metaValue, path)
+    }
+
+    this.type = actionString
+    this.payload = value
+
+    if (!!error) {
+      this.error = true
+    }
+
+    if (typeof metaValue !== 'undefined') {
+      console.log(metaValue);
+      this.meta = metaValue
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      Object.freeze(this)
+    }
   }
-  for (var key in actionType) {
-    newActionType[key] = actionType[key]
+
+  ActionCreator.meta = {
+    kind: 'actionCreator',
+    payload: payload,
+    name: actionString,
+    identity: false
   }
-  domain.register('actions', action, newActionType)
-  return newActionType
+
+  ActionCreator.displayName = `Action ${actionString}(${payload.displayName})`
+  ActionCreator.actionCreator = true
+  ActionCreator.action = action
+
+  ActionCreator.is = x => x instanceof ActionCreator
+
+  domain.register('actions', action, ActionCreator)
+  return ActionCreator
 }
 ```
 
@@ -716,8 +755,8 @@ required by redux, so we have to implement a custom middleware that strips the e
 ```js
 export default function ({ getState }) {
   return (next) => (action) => {
-    if (typeof action._action !== 'undefined') {
-      let newAction = {type: "@@reactuate/action", payload: {...action}, meta: {name: action.type}}
+    if (!!action.constructor.actionCreator) {
+      let newAction = {type: "@@reactuate/action", payload: {...action}, meta: {name: action.constructor.action}}
       return next(newAction)
     } else {
       return next(action)
