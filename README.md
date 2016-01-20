@@ -699,13 +699,8 @@ export default function(domain, action, payload = t.Any, defaultValue = undefine
 
     value = payload(value)
 
-    if (process.env.NODE_ENV !== 'production') {
-      t(payload.is(value), function () {
-        return `Invalid value ${t.stringify(value)} supplied to ${actionString}(${ path.join('/')}) (expected ${payload.displayName})`;
-      })
-      t(t.maybe(meta).is(metaValue), function () {
-        return `Invalid meta value ${t.stringify(metaValue)} supplied to ${actionString}(${ path.join('/')}) (expected ${meta.displayName})`;
-      })
+    if (typeof metaValue !== 'undefined') {
+      metaValue = meta(metaValue)
     }
 
     if (!(this instanceof ActionCreator)) {
@@ -720,7 +715,6 @@ export default function(domain, action, payload = t.Any, defaultValue = undefine
     }
 
     if (typeof metaValue !== 'undefined') {
-      console.log(metaValue);
       this.meta = metaValue
     }
 
