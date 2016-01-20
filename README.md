@@ -1052,7 +1052,7 @@ if (existsSync(packageJson)) {
           scripts.start = startScript
           scripts.build = buildScript
           pkg.scripts = scripts
-          writeFileSync(packageJson, JSON.stringify(pkg))
+          writeFileSync(packageJson, JSON.stringify(pkg, null, 4))
         }
         process.exit(0)
       })
