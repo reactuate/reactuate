@@ -137,8 +137,7 @@ It will assume your main file in that directory to be `index.js, and if there is
 <!--+ [main file]() -->
 
 ```js
-require('fs').existsSync(path.join(src, 'index.js')) ?
-  path.join(src, 'index.js') : path.join(__dirname, 'sample','index.js')
+require('fs').existsSync(path.join(options.sourceDirectory || '_":source directory"', 'index.js')) ? path.join(options.sourceDirectory || '_":source directory"', 'index.js') : path.join(__dirname, 'sample','index.js')
 ```
 
 
@@ -185,10 +184,10 @@ module.exports = function(options) {
   var loaders = []
 
   var production = process.env['NODE_ENV'] === 'production'
-  var src = '_":source directory"'
-  var main = _":main file"
+  var src = options.sourceDirectory || '_":source directory"'
+  var main = options.mainFile || _":main file"
   console.log('Using ' + main + ' as an entry script')
-  var index = _":index file"
+  var index = options.indexFile || _":index file"
   console.log('Using ' + index + ' as an index file')
 
   var entry = path.resolve(process.cwd(), main)
@@ -361,8 +360,10 @@ $ npm run build
 var path = require('path')
 var fs = require('fs')
 var configFile = path.join(process.cwd(), "webpack.config.js")
+if (fs.existsSync(configFile)) {
+  console.log('Using webpack config ' + configFile)
+}
 var config = fs.existsSync(configFile) ? require(configFile) : {}
-console.log('Using webpack config ' + configFile)
 module.exports = require(path.join(__dirname, 'webpack-config'))(config)
 module.exports._config = config
 ```
