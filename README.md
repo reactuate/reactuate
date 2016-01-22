@@ -81,6 +81,9 @@ As it has been mentioned before, Reactuate is distributed as a dependency, and c
 
 ```shell
 $ npm install --save-dev reactuate
+# if you answered 'yes' to the postinstall script:
+$ npm start
+# otherwise:
 $ node node_modules/reactuate/webpack-dev-server.js
 ```
 
