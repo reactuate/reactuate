@@ -1,10 +1,14 @@
 [![npm package][npm-badge]][npm]
 
+# Reactuate
+
+Reactuate is an opinionated stack for building React/Redux-based frontend applications with a focus on DDD (Domain-Driven Design).
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Reactuate](#reactuate)
+- [Core Objectives](#core-objectives)
   - [Version](#version)
   - [License](#license)
 - [Requirements](#requirements)
@@ -31,11 +35,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Reactuate
-
-Reactuate is an opinionated stack for building React/Redux-based frontend applications with a focus on DDD (Domain-Driven Design).
-
-Core objectives are:
+# Core Objectives
 
 1. Fork-and-forget (or fork-and-follow) is not a great way to keep up with what's happening in the original boilerplate (and in the space in general). Therefore, starting off a cloned boilerplate "kit" is not an acceptable solution. Reactuate is distributed as a __dependency__.
 1. Reactuate is strictly a frontend-oriented stack and is not meant to provide a foundation for so called "universal" (server and client side) JavaScript applications.
