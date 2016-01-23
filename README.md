@@ -799,7 +799,21 @@ const IncrementCounter = createAction(domain, 'IncrementCounter',
                                       t.maybe(incrementParameter))
 ```
 
-Reactuate has a helper that allows creating a reducer that (again) makes a good use of tcomb. It also takes care of disabling state mutation (however, normally this shouldn't be necessary, if tcomb is used for action creators).
+Reactuate has a helper that allows creating a reducer that (again) makes a good use of tcomb. The syntax that it defines is based on the one from `tcomb.match()`. After specifying the domain and the initial state, it takes a variadic list of matchers:
+
+
+<!--+ []() -->
+```js
+createReducer(domain, initialState, ...matchers: Array<Matcher>)
+```
+
+Where each `Matcher` has the following structure: `type, [guard], handler`:
+
+* `type` is a tcomb type
+* `guard` is an **optional** predicate `(state, action) => boolean`
+* `handler` is a function that handles the action `(state, action) => State`
+
+It also takes care of disabling state mutation (however, normally this shouldn't be necessary, if tcomb is used for action creators).
 
 **createReducer**
 
