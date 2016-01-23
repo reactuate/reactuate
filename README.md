@@ -8,7 +8,7 @@ Reactuate is an opinionated stack for building React/Redux-based frontend applic
 
 Current published version:
 
-    0.1.9
+    0.1.10
 
 ## License
 
@@ -1233,6 +1233,7 @@ As npm documentation says:
 <!--+ [.npmignore](# "save:") -->
  ```
  Makefile
+ .checksum
  ```
 
 [npm]: https://www.npmjs.org/package/reactuate
