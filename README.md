@@ -4,6 +4,16 @@
 
 Reactuate is an opinionated stack for building React/Redux-based frontend applications with a focus on DDD (Domain-Driven Design).
 
+## Version
+
+Current published version:
+
+    0.1.9
+
+## License
+
+Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -41,16 +51,6 @@ Reactuate is an opinionated stack for building React/Redux-based frontend applic
 1. Reactuate is strictly a frontend-oriented stack and is not meant to provide a foundation for so called "universal" (server and client side) JavaScript applications.
 1. Reducing the amount of noise. Many kits suffer from the need to create too many files for each "functional vertical" (such as action creators, constants, reducer), which in turn leads to increased maintenance complexity (try renaming one of the verticals!), _import nightmare_ and inability to have a compact overview of the functionality.
 1. Discovering and learning the capabilities of a comprehensive stack could be complicated. What's worse, maintaining such stacks can be equally painful. Therefore, unconventionally, Reactuate is written as a *literate program* and is meant to be read as an article and be a concise reference manual — while being a functional library.
-
-## Version
-
-Current published version:
-
-    0.1.9
-
-## License
-
-Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
 
 # Requirements
 
