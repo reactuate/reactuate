@@ -281,6 +281,12 @@ Reactuate enables ES2015, react/react hot module replacement, and stage-0 preset
   })
 ```
 
+It will also enable *source maps* in development:
+
+```js
+  var devtool = process.env.NODE_ENV === 'production' ? undefined : 'cheap-module-inline-source-map'
+```
+
 Reactuate also allows importing JSON files with [json-loader](https://github.com/webpack/json-loader) [npm|json-loader@0.5.4](# "push:").
 
 ```js
@@ -309,6 +315,7 @@ Reactuate allows importing fonts and images with [npm|file-loader@0.8.5](# "push
 ```js
   return {
     entry: entry,
+    devtool: devtool,
     plugins: plugins,
     postcss: function() {
       return [
