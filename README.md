@@ -19,6 +19,7 @@ Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Core Objectives](#core-objectives)
+- [Features](#features)
 - [Requirements](#requirements)
 - [Getting started](#getting-started)
 - [Webpack Layer](#webpack-layer)
@@ -50,6 +51,17 @@ Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
 1. Reactuate is strictly a frontend-oriented stack and is not meant to provide a foundation for so called "universal" (server and client side) JavaScript applications.
 1. Reducing the amount of noise. Many kits suffer from the need to create too many files for each "functional vertical" (such as action creators, constants, reducer), which in turn leads to increased maintenance complexity (try renaming one of the verticals!), _import nightmare_ and inability to have a compact overview of the functionality.
 1. Discovering and learning the capabilities of a comprehensive stack could be complicated. What's worse, maintaining such stacks can be equally painful. Therefore, unconventionally, Reactuate is written as a *literate program* and is meant to be read as an article and be a concise reference manual — while being a functional library.
+
+# Features
+
+* [Redux](https://github.com/rackt/redux) implementation of the "Flux"-like
+architecture (unidirectional data flow)
+* Domain-Driven Design with [tcomb](https://github.com/gcanti/tcomb)
+* [Babel](https://babeljs.io) future generation JavaScript transpiler.
+* Hot code reloading for React with[react-transform-hmr](https://github.com/gaearon/react-transform-hmr)
+* [react-router](https://github.com/rackt/react-router) and [redux-router](https://github.com/acdlite/redux-router) is used for routing.
+* [redux-safa](https://github.com/yelouafi/redux-saga) for complex asynchronous
+workflows orchestration
 
 # Requirements
 
