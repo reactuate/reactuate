@@ -59,7 +59,7 @@ architecture (unidirectional data flow)
 * Domain-Driven Design with [tcomb](https://github.com/gcanti/tcomb)
 * [Babel](https://babeljs.io) future generation JavaScript transpiler.
 * Hot code reloading for React with[react-transform-hmr](https://github.com/gaearon/react-transform-hmr)
-* [react-router](https://github.com/rackt/react-router) and [redux-router](https://github.com/acdlite/redux-router) is used for routing.
+* [react-router](https://github.com/rackt/react-router) and [redux-router](https://github.com/acdlite/redux-router) are used for routing.
 * [redux-safa](https://github.com/yelouafi/redux-saga) for complex asynchronous
 workflows orchestration
 
