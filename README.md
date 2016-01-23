@@ -35,6 +35,7 @@ Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
   - [Domain](#domain)
   - [Managing effects](#managing-effects)
   - [Putting it all together](#putting-it-all-together)
+- [Example Application](#example-application)
 - [Appendix 0. Package Dependency](#appendix-0-package-dependency)
 - [Appendix 1. Post-Installation Instructions](#appendix-1-post-installation-instructions)
 - [Appendix A. Package file](#appendix-a-package-file)
@@ -959,6 +960,8 @@ export { take, put, race, call,
          cancel, as } from 'redux-saga'
 ```
 <!--+ [index.es6.js](#:index.es6.js "save:") -->
+
+# Example Application
 
 You can use it this way (this is the sample file you get by default, by the way!):
 
