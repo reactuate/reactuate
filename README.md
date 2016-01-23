@@ -666,7 +666,7 @@ export default class Domain {
 Most of the time, you don't need to do anything with the Domain object yourself,
 except for passing it as a parameter to other Reactuate functions that you'll see below. One significant exception to that is our current convention of "attaching" your types to the domain. Consider this example:
 
-
+<!--++ []() -->
 ```js
 const domain = new Domain("user")
 
