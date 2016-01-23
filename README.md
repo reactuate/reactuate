@@ -631,7 +631,7 @@ Now we have approached one of the most important aspects of Reactuate. We struct
 
 While JavaScript as a language is quite flexible and doesn't possess a strong type system, there are some great libraries available that solve this problem to an extent. Reactuate applications make a heavy use of [npm|tcomb@2.6.0](# "push:") and its helper module [npm|tcomb-form-types@1.1.0](# "push:").
 
-First of all, we need to define a class representing a domain. It is a named container for all things associated with one domain (including, but not limited to, action creators, sagas and a reducer.)
+First of all, we need to define a class representing a domain. It is a named container for all things associated with one domain (including, but not limited to, types, action creators, sagas and a reducer.)
 
 **Domain**
 
@@ -661,8 +661,32 @@ export default class Domain {
   }
 }
 ```
-
 <!--+ [Domain.js](# "save:") -->
+
+Most of the time, you don't need to do anything with the Domain object yourself,
+except for passing it as a parameter to other Reactuate functions that you'll see below. One significant exception to that is our current convention of "attaching" your types to the domain. Consider this example:
+
+
+```js
+const domain = new Domain("user")
+
+const User = t.struct({
+  email: t.String
+}, 'User')
+
+domain.User = User
+```
+
+This way you can easily access types from other domains when importing those domains:
+
+```js
+import user from '../user'
+
+const Message = t.struct({
+  user: user.User,
+  message: t.String
+}, 'Message')
+```
 
 Every domain begins with a state. We define state with tcomb's help:
 
