@@ -864,15 +864,16 @@ const reducer = createReducer(domain, initialState,
     })
 ```
 
-Lets put this entire example together for the sample, exporting the domain. Did you notice we avoided creating the whole layer of 'constants'?
+Did you notice we avoided creating the whole layer of 'constants'?
 
 <!--+ [Domain example]() -->
+<!--+
 ```js
 _":Domain state example"
 _":Domain action example"
 _":Domain reducer example"
 ```
-
+-->
 <!--+ [sample/counter/index.js](#:Domain-example "save:") -->
 
 ## Managing effects
