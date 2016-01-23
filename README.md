@@ -19,8 +19,6 @@ Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Core Objectives](#core-objectives)
-  - [Version](#version)
-  - [License](#license)
 - [Requirements](#requirements)
 - [Getting started](#getting-started)
 - [Webpack Layer](#webpack-layer)
@@ -545,6 +543,8 @@ First of all, we want to define a way to create a router-enabled composite reduc
 
 <!--+ [combineReducers.js]() -->
 
+**combineReducers**
+
 ```js
 import { combineReducers }    from 'redux'
 import { routerStateReducer } from 'redux-router'
@@ -560,6 +560,8 @@ export default function(reducers) {
 <!--+ [combineReducers.js](#:combineReducers.js "save:") -->
 
 We also standardize route initialization. This step is hidden from the end user.
+
+**createRouter**
 
 <!--+ [createRouter.js]() -->
 
@@ -631,6 +633,8 @@ While JavaScript as a language is quite flexible and doesn't possess a strong ty
 First of all, we need to define a class representing a domain. It will later
 become clearer why we need this.
 
+**Domain**
+
 <!--+ [Domain.js]() -->
 ```js
 export default class Domain {
@@ -677,6 +681,8 @@ const State = t.struct({
 ```
 
 In the above example, we are defining a state that has a counter. Now, we should define an increment action. Reactuate offers helper functionality to do so, in adherence with [FSA](https://github.com/acdlite/flux-standard-action) [npm|flux-standard-action@0.6.0](# "push:") guidelines:
+
+**createAction**
 
 <!--+ [createAction.js]() -->
 ```js
@@ -740,6 +746,7 @@ export default function(domain, action, payload = t.Any, defaultValue = undefine
 Unfortunately, tcomb structures do not fit the definition of a plain object
 required by redux, so we have to implement a custom middleware that strips the extra metadata.
 
+**domainMiddleware**
 <!--+ [domainMiddleware.js]() -->
 ```js
 export default function ({ getState }) {
