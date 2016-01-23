@@ -787,6 +787,8 @@ export default function ({ getState }) {
 
 <!--+ [domainMiddleware.js](#:domainMiddleware.js "save:") -->
 
+`IncrementCounter` in the example below is an action creator:
+
 <!--+ [Domain action example]() -->
 ```js
 
@@ -796,8 +798,6 @@ const incrementParameter = t.struct({increment: ft.Number.Integer}, 'incrementPa
 const IncrementCounter = createAction(domain, 'IncrementCounter',
                                       t.maybe(incrementParameter))
 ```
-
-`IncrementCounter` in this example also becomes an action creator.
 
 Reactuate has a helper that allows creating a reducer that (again) makes a good use of tcomb. It also takes care of disabling state mutation (however, normally this shouldn't be necessary, if tcomb is used for action creators).
 
