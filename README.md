@@ -33,15 +33,14 @@
 
 # Reactuate
 
-Reactuate is an opinionated stack for building React-based frontend applications. Core objectives are as follows:
+Reactuate is an opinionated stack for building React/Redux-based frontend applications with a focus on DDD (Domain-Driven Design).
 
-1. Fork-and-forget (or fork-and-follow) is not a great way to keep up with what's happening in the frontend space. Therefore, starting off from a cloned boilerplate "kit" is not an acceptable solution. Reactuate is distributed as a __dependency__.
+Core objectives are:
+
+1. Fork-and-forget (or fork-and-follow) is not a great way to keep up with what's happening in the original boilerplate (and in the space in general). Therefore, starting off a cloned boilerplate "kit" is not an acceptable solution. Reactuate is distributed as a __dependency__.
 1. Reactuate is strictly a frontend-oriented stack and is not meant to provide a foundation for so called "universal" (server and client side) JavaScript applications.
-1. Reducing the amount of noise. Many kits suffer from the need to create too many files for each "functional vertical" (such as
-   action creators, constants, reducer), which in turn leads to increased maintenance complexity (try renaming one of the vericals),
-   "import nightmare" and inability to have a compact overview of the functionality.
-1. Discovering and learning the capabilities of comprehensive stack solution could be complicated. What's even worse, maintaining such stacks can be equally painful. Therefore, unconventionally, Reactuate is written as a *literate program* and is meant to be read as a small book and be a concise reference manual — while being a functional library.
-1. Don't cling on the legacy stuff. Move forward.
+1. Reducing the amount of noise. Many kits suffer from the need to create too many files for each "functional vertical" (such as action creators, constants, reducer), which in turn leads to increased maintenance complexity (try renaming one of the verticals!), _import nightmare_ and inability to have a compact overview of the functionality.
+1. Discovering and learning the capabilities of a comprehensive stack could be complicated. What's worse, maintaining such stacks can be equally painful. Therefore, unconventionally, Reactuate is written as a *literate program* and is meant to be read as an article and be a concise reference manual — while being a functional library.
 
 ## Version
 
@@ -55,7 +54,7 @@ Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
 
 # Requirements
 
-Reactuate requires the minimum of the following version of Node.js:
+Reactuate requires the following version of Node.js:
 
 <!--+ [Node.js version]() -->
 
@@ -77,7 +76,7 @@ $ make
 
 # Getting started
 
-As it has been mentioned before, Reactuate is distributed as a dependency, and can, therefore, be installed with npm (assuming you already initialized your project with `npm init`):
+As it has been mentioned before, Reactuate is distributed as a dependency, and can be installed with npm. Assuming you already initialized your project with `npm init`:
 
 ```shell
 $ npm install --save-dev reactuate
@@ -87,15 +86,15 @@ $ npm start
 $ node node_modules/reactuate/webpack-dev-server.js
 ```
 
-Then open [http://localhost:3000](http://localhost:3000) and complete the TODO
-items listed there.
+Open [http://localhost:3000](http://localhost:3000) and complete the TODO
+list!
 
-The rest of this manual will introduce you to concepts and software used in the stack.
+The rest of this manual will introduce you to the concepts and software used in the stack.
 
 
 # Webpack Layer
 
-We serve the application in development mode and package the production version by employing [webpack](http://webpack.github.io) package [npm|webpack@1.12.11](# "push:"):
+We serve the application in development mode and package the production version using [webpack](http://webpack.github.io) package [npm|webpack@1.12.11](# "push:"):
 
 ## Webpack Configuration
 
@@ -120,7 +119,7 @@ By default, it will assume your index.html to be this:
 
 <!--+ [sample/index.html](#:index.html "save:") -->
 
-When you are ready to override it, simply copy the above file to the root of your project:
+When you are ready to override it, simply copy the above file to the root of your project.
 
 <!--+ [index file]() -->
 ```js
@@ -129,13 +128,13 @@ require('fs').existsSync(path.join(process.cwd(), 'index.html')) ?
 ```
 This file will be processed with [npm|html-webpack-plugin@1.7.0](# "push:").
 
-Reactuate will search for your source code files in this directory in your project:
+Reactuate will search for source code files in this directory in your project:
 
 <!--+ [source directory]() -->
 
     src
 
-It will assume your main file in that directory to be `index.js, and if there is no such file in your project yet, Reactuate will use its own sample file.
+It will assume your main file in that directory to be `index.js`, and if there is no such file in your project yet, Reactuate will use its own sample file.
 
 <!--+ [main file]() -->
 
@@ -145,7 +144,7 @@ require('fs').existsSync(path.join(options.sourceDirectory || '_":source directo
 
 
 All the JavaScript files are going to be process by Babel through the use of
-[npm|babel-loader@6.2.1](# "push:") plugin, current version:
+[npm|babel-loader@6.2.1](# "push:") plugin.
 
 To enable ES2015 syntax and experimental features, the following plugins are required:
 
@@ -165,7 +164,7 @@ In production builds, following optimizations are used:
 * [npm|babel-plugin-transform-react-inline-elements@6.4.0](# "push:")
 * [npm|babel-plugin-transform-react-remove-prop-types@0.1.0](# "push:")
 
-Source code builds will produced into this directory in your project:
+Source code builds will be produced into this directory in your project:
 
 <!--+ [build directory]() -->
 
@@ -173,7 +172,7 @@ Source code builds will produced into this directory in your project:
 
 <!--+ []() -->
 
-This is how the configuration is composed:
+This is how the Webpack is configured:
 
 <!--+ [webpack-config.js](# "save:") -->
 ```js
@@ -196,7 +195,7 @@ module.exports = function(options) {
   var entry = path.resolve(process.cwd(), main)
 ```
 
-When in development mode, webpack should use Webpack development server:
+When in development mode, Webpack should use Webpack development server:
 
 ```js
   if (!production) {
@@ -240,14 +239,13 @@ if (production) {
 }
 ```
 
-We will also define the location of this module:
+We will also define the location of the reactuate module as `REACTUATE_DIRNAME`:
 
 ```js
 plugins.push(new webpack.DefinePlugin({"REACTUATE_DIRNAME": production ? "undefined" : JSON.stringify(__dirname)}))
 ```
 
-In production, produce compacted and somewhat obscured JavaScript (no source
-map to avoid divulging original source code's information)
+In production, we will produce compacted and somewhat obscured JavaScript (no source map to avoid divulging original source code's information)
 
 ```js
 if (production) {
@@ -255,7 +253,7 @@ if (production) {
 }
 ```
 
-It is quite convenient to be able to know if we're running a development or production instance in the browser:
+It is quite convenient to be able to know if we're running a development or production instance in the browser (not to mention certain optimizations):
 
 ```js
 plugins.push(new webpack.DefinePlugin({
@@ -270,6 +268,7 @@ plugins.push(new webpack.DefinePlugin({
 ```js
 var jsLoaders = []
 ```
+
 Reactuate enables ES2015, react/react hot module replacement, and stage-0 presets:
 
 ```js
@@ -289,14 +288,14 @@ Reactuate also allows importing JSON files with [json-loader](https://github.com
   loaders.push({ test: /\.json$/, loader: 'json'})
 ```
 
-Reactuate also allows importing CSS files with [npm|style-loader@0.13.0](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.5.3](# "push:") with [npm|less-loader@2.2.2](# "push:"). It also includes [npm|postcss-loader@0.8.0](# "push:"), [npm|postcss-import@7.1.3](# "push:").
+Reactuate allows importing CSS files with [npm|style-loader@0.13.0](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.5.3](# "push:") with [npm|less-loader@2.2.2](# "push:"). It also includes [npm|postcss-loader@0.8.0](# "push:"), [npm|postcss-import@7.1.3](# "push:").
 
 ```js
   loaders.push({ test: /\.css$/, loader: 'style!css!postcss'})
   loaders.push({ test: /\.less$/, loader: 'style!css!less'})
 ```
 
-Reactuate also allows importing fonts and images with [npm|file-loader@0.8.5](# "push:") and [npm|url-loader@0.5.7](# "push:").
+Reactuate allows importing fonts and images with [npm|file-loader@0.8.5](# "push:") and [npm|url-loader@0.5.7](# "push:").
 
 ```js
   loaders.push({ test: /\.woff(2)?(\?.+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" })
@@ -375,7 +374,7 @@ module.exports._config = config
 
 ## Running a development Webpack server
 
-It is imperative to be able to run an easy to update, hot-reloadable development version of the application before shipping an optimized version of it. This is what [npm|webpack-dev-server@1.14.1](# "push:") does.
+It is imperative to be able to run an easy to update, hot-reloadable development version of the application before shipping a build. This is what [npm|webpack-dev-server@1.14.1](# "push:") does.
 
 In order to start a development Webpack server, you can run:
 
@@ -432,7 +431,7 @@ new WebpackDevServer(webpack(config), { // Start a server
 
 ## Babel Layer
 
-Reactuate encourages the use of recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today [npm|babel-core@6.4.0](# "push:").
+Reactuate encourages the use of most recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today [npm|babel-core@6.4.0](# "push:").
 
 Babel 6 is still fairly new and unfortunately, not all tools support it well, but this should be less of a problem going forward.
 
@@ -451,13 +450,12 @@ Reactuate itself requires the following Babel configuration:
 
 # React Layer
 
-Reactuate is a React-based stack, so it naturall depends on [npm|react@0.14.6](# "push:") and
-[npm|react-dom@0.14.6](# "push:").
+Reactuate is a React-based stack, so it naturally depends on [npm|react@0.14.6](# "push:") and[npm|react-dom@0.14.6](# "push:").
 
 ## Redux Layer
 
-Part of React's power lies in the so called "Flux" architecture. There are many
-different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.0.5](# "push:") and its React binding [npm|react-redux@4.0.6](# "push:"). To enable asynchronous action creators, [npm|redux-thunk@1.0.3](# "push:") is used. It also uses [npm|redux-logger@2.3.2](# "push:") for logging.
+Part of React's power lies in the associated "Flux" architecture. There are many
+different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.0.5](# "push:") and its React binding [npm|react-redux@4.0.6](# "push:"). To enable asynchronous action creators, we jave included [npm|redux-thunk@1.0.3](# "push:") (however, we promote another way to handle asynchronous operations, more on that later). It also uses [npm|redux-logger@2.3.2](# "push:") for logging.
 
 Our own version of `createStore` takes care of a few things automatically.
 
@@ -503,7 +501,7 @@ It also enables asynchronous action creators:
       thunk,
 ```
 
-And adds logging in development mode:
+And adds logging in the development mode:
 
 ```js
       createLogger({
@@ -536,12 +534,12 @@ It is important to note that it automatically injects a store enhancer for react
 ## React Routing
 
 As a foundation for routing React applications, we use [react-router](https://github.com/rackt/react-router)
-[npm|react-router@1.0.3](# "push:") (which requires a peer dependency of [npm|history@1.17.0](# "push:"))
+[npm|react-router@1.0.3](# "push:") (which requires a peer dependency of [npm|history@1.17.0](# "push:")).
 
 We also supplement it with a [npm|Redux extension](https://github.com/acdlite/redux-router) [npm|redux-router@1.0.0-beta7](# "push:"). Although this
 one is less stable, we believe it has more comprehensive functionality comparing to [redux-simple-router](redux-simple-router).
 
-First of all, we want to define a way to create a conformant reducer:
+First of all, we want to define a way to create a router-enabled composite reducer:
 
 * Inject `routerStateReducer` at `router`
 
@@ -561,8 +559,7 @@ export default function(reducers) {
 
 <!--+ [combineReducers.js](#:combineReducers.js "save:") -->
 
-Since there is more than one thing that requires your routes, we
-export a function that takes your routes, and produces a router component:
+We also standardize route initialization. This step is hidden from the end user.
 
 <!--+ [createRouter.js]() -->
 
@@ -575,7 +572,6 @@ export default function(store, routes) {
   return <Provider store={store}><ReduxRouter>{routes}</ReduxRouter></Provider>
 }
 ```
-
 
 <!--+ [createRouter.js](#:createRouter.js "save:") -->
 
@@ -599,8 +595,7 @@ src/
      Dashboard.js
 ```
 
-We find this layout very counter-productive comparing to organizing code by domains. The above layout
-is only marginally better than organizing directories or packages by entity types. Consider doing this in Java:
+We find this layout to be very counter-productive comparing to organizing code by domains. It is only marginally better than organizing directories or packages by entity types. Consider doing this in Java:
 
 ```
 com.foo.bar.
@@ -612,8 +607,7 @@ com.foo.bar.
 
 Does this make a lot of sense to you? Hope not!
 
-Therefore, we propose organizing Reactuate-based
-applications by domain:
+Therefore, we propose organizing Reactuate-based applications by domain:
 
 ```
 src/
@@ -624,17 +618,15 @@ src/
       index.js
 ```
 
-This way, while working
-on one domain, you don't need to jump across the
-hierarchy of the project too much, and you can easily
-rename the domain without having to rename 4-5 files!
+This way you don't need to jump across the
+hierarchy of the project while working on one domain, and you can easily
+rename the whole domain without having to rename 4-5 files across the project!
 
 ## Domain
 
-Now we have approached one of the important aspects of Reactuate. We structure our applications around domains, not types of artifacts.
+Now we have approached one of the most important aspects of Reactuate. We structure our applications around domains, not types of artifacts.
 
-While JavaScript as a language is quite fluid and doesn't possess a strong type
-system, there are some great libraries available that solve this problem to an extent. Reactuate applications make a heavy use of [npm|tcomb@2.6.0](# "push:") and its helper module [npm|tcomb-form-types@1.1.0](# "push:").
+While JavaScript as a language is quite flexible and doesn't possess a strong type system, there are some great libraries available that solve this problem to an extent. Reactuate applications make a heavy use of [npm|tcomb@2.6.0](# "push:") and its helper module [npm|tcomb-form-types@1.1.0](# "push:").
 
 First of all, we need to define a class representing a domain. It will later
 become clearer why we need this.
@@ -667,7 +659,6 @@ export default class Domain {
 ```
 
 <!--+ [Domain.js](# "save:") -->
-
 
 Every domain begins with a state. We define state with tcomb's help:
 
@@ -775,10 +766,11 @@ const IncrementCounter = createAction(domain, 'IncrementCounter',
                                       t.maybe(incrementParameter))
 ```
 
-`IncrementCounter` in this example also becomes a synchronous action creator.
+`IncrementCounter` in this example also becomes an action creator.
 
-Reactuate has helper functionality that allows creating a reducer that (again)
-can take advantage of tcomb. It also takes care of disabling state mutation (however, normally this shouldn't be necessary, if tcomb is used for action creators).
+Reactuate has a helper that allows creating a reducer that (again) makes a good use of tcomb. It also takes care of disabling state mutation (however, normally this shouldn't be necessary, if tcomb is used for action creators).
+
+**createReducer**
 
 <!--+ [createReducer.js]() -->
 ```js
@@ -809,6 +801,8 @@ export default function(domain, initialState, ...cases) {
 ```
 <!--+ [createReducer.js](#:createReducer.js "save:") -->
 
+Now, we can define a reducer this way:
+
 <!--+ [Domain reducer example]() -->
 ```js
 import { createReducer } from 'reactuate'
@@ -825,8 +819,7 @@ const reducer = createReducer(domain, initialState,
     })
 ```
 
-Lets put this entire example together for the sample, exporting `reducer` (the naming is important) and the action creator. Did you notice we avoided creating
-the whole layer of 'constants'?
+Lets put this entire example together for the sample, exporting the domain. Did you notice we avoided creating the whole layer of 'constants'?
 
 <!--+ [Domain example]() -->
 ```js
@@ -841,6 +834,8 @@ _":Domain reducer example"
 
 When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [npm|redux-saga@0.4.1](# "push:") for that.
 
+**createSaga**
+
 <!--+ [createSaga.js]() -->
 ```js
 export default function(domain, name, saga) {
@@ -850,7 +845,7 @@ export default function(domain, name, saga) {
 
 <!--+ [createSaga.js](#:createSaga.js "save:") -->
 
-The below examples show handling the counter example in an async way (and we're introducing a delay as well):
+The below example shows handling the counter example in an async way (we're introducing a delay as well):
 
 <!--+ [Saga example]() -->
 ```js
