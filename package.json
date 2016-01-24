@@ -1,6 +1,6 @@
 {
   "name": "reactuate",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Reactuate is an opinionated React-based stack",
   "main": "index.js",
   "scripts": {
