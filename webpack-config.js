@@ -92,9 +92,6 @@ var jsLoaders = []
     module: {loaders: loaders},
     target: "web", // Make web variables accessible to webpack, e.g. window
     stats: false, // Don't show stats in the console
-    progress: true,
-    resolve: {
-      root: [path.resolve(path.join(process.cwd(), 'node_modules'))]
-    }
+    progress: true
   }
 }
