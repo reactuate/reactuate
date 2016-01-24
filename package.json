@@ -1,0 +1,68 @@
+{
+  "name": "reactuate",
+  "version": "0.1.10",
+  "description": "Reactuate is an opinionated React-based stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" &&   exit 1",
+    "postinstall": "node ./postinstall"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reactuate/reactuate.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "frontend"
+  ],
+  "author": "Yurii Rashkovskii <yrashk@gmail.com>",
+  "license": "Apache-2.0",
+  "engines": {"node": ">=v5.4.1 <6.0"},
+  "dependencies": {
+      "webpack": "1.12.11",
+      "html-webpack-plugin": "1.7.0",
+      "babel-loader": "6.2.1",
+      "babel-preset-es2015": "6.3.13",
+      "babel-preset-stage-0": "6.3.13",
+      "babel-plugin-transform-export-extensions": "6.4.0",
+      "babel-plugin-react-transform": "2.0.0",
+      "babel-preset-react": "6.3.13",
+      "babel-preset-react-hmre": "1.0.1",
+      "babel-plugin-transform-react-constant-elements": "6.4.0",
+      "babel-plugin-transform-react-inline-elements": "6.4.0",
+      "babel-plugin-transform-react-remove-prop-types": "0.1.0",
+      "json-loader": "0.5.4",
+      "style-loader": "0.13.0",
+      "css-loader": "0.23.1",
+      "less": "2.5.3",
+      "less-loader": "2.2.2",
+      "postcss-loader": "0.8.0",
+      "postcss-import": "7.1.3",
+      "file-loader": "0.8.5",
+      "url-loader": "0.5.7",
+      "webpack-dev-server": "1.14.1",
+      "babel-core": "6.4.0",
+      "babel-register": "6.4.3",
+      "babel-polyfill": "6.3.14",
+      "react": "0.14.6",
+      "react-dom": "0.14.6",
+      "redux": "3.0.5",
+      "react-redux": "4.0.6",
+      "redux-thunk": "1.0.3",
+      "redux-logger": "2.3.2",
+      "react-router": "1.0.3",
+      "history": "1.17.0",
+      "redux-router": "1.0.0-beta7",
+      "tcomb": "2.6.0",
+      "tcomb-form-types": "1.1.0",
+      "flux-standard-action": "0.6.0",
+      "redux-saga": "0.4.1",
+      "yesno": "0.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/reactuate/reactuate/issues"
+  },
+  "homepage": "https://github.com/reactuate/reactuate#readme",
+  "babel": {"presets":["react","es2015","stage-0"], "plugins":["transform-export-extensions"]}
+}

@@ -1236,13 +1236,9 @@ We process all declared dependencies to produce dependencies:
 
 <!--+ [.gitignore](# "save:") -->
 
-All produced files should be ignored:
-
 ```
-*
-!Makefile
-!README.md
-!LICENSE.md
+.checksum
+node_modules
 ```
 
 # Appendix B1. .npmignore
