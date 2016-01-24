@@ -3,6 +3,8 @@
 
 # Reactuate
 
+[![Join the chat at https://gitter.im/reactuate/reactuate](https://badges.gitter.im/reactuate/reactuate.svg)](https://gitter.im/reactuate/reactuate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Reactuate is an opinionated stack for building React/Redux-based frontend applications with a focus on DDD (Domain-Driven Design).
 
 ## Version
