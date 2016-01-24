@@ -557,7 +557,7 @@ It is important to note that it automatically injects a store enhancer for react
 }
 ```
 
-<!--+ [createStore.js](#:createStore.js "save:") -->
+<!--+ [src/createStore.js](#:createStore.js "save:") -->
 
 ## React Routing
 
@@ -587,7 +587,7 @@ export default function(reducers) {
 }
 ```
 
-<!--+ [combineReducers.js](#:combineReducers.js "save:") -->
+<!--+ [src/combineReducers.js](#:combineReducers.js "save:") -->
 
 We also standardize route initialization. This step is hidden from the end user.
 
@@ -605,7 +605,7 @@ export default function(store, routes) {
 }
 ```
 
-<!--+ [createRouter.js](#:createRouter.js "save:") -->
+<!--+ [src/createRouter.js](#:createRouter.js "save:") -->
 
 ## Layout
 
@@ -690,7 +690,7 @@ export default class Domain {
   }
 }
 ```
-<!--+ [Domain.js](# "save:") -->
+<!--+ [src/Domain.js](# "save:") -->
 
 Most of the time, you don't need to do anything with the Domain object yourself,
 except for passing it as a parameter to other Reactuate functions that you'll see below. One significant exception to that is our current convention of "attaching" your types to the domain. Consider this example:
@@ -794,7 +794,7 @@ export default function(domain, action, payload = t.Any, defaultValue = undefine
 }
 ```
 
-<!--+ [createAction.js](#:createAction.js "save:") -->
+<!--+ [src/createAction.js](#:createAction.js "save:") -->
 
 Unfortunately, tcomb structures do not fit the definition of a plain object
 required by redux, so we have to implement a custom middleware that strips the extra metadata.
@@ -814,7 +814,7 @@ export default function ({ getState }) {
 }
 ```
 
-<!--+ [domainMiddleware.js](#:domainMiddleware.js "save:") -->
+<!--+ [src/domainMiddleware.js](#:domainMiddleware.js "save:") -->
 
 `IncrementCounter` in the example below is an action creator:
 
@@ -873,7 +873,7 @@ export default function(domain, initialState, ...cases) {
   return reducer
 }
 ```
-<!--+ [createReducer.js](#:createReducer.js "save:") -->
+<!--+ [src/createReducer.js](#:createReducer.js "save:") -->
 
 Now, we can define a reducer this way:
 
@@ -918,7 +918,7 @@ export default function(domain, name, saga) {
 }
 ```
 
-<!--+ [createSaga.js](#:createSaga.js "save:") -->
+<!--+ [src/createSaga.js](#:createSaga.js "save:") -->
 
 The below example shows handling the counter example in an async way (we're introducing a delay as well):
 
@@ -998,14 +998,18 @@ export default class Application {
 }
 ```
 
-<!--+ [Application.js](#:Application.js "save:") -->
+<!--+ [src/Application.js](#:Application.js "save:") -->
+<!--+ []() -->
 
 <!--+ [index.js]() -->
+<!--+
 ```js
 require('babel-register')
 require('babel-polyfill')
-module.exports = require('./index.es6.js')
+module.exports = require('./src')
 ```
+-->
+
 <!--+ [index.js](#:index.js "save:") -->
 
 
@@ -1026,7 +1030,7 @@ export { take, put, race, call,
          apply, cps, fork, join,
          cancel, as } from 'redux-saga'
 ```
-<!--+ [index.es6.js](#:index.es6.js "save:") -->
+<!--+ [src/index.js](#:index.es6.js "save:") -->
 
 # Example Application
 
@@ -1192,7 +1196,7 @@ require("babel-register")
 require("./postinstall.es6")
 ```
 
-<!--+ [postinstall](#:postinstall "save:") -->
+<!--+ [postinstall.js](#:postinstall "save:") -->
 
 # Appendix A. Package file
 
@@ -1208,7 +1212,7 @@ We process all declared dependencies to produce dependencies:
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" &&   exit 1",
-    "postinstall": "node ./postinstall"
+    "postinstall": "node ./postinstall.js"
   },
   "repository": {
     "type": "git",
