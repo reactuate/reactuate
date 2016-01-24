@@ -337,6 +337,9 @@ Reactuate allows importing fonts and images with [npm|file-loader@0.8.5](# "push
 
 ``` -->
 
+Reactuate also requires [npm|raw-loader@0.5.1](# "push:") to allow loading raw
+files as a string, if necessary, using the `"raw!/path/to/file"` syntax.
+
 <!--+
 ```js
   return {
