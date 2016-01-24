@@ -1255,5 +1255,5 @@ As npm documentation says:
  ```
 
 [npm]: https://www.npmjs.org/package/reactuate
-[npm-badge]: https://img.shields.io/npm/v/reactuate.svg?style=flat-square
+[npm-badge]: https://img.shields.io/npm/v/reactuate.svg
 [david-dm]: https://david-dm.org/reactuate/reactuate.svg
