@@ -133,10 +133,12 @@ By default, it will assume your index.html to be this:
 When you are ready to override it, simply copy the above file to the root of your project.
 
 <!--+ [index file]() -->
+<!--+
 ```js
 require('fs').existsSync(path.join(process.cwd(), 'index.html')) ?
   path.join(process.cwd(), 'index.html') : path.join(__dirname, 'sample', 'index.html')
-```
+``` -->
+
 This file will be processed with [npm|html-webpack-plugin@1.7.0](# "push:").
 
 Reactuate will search for source code files in this directory in your project:
@@ -149,9 +151,10 @@ It will assume your main file in that directory to be `index.js`, and if there i
 
 <!--+ [main file]() -->
 
+<!--+
 ```js
 require('fs').existsSync(path.join(options.sourceDirectory || '_":source directory"', 'index.js')) ? path.join(options.sourceDirectory || '_":source directory"', 'index.js') : path.join(__dirname, 'sample','index.js')
-```
+``` -->
 
 
 All the JavaScript files are going to be process by Babel through the use of
@@ -183,9 +186,8 @@ Source code builds will be produced into this directory in your project:
 
 <!--+ []() -->
 
-This is how the Webpack is configured:
-
 <!--+ [webpack-config.js](# "save:") -->
+<!--+
 ```js
 var path = require('path')
 
@@ -204,10 +206,12 @@ module.exports = function(options) {
   console.log('Using ' + index + ' as an index file')
 
   var entry = path.resolve(process.cwd(), main)
-```
+``` -->
 
-When in development mode, Webpack should use Webpack development server:
+When used in development mode, Webpack should use Webpack development server as
+an entry point and enable hot module replacement,
 
+<!--+
 ```js
   if (!production) {
     entry = [
@@ -216,18 +220,18 @@ When in development mode, Webpack should use Webpack development server:
         entry
       ]
   }
-```
+``` -->
 
-and enable hot module replacement
-
+<!--+
 ```js
   if (!production) {
     plugins.push(new webpack.HotModuleReplacementPlugin())
     plugins.push(new HtmlWebpackPlugin({template: index, inject: true}))
   }
 ```
+-->
 
-In production, more HTML processing will happening
+In production, following HTML processing will be performed:
 
 ```js
 if (production) {
@@ -250,70 +254,78 @@ if (production) {
 }
 ```
 
-We will also define the location of the reactuate module as `REACTUATE_DIRNAME`:
+Reactuate's Webpack configuration will define the location of the reactuate module as `REACTUATE_DIRNAME` variable in the target runtime.
 
+<!--+
 ```js
 plugins.push(new webpack.DefinePlugin({"REACTUATE_DIRNAME": production ? "undefined" : JSON.stringify(__dirname)}))
-```
+``` -->
 
-In production, we will produce compacted and somewhat obscured JavaScript (no source map to avoid divulging original source code's information)
+In production, it will produce compacted and somewhat obscured JavaScript (no source map to avoid divulging original source code's information).
 
+<!--+
 ```js
 if (production) {
   plugins.push(new webpack.optimize.UglifyJsPlugin({sourceMap: false, compress: {warnings: false}}))
 }
-```
+``` -->
 
-It is quite convenient to be able to know if we're running a development or production instance in the browser (not to mention certain optimizations):
+It will also set `process.env` to your host's `process.env.NODE_ENV` (if none specified, then it will be assumed to be `development`).
 
+<!--+
 ```js
 plugins.push(new webpack.DefinePlugin({
   "process.env": {
     NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development")
   }
 }))
-```
+``` -->
 
-
-
+<!--+
 ```js
 var jsLoaders = []
-```
+``` -->
 
-Reactuate enables ES2015, react/react hot module replacement, and stage-0 presets:
+Reactuate enables ES2015, react/react hot module replacement, and stage-0 presets.
 
+<!--+
 ```js
   jsLoaders.push('babel-loader?{presets:["react","es2015","stage-0"],plugins:["transform-export-extensions"],env:{development:{presets:["react-hmre"]}, production: {plugins:["transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}')
-```
+``` -->
 
+<!--+
 ```js
   loaders.push({test: /\.js$/,
     loaders: jsLoaders,
     exclude: /node_modules\/(?!reactuate)/
   })
-```
+``` -->
 
-It will also enable *source maps* in development:
+It will also enable *source maps* in development.
 
+<!--+
 ```js
   var devtool = process.env.NODE_ENV === 'production' ? undefined : 'cheap-module-inline-source-map'
-```
+``` -->
 
 Reactuate also allows importing JSON files with [json-loader](https://github.com/webpack/json-loader) [npm|json-loader@0.5.4](# "push:").
 
+<!--+
 ```js
   loaders.push({ test: /\.json$/, loader: 'json'})
-```
+``` -->
 
 Reactuate allows importing CSS files with [npm|style-loader@0.13.0](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.5.3](# "push:") with [npm|less-loader@2.2.2](# "push:"). It also includes [npm|postcss-loader@0.8.0](# "push:"), [npm|postcss-import@7.1.3](# "push:").
 
+<!--+
 ```js
   loaders.push({ test: /\.css$/, loader: 'style!css!postcss'})
   loaders.push({ test: /\.less$/, loader: 'style!css!less'})
-```
+``` -->
 
 Reactuate allows importing fonts and images with [npm|file-loader@0.8.5](# "push:") and [npm|url-loader@0.5.7](# "push:").
 
+<!--+
 ```js
   loaders.push({ test: /\.woff(2)?(\?.+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" })
   loaders.push({ test: /\.ttf(\?.+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" })
@@ -322,8 +334,9 @@ Reactuate allows importing fonts and images with [npm|file-loader@0.8.5](# "push
   loaders.push({ test: /\.png$/, loader: "url-loader?limit=100000" })
   loaders.push({ test: /\.jpg$/, loader: "file-loader" })
 
-```
+``` -->
 
+<!--+
 ```js
   return {
     entry: entry,
@@ -347,11 +360,6 @@ Reactuate allows importing fonts and images with [npm|file-loader@0.8.5](# "push
     target: "web", // Make web variables accessible to webpack, e.g. window
     stats: false, // Don't show stats in the console
     progress: true,
-```
-
-An important part is being able to resolve application's own dependencies
-
-```js
     resolve: {
       root: [path.resolve(path.join(process.cwd(), 'node_modules'))]
     }
@@ -376,6 +384,7 @@ $ npm run build
 ```
 
 <!--+ [default webpack config]() -->
+<!--+
 ```js
 var path = require('path')
 var fs = require('fs')
@@ -386,7 +395,7 @@ if (fs.existsSync(configFile)) {
 var config = fs.existsSync(configFile) ? require(configFile) : {}
 module.exports = require(path.join(__dirname, 'webpack-config'))(config)
 module.exports._config = config
-```
+``` -->
 
 <!--+ [default-webpack-config.js](#:default-webpack-config "save:") -->
 
