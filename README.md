@@ -461,7 +461,7 @@ new WebpackDevServer(webpack(config), { // Start a server
 
 ## Babel Layer
 
-Reactuate encourages the use of most recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today [npm|babel-core@6.4.5](# "push:").
+Reactuate encourages the use of most recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today [npm|babel-core@6.4.5](# "push:") (also required as a peer dependency [npm-peer|babel-core@6.4.5](# "push:")).
 
 Babel 6 is still fairly new and unfortunately, not all tools support it well, but this should be less of a problem going forward.
 
@@ -1230,6 +1230,9 @@ We process all declared dependencies to produce dependencies:
   "engines": {"node": ">=_"Requirements:Node.js version" <6.0"},
   "dependencies": {
       _"npm| .mapc dependency | .join \,\n"
+  },
+  "peerDependencies": {
+      _"npm-peer| .mapc dependency | .join \,\n"
   },
   "bugs": {
     "url": "https://github.com/reactuate/reactuate/issues"
