@@ -1,5 +1,5 @@
 [![npm package][npm-badge]][npm]
-[![dependencies][david-dm]][npm]
+[![dependencies][david-dm]][david]
 
 # Reactuate
 
@@ -1263,3 +1263,4 @@ As npm documentation says:
 [npm]: https://www.npmjs.org/package/reactuate
 [npm-badge]: https://img.shields.io/npm/v/reactuate.svg
 [david-dm]: https://david-dm.org/reactuate/reactuate.svg
+[david]: https://david-dm.org/reactuate/reactuate
