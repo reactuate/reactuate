@@ -11,7 +11,7 @@ Reactuate is an opinionated stack for building React/Redux-based frontend applic
 
 Current published version:
 
-    0.1.12
+    0.1.13
 
 ## License
 
@@ -108,7 +108,7 @@ The rest of this manual will introduce you to the concepts and software used in 
 
 # Webpack Layer
 
-We serve the application in development mode and package the production version using [webpack](http://webpack.github.io) package [npm|webpack@1.12.11](# "push:"):
+We serve the application in development mode and package the production version using [webpack](http://webpack.github.io) package [npm|webpack@1.12.12](# "push:"):
 
 ## Webpack Configuration
 
@@ -142,7 +142,7 @@ require('fs').existsSync(path.join(process.cwd(), 'index.html')) ?
   path.join(process.cwd(), 'index.html') : path.join(__dirname, 'sample', 'index.html')
 ``` -->
 
-This file will be processed with [npm|html-webpack-plugin@1.7.0](# "push:").
+This file will be processed with [npm|html-webpack-plugin@2.7.2](# "push:").
 
 Reactuate will search for source code files in this directory in your project:
 
@@ -461,7 +461,7 @@ new WebpackDevServer(webpack(config), { // Start a server
 
 ## Babel Layer
 
-Reactuate encourages the use of most recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today [npm|babel-core@6.4.0](# "push:").
+Reactuate encourages the use of most recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today [npm|babel-core@6.4.5](# "push:").
 
 Babel 6 is still fairly new and unfortunately, not all tools support it well, but this should be less of a problem going forward.
 
@@ -485,7 +485,7 @@ Reactuate is a React-based stack, so it naturally depends on [npm|react@0.14.6](
 ## Redux Layer
 
 Part of React's power lies in the associated "Flux" architecture. There are many
-different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.0.5](# "push:") and its React binding [npm|react-redux@4.0.6](# "push:"). To enable asynchronous action creators, we jave included [npm|redux-thunk@1.0.3](# "push:") (however, we promote another way to handle asynchronous operations, more on that later). It also uses [npm|redux-logger@2.3.2](# "push:") for logging.
+different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.0.6](# "push:") and its React binding [npm|react-redux@4.0.6](# "push:"). To enable asynchronous action creators, we jave included [npm|redux-thunk@1.0.3](# "push:") (however, we promote another way to handle asynchronous operations, more on that later). It also uses [npm|redux-logger@2.4.0](# "push:") for logging.
 
 Our own version of `createStore` takes care of a few things automatically.
 
@@ -909,7 +909,7 @@ _":Domain reducer example"
 
 ## Managing effects
 
-When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [npm|redux-saga@0.4.1](# "push:") for that.
+When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [npm|redux-saga@0.5.0](# "push:") for that.
 
 **createSaga**
 
