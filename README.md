@@ -11,7 +11,7 @@ Reactuate is an opinionated stack for building React/Redux-based frontend applic
 
 Current published version:
 
-    0.1.13
+    0.1.14
 
 ## License
 
@@ -179,7 +179,7 @@ In production builds, following optimizations are used:
 
 * [npm|babel-plugin-transform-react-constant-elements@6.4.0](# "push:")
 * [npm|babel-plugin-transform-react-inline-elements@6.4.0](# "push:")
-* [npm|babel-plugin-transform-react-remove-prop-types@0.1.0](# "push:")
+* [npm|babel-plugin-transform-react-remove-prop-types@0.2.1](# "push:")
 
 Source code builds will be produced into this directory in your project:
 
@@ -318,7 +318,7 @@ Reactuate also allows importing JSON files with [json-loader](https://github.com
   loaders.push({ test: /\.json$/, loader: 'json'})
 ``` -->
 
-Reactuate allows importing CSS files with [npm|style-loader@0.13.0](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.5.3](# "push:") with [npm|less-loader@2.2.2](# "push:"). It also includes [npm|postcss-loader@0.8.0](# "push:"), [npm|postcss-import@7.1.3](# "push:").
+Reactuate allows importing CSS files with [npm|style-loader@0.13.0](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.6.0](# "push:") with [npm|less-loader@2.2.2](# "push:"). It also includes [npm|postcss-loader@0.8.0](# "push:"), [npm|postcss-import@8.0.2](# "push:").
 
 <!--+
 ```js
@@ -480,12 +480,12 @@ Reactuate itself requires the following Babel configuration:
 
 # React Layer
 
-Reactuate is a React-based stack, so it naturally depends on [npm|react@0.14.6](# "push:") and[npm|react-dom@0.14.6](# "push:").
+Reactuate is a React-based stack, so it naturally depends on [npm|react@0.14.7](# "push:") and[npm|react-dom@0.14.7](# "push:").
 
 ## Redux Layer
 
 Part of React's power lies in the associated "Flux" architecture. There are many
-different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.0.6](# "push:") and its React binding [npm|react-redux@4.0.6](# "push:"). To enable asynchronous action creators, we jave included [npm|redux-thunk@1.0.3](# "push:") (however, we promote another way to handle asynchronous operations, more on that later). It also uses [npm|redux-logger@2.4.0](# "push:") for logging.
+different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.1.5](# "push:") and its React binding [npm|react-redux@4.1.2](# "push:"). To enable asynchronous action creators, we jave included [npm|redux-thunk@1.0.3](# "push:") (however, we promote another way to handle asynchronous operations, more on that later). It also uses [npm|redux-logger@2.4.0](# "push:") for logging.
 
 Our own version of `createStore` takes care of a few things automatically.
 
@@ -909,7 +909,7 @@ _":Domain reducer example"
 
 ## Managing effects
 
-When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [npm|redux-saga@0.5.0](# "push:") for that.
+When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [npm|redux-saga@0.6.0](# "push:") for that.
 
 **createSaga**
 
