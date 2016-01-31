@@ -11,7 +11,7 @@ Reactuate is an opinionated stack for building React/Redux-based frontend applic
 
 Current published version:
 
-    0.1.14
+    0.1.15
 
 ## License
 
@@ -1132,70 +1132,57 @@ function(input, args, name) {
 
 Reactuate is nice enough to help you finalizing your setup once it is installed. This requires [npm|yesno@0.0.1](# "push:").
 
-<!--+ [postinstall.es6]() -->
-```js
-import path  from 'path'
-import yesno from 'yesno'
-import { existsSync, readFileSync, writeFileSync } from 'fs'
-
-function printInstructions() {
-  console.log(`Add this to your package.json:
-
-_"Running a development Webpack server:webpack-dev-server-script|trim"
-
-  This way you can easily run your application:
-
-_"Running a development Webpack server:webpack-dev-server-start"
-
-  Also, you can add this to your package.json
-
-_"Webpack Configuration:npm run build"
-
-  This way you can easily make a production build of your application:
-
-_"Webpack Configuration:npm run build command"
-`)
-}
-
-const cwd = process.cwd()
-const packageJson = path.join(cwd, '..', '..', 'package.json')
-
-const startScript = "node node_modules/reactuate/webpack-dev-server.js"
-const buildScript = "NODE_ENV=production webpack --config node_modules/reactuate/default-webpack-config.js --progress --colors"
-
-if (existsSync(packageJson)) {
-  let pkg = JSON.parse(readFileSync(packageJson))
-  let scripts = pkg.scripts || {}
-  if (scripts.start !== startScript ||
-      scripts.build !== buildScript) {
-      printInstructions()
-      yesno.ask('Reactuate can add these convenience helpers to your package.json automatically. Proceed? ([yes]/no)', true, function(ok) {
-        if (ok) {
-          console.log("Updating your package.json")
-          let pkg = JSON.parse(readFileSync(packageJson))
-          scripts.start = startScript
-          scripts.build = buildScript
-          pkg.scripts = scripts
-          writeFileSync(packageJson, JSON.stringify(pkg, null, 4))
-        }
-        process.exit(0)
-      })
-  } else {
-    console.log("Congratulations! Your package scripts are already configured for Reactuate")
-  }
-} else {
-  console.log("WARNING: Looks like you haven't initialized your package with `npm init`")
-  printInstructions()
-}
-
-```
-
-<!--+ [postinstall.es6](#:postinstall.es6 "save:") -->
-
 <!--+ [postinstall]() -->
 ```js
-require("babel-register")
-require("./postinstall.es6")
+'use strict';
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+var _yesno = require('yesno');
+
+var _yesno2 = _interopRequireDefault(_yesno);
+
+var _fs = require('fs');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function printInstructions() {
+  console.log('Add this to your package.json:\n\n"scripts": {\n  "start": "node node_modules/reactuate/webpack-dev-server.js"\n}\n\n  This way you can easily run your application:\n\n$ npm start\n\n  Also, you can add this to your package.json\n\n"scripts": {\n  "build": "NODE_ENV=production webpack --config node_modules/reactuate/default-webpack-config.js --progress --colors"\n}\n\n  This way you can easily make a production build of your application:\n\n$ npm run build\n');
+}
+
+var cwd = process.cwd();
+var packageJson = _path2.default.join(cwd, '..', '..', 'package.json');
+
+var startScript = "node node_modules/reactuate/webpack-dev-server.js";
+var buildScript = "NODE_ENV=production webpack --config node_modules/reactuate/default-webpack-config.js --progress --colors";
+
+if ((0, _fs.existsSync)(packageJson)) {
+  (function () {
+    var pkg = JSON.parse((0, _fs.readFileSync)(packageJson));
+    var scripts = pkg.scripts || {};
+    if (scripts.start !== startScript || scripts.build !== buildScript) {
+      printInstructions();
+      _yesno2.default.ask('Reactuate can add these convenience helpers to your package.json automatically. Proceed? ([yes]/no)', true, function (ok) {
+        if (ok) {
+          console.log("Updating your package.json");
+          var _pkg = JSON.parse((0, _fs.readFileSync)(packageJson));
+          scripts.start = startScript;
+          scripts.build = buildScript;
+          _pkg.scripts = scripts;
+          (0, _fs.writeFileSync)(packageJson, JSON.stringify(_pkg, null, 4));
+        }
+        process.exit(0);
+      });
+    } else {
+      console.log("Congratulations! Your package scripts are already configured for Reactuate");
+    }
+  })();
+} else {
+  console.log("WARNING: Looks like you haven't initialized your package with `npm init`");
+  printInstructions();
+}
 ```
 
 <!--+ [postinstall.js](#:postinstall "save:") -->
