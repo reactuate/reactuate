@@ -78,7 +78,9 @@ var jsLoaders = []
     postcss: function() {
       return [
       require('postcss-import')({
-        glob: true,
+        resolve: function(id, base) {
+            return require('globby').sync(path.join(base, id))
+        },
         onImport: function (files) {
              files.forEach(this.addDependency)
          }.bind(this)

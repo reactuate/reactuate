@@ -1,6 +1,6 @@
 {
   "name": "reactuate",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Reactuate is an opinionated React-based stack",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,7 @@
       "less-loader": "2.2.2",
       "postcss-loader": "0.8.0",
       "postcss-import": "8.0.2",
+      "globby": "4.0.0",
       "file-loader": "0.8.5",
       "url-loader": "0.5.7",
       "raw-loader": "0.5.1",

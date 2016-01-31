@@ -11,7 +11,7 @@ Reactuate is an opinionated stack for building React/Redux-based frontend applic
 
 Current published version:
 
-    0.1.15
+    0.1.16
 
 ## License
 
@@ -318,7 +318,8 @@ Reactuate also allows importing JSON files with [json-loader](https://github.com
   loaders.push({ test: /\.json$/, loader: 'json'})
 ``` -->
 
-Reactuate allows importing CSS files with [npm|style-loader@0.13.0](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.6.0](# "push:") with [npm|less-loader@2.2.2](# "push:"). It also includes [npm|postcss-loader@0.8.0](# "push:"), [npm|postcss-import@8.0.2](# "push:").
+Reactuate allows importing CSS files with [npm|style-loader@0.13.0](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.6.0](# "push:") with [npm|less-loader@2.2.2](# "push:"). It also includes [npm|postcss-loader@0.8.0](# "push:"), [npm|postcss-import@8.0.2](# "push:"). In
+order to enable globbing in CSS processing in postcss-import, [npm|globby@4.0.0](# "push:") is required.
 
 <!--+
 ```js
@@ -351,7 +352,9 @@ files as a string, if necessary, using the `"raw!/path/to/file"` syntax.
     postcss: function() {
       return [
       require('postcss-import')({
-        glob: true,
+        resolve: function(id, base) {
+            return require('globby').sync(path.join(base, id))
+        },
         onImport: function (files) {
              files.forEach(this.addDependency)
          }.bind(this)
