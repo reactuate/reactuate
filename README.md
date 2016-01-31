@@ -1264,6 +1264,6 @@ As npm documentation says:
  ```
 
 [npm]: https://www.npmjs.org/package/reactuate
-[npm-badge]: https://img.shields.io/npm/v/reactuate.svg
+[npm-badge]: https://badge.fury.io/js/reactuate.svg
 [david-dm]: https://david-dm.org/reactuate/reactuate.svg
 [david]: https://david-dm.org/reactuate/reactuate
