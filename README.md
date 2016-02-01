@@ -14,6 +14,8 @@ helps shipping software fast.
 This is an early version, and some things are in a flux, and some underlying
 libraries and APIs will change before 1.0.
 
+[Next version roadmap](https://github.com/reactuate/reactuate/milestones/0.2)
+
 ## Version
 
 Current published version:
