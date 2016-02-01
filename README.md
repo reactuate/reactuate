@@ -49,7 +49,6 @@ Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
   - [Managing effects](#managing-effects)
   - [Putting it all together](#putting-it-all-together)
 - [Example Application](#example-application)
-- [Appendix 0. Package Dependency](#appendix-0-package-dependency)
 - [Appendix 1. Post-Installation Instructions](#appendix-1-post-installation-instructions)
 - [Appendix A. Package file](#appendix-a-package-file)
 - [Appendix B. .gitignore](#appendix-b-gitignore)
@@ -1149,21 +1148,6 @@ new Application({routes, domains: {counter, counterAsync}}).render()
 <!--+ [sample/index.js](#:Example "save:") -->
 
 
-# Appendix 0. Package Dependency
-
-The following `dependency` command is used to generate dependencies for
-package.json:
-
-<!--+ [dependency](# "define:") -->
-```js
-function(input, args, name) {
-    var arr = input.split("@"),
-        package = arr[0],
-        version = arr[1]
-    return '"' + package + '": "' + version + '"'
-}
-```
-
 # Appendix 1. Post-Installation Instructions
 
 Reactuate is nice enough to help you finalizing your setup once it is installed. This requires [npm|yesno@0.0.1](# "push:").
@@ -1226,10 +1210,24 @@ if ((0, _fs.existsSync)(packageJson)) {
 
 # Appendix A. Package file
 
-We process all declared dependencies to produce dependencies:
+We process all dependencies declared in this file to produce a list of dependencies for package.json.
 
-<!--+ [package.json](# "save:") -->
+<!--+ [dependency]() -->
+<!--+
+```js
+function(input, args, name) {
+    var arr = input.split("@"),
+        package = arr[0],
+        version = arr[1]
+    return '"' + package + '": "' + version + '"'
+}
+```
+-->
+<!--+ [dependency](#:dependency "define:")
 
+
+<!--+ [package.json]() -->
+<!--+
 ```json
 {
   "name": "reactuate",
@@ -1265,6 +1263,9 @@ We process all declared dependencies to produce dependencies:
   "babel": _"Babel Layer:.babelrc"
 }
 ```
+-->
+
+<!--+ [package.json](# "save:") -->
 
 # Appendix B. .gitignore
 
