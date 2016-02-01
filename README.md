@@ -107,10 +107,12 @@ $ npm start
 $ node node_modules/reactuate/webpack-dev-server.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and complete the TODO
-list!
+Now you can open [http://localhost:3000](http://localhost:3000) to run the first
+application!
 
-The rest of this manual will introduce you to the concepts and software used in the stack.
+The rest of this manual will introduce you to the concepts and software used in the stack. Please note that this stack is developed as a literate program. This
+means that you'll see excerpts from the stack's code and examples of how you
+can use these parts. All excerpts are marked with this image: [![excerpt]](#)
 
 
 # Webpack Layer
@@ -243,6 +245,7 @@ an entry point and enable hot module replacement,
 
 In production, following HTML processing will be performed:
 
+[![excerpt]](#)
 ```js
 if (production) {
   plugins.push(new HtmlWebpackPlugin({
@@ -441,6 +444,7 @@ $ npm start
 
 ### Development server
 
+[![excerpt]](#)
 <!--+ [webpack-dev-server.js](# "save:") -->
 ```js
 var path = require('path'),
@@ -481,6 +485,7 @@ ES6 also has new APIs that are provided by [npm|babel-polyfill@6.3.14](# "push:"
 
 Reactuate itself requires the following Babel configuration:
 
+[![excerpt]](#)
 <!--+ [.babelrc]() -->
 ```json
 {"presets":["react","es2015","stage-0"], "plugins":["transform-export-extensions"]}
@@ -499,6 +504,7 @@ different implementations of it, and Reactuate is using [Redux](http://rackt.org
 
 Our own version of `createStore` takes care of a few things automatically.
 
+[![excerpt]](#)
 <!--+ [createStore.js]() -->
 ```js
 import { createHistory }                         from 'history'
@@ -585,6 +591,8 @@ First of all, we want to define a way to create a router-enabled composite reduc
 
 <!--+ [combineReducers.js]() -->
 
+[![excerpt]](#)
+
 **combineReducers**
 
 ```js
@@ -602,6 +610,8 @@ export default function(reducers) {
 <!--+ [src/combineReducers.js](#:combineReducers.js "save:") -->
 
 We also standardize route initialization. This step is hidden from the end user.
+
+[![excerpt]](#)
 
 **createRouter**
 
@@ -673,6 +683,8 @@ Now we have approached one of the most important aspects of Reactuate. We struct
 While JavaScript as a language is quite flexible and doesn't possess a strong type system, there are some great libraries available that solve this problem to an extent. Reactuate applications make a heavy use of [npm|tcomb@2.6.0](# "push:") and its helper module [npm|tcomb-form-types@1.1.0](# "push:").
 
 First of all, we need to define a class representing a domain. It is a named container for all things associated with one domain (including, but not limited to, types, action creators, sagas and a reducer).
+
+[![excerpt]](#)
 
 **Domain**
 
@@ -747,6 +759,8 @@ const State = t.struct({
 
 In the above example, we are defining a state that has a counter. Now, we should define an increment action. Reactuate offers helper functionality to do so, in adherence with [FSA](https://github.com/acdlite/flux-standard-action) [npm|flux-standard-action@0.6.0](# "push:") guidelines:
 
+[![excerpt]](#)
+
 **createAction**
 
 <!--+ [createAction.js]() -->
@@ -811,7 +825,10 @@ export default function(domain, action, payload = t.Any, defaultValue = undefine
 Unfortunately, tcomb structures do not fit the definition of a plain object
 required by redux, so we have to implement a custom middleware that strips the extra metadata.
 
+[![excerpt]](#)
+
 **domainMiddleware**
+
 <!--+ [domainMiddleware.js]() -->
 ```js
 export default function ({ getState }) {
@@ -855,6 +872,8 @@ Where each `Matcher` has the following structure: `type, [guard], handler`:
 * `handler` is a function that handles the action `(state, action) => State`
 
 It also takes care of disabling state mutation (however, normally this shouldn't be necessary, if tcomb is used for action creators).
+
+[![excerpt]](#)
 
 **createReducer**
 
@@ -921,6 +940,9 @@ _":Domain reducer example"
 
 When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [npm|redux-saga@0.6.0](# "push:") for that.
 
+
+[![excerpt]](#)
+
 **createSaga**
 
 <!--+ [createSaga.js]() -->
@@ -975,6 +997,8 @@ export default asyncDomain
 
 
 ## Putting it all together
+
+[![excerpt]](#)
 
 <!--+ [Application.js]() -->
 ```js
@@ -1265,3 +1289,4 @@ As npm documentation says:
 [npm-badge]: https://badge.fury.io/js/reactuate.svg
 [david-dm]: https://david-dm.org/reactuate/reactuate.svg
 [david]: https://david-dm.org/reactuate/reactuate
+[excerpt]: https://raw.githubusercontent.com/reactuate/reactuate/master/excerpt.png
