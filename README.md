@@ -5,7 +5,14 @@
 
 [![Join the chat at https://gitter.im/reactuate/reactuate](https://badges.gitter.im/reactuate/reactuate.svg)](https://gitter.im/reactuate/reactuate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Reactuate is an opinionated stack for building React/Redux-based frontend applications with a focus on DDD (Domain-Driven Design).
+Reactuate is an opinionated stack for building React/Redux-based frontend applications with a focus on DDD (Domain-Driven Design). The rationale behind
+this project is to ensure there's a "standard stack" with compatible
+versions of various libraries stitched together in a cohesive way. This comes
+at a cost of reduced ability to swap out certain components but ultimately
+helps shipping software fast.
+
+This is an early version, and some things are in a flux, and some underlying
+libraries and APIs will change before 1.0.
 
 ## Version
 
