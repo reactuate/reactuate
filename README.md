@@ -1143,6 +1143,7 @@ function(input, args, name) {
 Reactuate is nice enough to help you finalizing your setup once it is installed. This requires [npm|yesno@0.0.1](# "push:").
 
 <!--+ [postinstall]() -->
+<!--+
 ```js
 'use strict';
 
@@ -1194,7 +1195,7 @@ if ((0, _fs.existsSync)(packageJson)) {
   printInstructions();
 }
 ```
-
+-->
 <!--+ [postinstall.js](#:postinstall "save:") -->
 
 # Appendix A. Package file
