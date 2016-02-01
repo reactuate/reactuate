@@ -68,7 +68,7 @@ Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
 architecture (unidirectional data flow)
 * Domain-Driven Design with [tcomb](https://github.com/gcanti/tcomb)
 * [Babel](https://babeljs.io) future generation JavaScript transpiler.
-* Hot code reloading for React with[react-transform-hmr](https://github.com/gaearon/react-transform-hmr)
+* Hot code reloading for React with [react-transform-hmr](https://github.com/gaearon/react-transform-hmr)
 * [react-router](https://github.com/rackt/react-router) and [redux-router](https://github.com/acdlite/redux-router) are used for routing.
 * [redux-saga](https://github.com/yelouafi/redux-saga) for complex asynchronous
 workflows orchestration
