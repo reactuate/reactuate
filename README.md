@@ -45,6 +45,7 @@ Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
   - [Layout](#layout)
   - [Domain](#domain)
   - [Managing effects](#managing-effects)
+  - [View Layer](#view-layer)
   - [Putting it all together](#putting-it-all-together)
 - [Example Application](#example-application)
 - [Appendix 0. Package Dependency](#appendix-0-package-dependency)
@@ -755,6 +756,8 @@ export default domain
 const State = t.struct({
   counter: ft.Number.Integer
 }, State)
+
+domain.State = State
 ```
 
 In the above example, we are defining a state that has a counter. Now, we should define an increment action. Reactuate offers helper functionality to do so, in adherence with [FSA](https://github.com/acdlite/flux-standard-action) [npm|flux-standard-action@0.6.0](# "push:") guidelines:
@@ -995,6 +998,33 @@ export default asyncDomain
 
 <!--+ [sample/counter/async.js](#:Saga-example "save:") -->
 
+## View Layer
+
+As you have seen in the Domain layer, Reactuate uses `tcomb` library for managing state, reducers and action creators. Beyond this, Reactuate promotes
+sharing of your data model with your views through the use of [npm|tcomb-react@0.8.13](# "push:") so that one can do something like this:
+
+```js
+import { propTypes, t } from 'reactuate'
+import user from '../user' // user domain
+
+class Message extends React.Component {
+
+  static propTypes = propTypes({
+    user: user.User,
+    message: t.String
+  });
+
+  render() {
+    return (
+      <div>
+        <p><label>Email</label> {this.props.user.email}</p>
+        <p><label>Message</label> {this.props.message}</p>
+      </div>
+    )
+  }
+
+}
+```
 
 ## Putting it all together
 
@@ -1056,11 +1086,14 @@ export Domain                 from './Domain'
 export createReducer          from './createReducer'
 export createAction           from './createAction'
 export createSaga             from './createSaga'
+
 export React                  from 'react'
 export { Route }              from 'react-router'
 export { connect }            from 'react-redux'
 export { bindActionCreators } from 'redux'
+
 export t                      from 'tcomb'
+export { props, propTypes }   from 'tcomb-react'
 
 export { take, put, race, call,
          apply, cps, fork, join,
@@ -1076,7 +1109,9 @@ You can use it this way (this is the sample file you get by default, by the way!
 
 ```js
 import { React, Route, Application,
-         connect, bindActionCreators } from 'reactuate'
+         propTypes, connect, bindActionCreators } from 'reactuate'
+
+import ft               from 'tcomb-form-types'
 
 import counter from './counter'
 import counterAsync from './counter/async'
@@ -1088,6 +1123,9 @@ class App extends React.Component {
 }
 
 class HomePage extends React.Component {
+
+  static propTypes = propTypes({counter: ft.Number.Integer});
+
   handleIncrement() {
     this.props.actions.IncrementCounter()
   }

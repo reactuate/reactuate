@@ -1,5 +1,7 @@
 import { React, Route, Application,
-         connect, bindActionCreators } from 'reactuate'
+         propTypes, connect, bindActionCreators } from 'reactuate'
+
+import ft               from 'tcomb-form-types'
 
 import counter from './counter'
 import counterAsync from './counter/async'
@@ -11,6 +13,9 @@ class App extends React.Component {
 }
 
 class HomePage extends React.Component {
+
+  static propTypes = propTypes({counter: ft.Number.Integer});
+
   handleIncrement() {
     this.props.actions.IncrementCounter()
   }

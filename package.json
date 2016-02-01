@@ -60,6 +60,7 @@
       "tcomb-form-types": "1.1.0",
       "flux-standard-action": "0.6.0",
       "redux-saga": "0.6.0",
+      "tcomb-react": "0.8.13",
       "yesno": "0.0.1"
   },
   "peerDependencies": {

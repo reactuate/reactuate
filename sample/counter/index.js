@@ -9,6 +9,8 @@ const State = t.struct({
   counter: ft.Number.Integer
 }, State)
 
+domain.State = State
+
 import { createAction } from 'reactuate'
 
 const incrementParameter = t.struct({increment: ft.Number.Integer}, 'incrementParameter')
