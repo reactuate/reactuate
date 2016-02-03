@@ -56,7 +56,7 @@ plugins.push(new webpack.DefinePlugin({
 }))
 var jsLoaders = []
   jsLoaders.push('babel-loader?{presets:["react","es2015","stage-0"],plugins:["transform-export-extensions"],env:{development:{presets:["react-hmre"]}, production: {plugins:["transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}')
-  loaders.push({test: /\.js$/,
+  loaders.push({test: /\.(js|jsx)$/,
     loaders: jsLoaders,
     exclude: /node_modules\/(?!reactuate)/
   })
