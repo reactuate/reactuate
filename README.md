@@ -755,7 +755,7 @@ export default domain
 
 const State = t.struct({
   counter: ft.Number.Integer
-}, State)
+}, 'State')
 ```
 
 In the above example, we are defining a state that has a counter. Now, we should define an increment action. Reactuate offers helper functionality to do so, in adherence with [FSA](https://github.com/acdlite/flux-standard-action) [npm|flux-standard-action@0.6.0](# "push:") guidelines:

@@ -7,7 +7,7 @@ export default domain
 
 const State = t.struct({
   counter: ft.Number.Integer
-}, State)
+}, 'State')
 
 import { createAction } from 'reactuate'
 
