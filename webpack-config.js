@@ -15,10 +15,11 @@ module.exports = function(options) {
     path.join(process.cwd(), 'index.html') : path.join(__dirname, 'sample', 'index.html')
   console.log('Using ' + index + ' as an index file')
 
+  var port = (process.env.PORT ? parseInt(process.env.PORT, 10) : 3000)
   var entry = path.resolve(process.cwd(), main)
   if (!production) {
     entry = [
-        "webpack-dev-server/client?http://localhost:3000", // Needed for hot reloading
+        "webpack-dev-server/client?http://localhost:" + port, // Needed for hot reloading
         "webpack/hot/only-dev-server", // See above
         entry
       ]
