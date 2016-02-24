@@ -218,6 +218,7 @@ module.exports = function(options) {
   var index = options.indexFile || _":index file"
   console.log('Using ' + index + ' as an index file')
 
+  var port = (process.env.PORT ? parseInt(process.env.PORT, 10) : 3000)
   var entry = path.resolve(process.cwd(), main)
 ``` -->
 
@@ -228,7 +229,7 @@ an entry point and enable hot module replacement,
 ```js
   if (!production) {
     entry = [
-        "webpack-dev-server/client?http://localhost:3000", // Needed for hot reloading
+        "webpack-dev-server/client?http://localhost:" + port, // Needed for hot reloading
         "webpack/hot/only-dev-server", // See above
         entry
       ]
@@ -451,7 +452,8 @@ $ npm start
 var path = require('path'),
     webpack = require('webpack'),
     WebpackDevServer = require('webpack-dev-server'),
-    config = require(path.join(__dirname, 'default-webpack-config'))
+    config = require(path.join(__dirname, 'default-webpack-config')),
+    port = (process.env.PORT ? parseInt(process.env.PORT, 10) : 3000)
 
 console.log('Starting server...\n')
 
@@ -462,12 +464,12 @@ new WebpackDevServer(webpack(config), { // Start a server
   historyApiFallback: true,
   quiet: false,
   proxy: config._config.devProxy
-}).listen(3000, 'localhost', function (err, result) {
+}).listen(port, 'localhost', function (err, result) {
   if (err) {
     console.log(err)
   } else {
     console.log('Server started')
-    console.log('Listening at localhost:3000')
+    console.log('Listening at localhost:' + port)
   }
 })
 ```
