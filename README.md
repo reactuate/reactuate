@@ -108,8 +108,9 @@ $ npm start
 $ node node_modules/reactuate/webpack-dev-server.js
 ```
 
-Now you can open [http://localhost:3000](http://localhost:3000) to run the first
-application!
+Now you can open [http://localhost:3000](http://localhost:3000) to run the first application!
+
+_Note: The development server port defaults to 3000, but can be set by using the `PORT` environmental variable._
 
 The rest of this manual will introduce you to the concepts and software used in the stack. Please note that this stack is developed as a literate program. This
 means that you'll see excerpts from the stack's code and examples of how you
