@@ -504,7 +504,7 @@ Reactuate is a React-based stack, so it naturally depends on [npm|react@0.14.7](
 ## Redux Layer
 
 Part of React's power lies in the associated "Flux" architecture. There are many
-different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.1.7](# "push:") and its React binding [npm|react-redux@4.1.2](# "push:"). To enable asynchronous action creators, we jave included [npm|redux-thunk@1.0.3](# "push:") (however, we promote another way to handle asynchronous operations, more on that later). It also uses [npm|redux-logger@2.4.0](# "push:") for logging.
+different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.3.1](# "push:") and its React binding [npm|react-redux@4.4.0](# "push:"). To enable asynchronous action creators, we jave included [npm|redux-thunk@1.0.3](# "push:") (however, we promote another way to handle asynchronous operations, more on that later). It also uses [npm|redux-logger@2.6.1](# "push:") for logging.
 
 Our own version of `createStore` takes care of a few things automatically.
 
@@ -942,7 +942,7 @@ _":Domain reducer example"
 
 ## Managing effects
 
-When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [npm|redux-saga@0.6.0](# "push:") for that.
+When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [npm|redux-saga@0.9.2](# "push:") for that.
 
 
 [![excerpt]](#)
