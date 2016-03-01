@@ -20,7 +20,7 @@ libraries and APIs will change before 1.0.
 
 Current published version:
 
-    0.1.16
+    0.1.17
 
 ## License
 
