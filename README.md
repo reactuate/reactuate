@@ -1066,9 +1066,9 @@ export { connect }            from 'react-redux'
 export { bindActionCreators } from 'redux'
 export t                      from 'tcomb'
 
-export { take, put, race, call,
-         apply, cps, fork, join,
-         cancel, as } from 'redux-saga'
+export { takeEvery, takeLatest } from 'redux-saga'
+import { effects, utils }        from 'redux-saga'
+module.exports = {...module.exports, ...effects, ...utils}
 ```
 <!--+ [src/index.js](#:index.es6.js "save:") -->
 
