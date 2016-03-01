@@ -172,25 +172,25 @@ require('fs').existsSync(path.join(options.sourceDirectory || '_":source directo
 
 
 All the JavaScript files are going to be process by Babel through the use of
-[npm|babel-loader@6.2.1](# "push:") plugin.
+[npm|babel-loader@6.2.4](# "push:") plugin.
 
 To enable ES2015 syntax and experimental features, the following plugins are required:
 
-* [npm|babel-preset-es2015@6.3.13](# "push:")
-* [npm|babel-preset-stage-0@6.3.13](# "push:")
-* [npm|babel-plugin-transform-export-extensions@6.4.0](# "push:")
+* [npm|babel-preset-es2015@6.6.0](# "push:")
+* [npm|babel-preset-stage-0@6.5.0-1](# "push:")
+* [npm|babel-plugin-transform-export-extensions@6.5.0-1](# "push:")
 
 To enable React-specific features, a number of Babel plugins is required:
 
 * [npm|babel-plugin-react-transform@2.0.0](# "push:")
-* [npm|babel-preset-react@6.3.13](# "push:")
-* [npm|babel-preset-react-hmre@1.0.1](# "push:")
+* [npm|babel-preset-react@6.5.0-1](# "push:")
+* [npm|babel-preset-react-hmre@1.1.0](# "push:")
 
 In production builds, following optimizations are used:
 
-* [npm|babel-plugin-transform-react-constant-elements@6.4.0](# "push:")
-* [npm|babel-plugin-transform-react-inline-elements@6.4.0](# "push:")
-* [npm|babel-plugin-transform-react-remove-prop-types@0.2.1](# "push:")
+* [npm|babel-plugin-transform-react-constant-elements@6.5.0-1](# "push:")
+* [npm|babel-plugin-transform-react-inline-elements@6.5.0-1](# "push:")
+* [npm|babel-plugin-transform-react-remove-prop-types@0.2.2](# "push:")
 
 Source code builds will be produced into this directory in your project:
 
@@ -479,13 +479,13 @@ new WebpackDevServer(webpack(config), { // Start a server
 
 ## Babel Layer
 
-Reactuate encourages the use of most recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today [npm|babel-core@6.4.5](# "push:") (also required as a peer dependency [npm-peer|babel-core@6.4.5](# "push:")).
+Reactuate encourages the use of most recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today [npm|babel-core@6.6.0](# "push:") (also required as a peer dependency [npm-peer|babel-core@6.6.0](# "push:")).
 
 Babel 6 is still fairly new and unfortunately, not all tools support it well, but this should be less of a problem going forward.
 
-In order to avoid generating plain JavaScript files for this package, we also include [babel-register](https://babeljs.io/docs/usage/require/) [npm|babel-register@6.4.3](# "push:")
+In order to avoid generating plain JavaScript files for this package, we also include [babel-register](https://babeljs.io/docs/usage/require/) [npm|babel-register@6.6.0](# "push:")
 
-ES6 also has new APIs that are provided by [npm|babel-polyfill@6.3.14](# "push:").
+ES6 also has new APIs that are provided by [npm|babel-polyfill@6.6.1](# "push:").
 
 Reactuate itself requires the following Babel configuration:
 
