@@ -684,7 +684,7 @@ rename the whole domain without having to rename 4-5 files across the project!
 
 Now we have approached one of the most important aspects of Reactuate. We structure our applications around domains, not types of artifacts.
 
-While JavaScript as a language is quite flexible and doesn't possess a strong type system, there are some great libraries available that solve this problem to an extent. Reactuate applications make a heavy use of [npm|tcomb@2.6.0](# "push:") and its helper module [npm|tcomb-form-types@1.1.0](# "push:").
+While JavaScript as a language is quite flexible and doesn't possess a strong type system, there are some great libraries available that solve this problem to an extent. Reactuate applications make a heavy use of [npm|tcomb@2.7.0](# "push:") and its helper module [npm|tcomb-form-types@1.1.0](# "push:").
 
 First of all, we need to define a class representing a domain. It is a named container for all things associated with one domain (including, but not limited to, types, action creators, sagas and a reducer).
 
