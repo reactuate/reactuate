@@ -153,7 +153,7 @@ require('fs').existsSync(path.join(process.cwd(), 'index.html')) ?
   path.join(process.cwd(), 'index.html') : path.join(__dirname, 'sample', 'index.html')
 ``` -->
 
-This file will be processed with [npm|html-webpack-plugin@2.7.2](# "push:").
+This file will be processed with [npm|html-webpack-plugin@2.14.0](# "push:").
 
 Reactuate will search for source code files in this directory in your project:
 
@@ -182,15 +182,15 @@ To enable ES2015 syntax and experimental features, the following plugins are req
 
 To enable React-specific features, a number of Babel plugins is required:
 
-* [npm|babel-plugin-react-transform@2.0.0](# "push:")
+* [npm|babel-plugin-react-transform@2.0.2](# "push:")
 * [npm|babel-preset-react@6.5.0-1](# "push:")
-* [npm|babel-preset-react-hmre@1.1.0](# "push:")
+* [npm|babel-preset-react-hmre@1.1.1](# "push:")
 
 In production builds, following optimizations are used:
 
 * [npm|babel-plugin-transform-react-constant-elements@6.5.0-1](# "push:")
-* [npm|babel-plugin-transform-react-inline-elements@6.5.0-1](# "push:")
-* [npm|babel-plugin-transform-react-remove-prop-types@0.2.2](# "push:")
+* [npm|babel-plugin-transform-react-inline-elements@6.6.5](# "push:")
+* [npm|babel-plugin-transform-react-remove-prop-types@0.2.3](# "push:")
 
 Source code builds will be produced into this directory in your project:
 
@@ -331,7 +331,7 @@ Reactuate also allows importing JSON files with [json-loader](https://github.com
   loaders.push({ test: /\.json$/, loader: 'json'})
 ``` -->
 
-Reactuate allows importing CSS files with [npm|style-loader@0.13.0](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.6.0](# "push:") with [npm|less-loader@2.2.2](# "push:"). It also includes [npm|postcss-loader@0.8.0](# "push:"), [npm|postcss-import@8.0.2](# "push:"). In
+Reactuate allows importing CSS files with [npm|style-loader@0.13.1](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.6.1](# "push:") with [npm|less-loader@2.2.2](# "push:"). It also includes [npm|postcss-loader@0.8.2](# "push:"), [npm|postcss-import@8.0.2](# "push:"). In
 order to enable globbing in CSS processing in postcss-import, [npm|globby@4.0.0](# "push:") is required.
 
 <!--+
@@ -479,13 +479,13 @@ new WebpackDevServer(webpack(config), { // Start a server
 
 ## Babel Layer
 
-Reactuate encourages the use of most recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today [npm|babel-core@6.6.0](# "push:") (also required as a peer dependency [npm-peer|babel-core@6.6.0](# "push:")).
+Reactuate encourages the use of most recent versions of Babel. [Babel](http://babeljs.io) is a transpiler from future versions of ECMAScript to JavaScript you can run in the browser today [npm|babel-core@6.7.4](# "push:") (also required as a peer dependency [npm-peer|babel-core@6.7.4](# "push:")).
 
 Babel 6 is still fairly new and unfortunately, not all tools support it well, but this should be less of a problem going forward.
 
-In order to avoid generating plain JavaScript files for this package, we also include [babel-register](https://babeljs.io/docs/usage/require/) [npm|babel-register@6.6.0](# "push:")
+In order to avoid generating plain JavaScript files for this package, we also include [babel-register](https://babeljs.io/docs/usage/require/) [npm|babel-register@6.7.2](# "push:")
 
-ES6 also has new APIs that are provided by [npm|babel-polyfill@6.6.1](# "push:").
+ES6 also has new APIs that are provided by [npm|babel-polyfill@6.7.4](# "push:").
 
 Reactuate itself requires the following Babel configuration:
 
@@ -504,7 +504,7 @@ Reactuate is a React-based stack, so it naturally depends on [npm|react@0.14.7](
 ## Redux Layer
 
 Part of React's power lies in the associated "Flux" architecture. There are many
-different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.3.1](# "push:") and its React binding [npm|react-redux@4.4.0](# "push:"). To enable asynchronous action creators, we jave included [npm|redux-thunk@1.0.3](# "push:") (however, we promote another way to handle asynchronous operations, more on that later). It also uses [npm|redux-logger@2.6.1](# "push:") for logging.
+different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.3.1](# "push:") and its React binding [npm|react-redux@4.4.1](# "push:"). To enable asynchronous action creators, we jave included [npm|redux-thunk@2.0.1](# "push:") (however, we promote another way to handle asynchronous operations, more on that later). It also uses [npm|redux-logger@2.6.1](# "push:") for logging.
 
 Our own version of `createStore` takes care of a few things automatically.
 
@@ -586,7 +586,7 @@ It is important to note that it automatically injects a store enhancer for react
 As a foundation for routing React applications, we use [react-router](https://github.com/rackt/react-router)
 [npm|react-router@1.0.3](# "push:") (which requires a peer dependency of [npm|history@1.17.0](# "push:")).
 
-We also supplement it with a [npm|Redux extension](https://github.com/acdlite/redux-router) [npm|redux-router@1.0.0-beta7](# "push:"). Although this
+We also supplement it with a [npm|Redux extension](https://github.com/acdlite/redux-router) [npm|redux-router@1.0.0-beta8](# "push:"). Although this
 one is less stable, we believe it has more comprehensive functionality comparing to [redux-simple-router](redux-simple-router).
 
 First of all, we want to define a way to create a router-enabled composite reducer:
@@ -684,7 +684,7 @@ rename the whole domain without having to rename 4-5 files across the project!
 
 Now we have approached one of the most important aspects of Reactuate. We structure our applications around domains, not types of artifacts.
 
-While JavaScript as a language is quite flexible and doesn't possess a strong type system, there are some great libraries available that solve this problem to an extent. Reactuate applications make a heavy use of [npm|tcomb@2.7.0](# "push:") and its helper module [npm|tcomb-form-types@1.1.0](# "push:").
+While JavaScript as a language is quite flexible and doesn't possess a strong type system, there are some great libraries available that solve this problem to an extent. Reactuate applications make a heavy use of [npm|tcomb@3.0.0](# "push:") and its helper module [npm|tcomb-form-types@1.1.0](# "push:").
 
 First of all, we need to define a class representing a domain. It is a named container for all things associated with one domain (including, but not limited to, types, action creators, sagas and a reducer).
 
@@ -761,7 +761,7 @@ const State = t.struct({
 }, 'State')
 ```
 
-In the above example, we are defining a state that has a counter. Now, we should define an increment action. Reactuate offers helper functionality to do so, in adherence with [FSA](https://github.com/acdlite/flux-standard-action) [npm|flux-standard-action@0.6.0](# "push:") guidelines:
+In the above example, we are defining a state that has a counter. Now, we should define an increment action. Reactuate offers helper functionality to do so, in adherence with [FSA](https://github.com/acdlite/flux-standard-action) [npm|flux-standard-action@0.6.1](# "push:") guidelines:
 
 [![excerpt]](#)
 
@@ -942,7 +942,7 @@ _":Domain reducer example"
 
 ## Managing effects
 
-When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [npm|redux-saga@0.9.2](# "push:") for that.
+When asynchronous (thunk middleware) action creates are getting too complex, it's a sign that it's time to manage effects in an orchestrated way. We are using [redux-saga](https://github.com/yelouafi/redux-saga), [npm|redux-saga@0.9.5](# "push:") for that.
 
 
 [![excerpt]](#)
