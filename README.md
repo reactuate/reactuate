@@ -653,8 +653,8 @@ import React           from 'react'
 import { ReduxRouter } from 'redux-router'
 import { Provider }    from 'react-redux'
 
-export default function(store, routes) {
-  return <Provider store={store}><ReduxRouter>{routes}</ReduxRouter></Provider>
+export default function(store, routes, createElement) {
+  return <Provider store={store}><ReduxRouter createElement={createElement}>{routes}</ReduxRouter></Provider>
 }
 ```
 
@@ -1053,8 +1053,9 @@ export default class Application {
       }
     }
     if (!!this.routes) {
+      this.createElement = properties.createElement
       this.store = createStore(this.routes, this.domains)(combineReducers(this.reducers))
-      this.router = createRouter(this.store, this.routes)
+      this.router = createRouter(this.store, this.routes, this.createElement)
     }
   }
 

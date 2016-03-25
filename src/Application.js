@@ -18,8 +18,9 @@ export default class Application {
       }
     }
     if (!!this.routes) {
+      this.createElement = properties.createElement
       this.store = createStore(this.routes, this.domains)(combineReducers(this.reducers))
-      this.router = createRouter(this.store, this.routes)
+      this.router = createRouter(this.store, this.routes, this.createElement)
     }
   }
 
