@@ -1,3 +1,9 @@
+# 0.1.18
+
+- Routine dependencies upgrade
+- Added an ability to supply custom project-specific babelrc
+- Added an ability to pass `createElement` to react-router through `Application` properties (useful for Relay, for example)
+
 # 0.1.17
 
 - Babel has been updated to 6.6.0
