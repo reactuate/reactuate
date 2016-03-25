@@ -1295,4 +1295,4 @@ As npm documentation says:
 [npm-badge]: https://badge.fury.io/js/reactuate.svg
 [david-dm]: https://david-dm.org/reactuate/reactuate.svg
 [david]: https://david-dm.org/reactuate/reactuate
-[excerpt]: https://raw.githubusercontent.com/reactuate/reactuate/master/excerpt.png
+[excerpt]: https://img.shields.io/badge/excerpt-from%20the%20stack-green.svg
