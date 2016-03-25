@@ -56,7 +56,30 @@ plugins.push(new webpack.DefinePlugin({
   }
 }))
 var jsLoaders = []
-  jsLoaders.push('babel-loader?{presets:["react","es2015","stage-0"],plugins:["transform-export-extensions"],env:{development:{presets:["react-hmre"]}, production: {plugins:["transform-react-remove-prop-types","transform-react-constant-elements","transform-react-inline-elements"]}}}')
+  var fs = require('fs')
+  var deepestMerge = require('deepest-merge')
+  var babelConfig = {presets:["react","es2015","stage-0"],
+                     plugins:["transform-export-extensions"],
+                     env:{development:{presets:["react-hmre"]},
+                     production: {
+                       plugins:
+                         ["transform-react-remove-prop-types",
+                          "transform-react-constant-elements",
+                          "transform-react-inline-elements"]}}}
+  var babelrcFile = path.join(process.cwd(), '.babelrc')
+  var defaultBabelrcFile = path.join(process.cwd(), '.babelrc.default')
+  if (fs.existsSync(defaultBabelrcFile)) {
+    console.log('Using ' + defaultBabelrcFile)
+    var defaultBabelrc = JSON.parse(fs.readFileSync(defaultBabelrcFile))
+    babelConfig = deepestMerge(defaultBabelrc, babelConfig)
+  }
+  if (fs.existsSync(babelrcFile)) {
+    console.log('Using ' + babelrcFile)
+    var babelrc = JSON.parse(fs.readFileSync(babelrcFile))
+    babelConfig = deepestMerge(babelConfig, babelrc)
+  }
+  console.log('Babel config: \n' + JSON.stringify(babelConfig, null, ' '))
+  jsLoaders.push('babel-loader?' + JSON.stringify(babelConfig))
   loaders.push({test: /\.(js|jsx)$/,
     loaders: jsLoaders,
     exclude: /node_modules\/(?!reactuate)/
