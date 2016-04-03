@@ -20,7 +20,7 @@ libraries and APIs will change before 1.0.
 
 Current published version:
 
-    0.1.17
+    0.1.18
 
 ## License
 
@@ -119,7 +119,7 @@ can use these parts. All excerpts are marked with this image: [![excerpt]](#)
 
 # Webpack Layer
 
-We serve the application in development mode and package the production version using [webpack](http://webpack.github.io) package [npm|webpack@1.12.12](# "push:"):
+We serve the application in development mode and package the production version using [webpack](http://webpack.github.io) package [npm|webpack@1.12.14](# "push:"):
 
 ## Webpack Configuration
 
@@ -153,7 +153,7 @@ require('fs').existsSync(path.join(process.cwd(), 'index.html')) ?
   path.join(process.cwd(), 'index.html') : path.join(__dirname, 'sample', 'index.html')
 ``` -->
 
-This file will be processed with [npm|html-webpack-plugin@2.14.0](# "push:").
+This file will be processed with [npm|html-webpack-plugin@2.15.0](# "push:").
 
 Reactuate will search for source code files in this directory in your project:
 
@@ -190,7 +190,7 @@ In production builds, following optimizations are used:
 
 * [npm|babel-plugin-transform-react-constant-elements@6.5.0-1](# "push:")
 * [npm|babel-plugin-transform-react-inline-elements@6.6.5](# "push:")
-* [npm|babel-plugin-transform-react-remove-prop-types@0.2.3](# "push:")
+* [npm|babel-plugin-transform-react-remove-prop-types@0.2.4](# "push:")
 
 Source code builds will be produced into this directory in your project:
 
@@ -358,7 +358,7 @@ Reactuate also allows importing JSON files with [json-loader](https://github.com
   loaders.push({ test: /\.json$/, loader: 'json'})
 ``` -->
 
-Reactuate allows importing CSS files with [npm|style-loader@0.13.1](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.6.1](# "push:") with [npm|less-loader@2.2.2](# "push:"). It also includes [npm|postcss-loader@0.8.2](# "push:"), [npm|postcss-import@8.0.2](# "push:"). In
+Reactuate allows importing CSS files with [npm|style-loader@0.13.1](# "push:") [npm|css-loader@0.23.1](# "push:"), [npm|less@2.6.1](# "push:") with [npm|less-loader@2.2.3](# "push:"). It also includes [npm|postcss-loader@0.8.2](# "push:"), [npm|postcss-import@8.0.2](# "push:"). In
 order to enable globbing in CSS processing in postcss-import, [npm|globby@4.0.0](# "push:") is required.
 
 <!--+
@@ -526,7 +526,7 @@ Reactuate itself requires the following Babel configuration:
 
 # React Layer
 
-Reactuate is a React-based stack, so it naturally depends on [npm|react@0.14.7](# "push:") and[npm|react-dom@0.14.7](# "push:").
+Reactuate is a React-based stack, so it naturally depends on [npm|react@0.14.8](# "push:") and[npm|react-dom@0.14.8](# "push:").
 
 ## Redux Layer
 
