@@ -526,7 +526,7 @@ Reactuate itself requires the following Babel configuration:
 
 # React Layer
 
-Reactuate is a React-based stack, so it naturally depends on [npm|react@0.14.8](# "push:") and[npm|react-dom@0.14.8](# "push:").
+Reactuate is a React-based stack, so it naturally depends on [npm|react@15.0.1](# "push:") and[npm|react-dom@15.0.1](# "push:").
 
 ## Redux Layer
 
