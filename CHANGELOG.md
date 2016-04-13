@@ -1,3 +1,7 @@
+# 0.1.19
+
+- Upgraded React to v15
+
 # 0.1.18
 
 - Routine dependencies upgrade
