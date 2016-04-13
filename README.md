@@ -74,6 +74,12 @@ architecture (unidirectional data flow)
 * [redux-saga](https://github.com/yelouafi/redux-saga) for complex asynchronous
 workflows orchestration
 
+# Overview
+
+Below is a quick reference diagram of the Reactuate stack.
+
+![Diagram](https://raw.githubusercontent.com/reactuate/reactuate/master/diagram.png)
+
 # Requirements
 
 Reactuate requires the following version of Node.js:
