@@ -32,6 +32,7 @@ Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
 
 - [Core Objectives](#core-objectives)
 - [Features](#features)
+- [Overview](#overview)
 - [Requirements](#requirements)
 - [Getting started](#getting-started)
 - [Webpack Layer](#webpack-layer)
