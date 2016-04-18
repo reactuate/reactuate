@@ -538,7 +538,7 @@ Reactuate is a React-based stack, so it naturally depends on [npm|react@15.0.1](
 ## Redux Layer
 
 Part of React's power lies in the associated "Flux" architecture. There are many
-different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.3.1](# "push:") and its React binding [npm|react-redux@4.4.1](# "push:"). To enable asynchronous action creators, we jave included [npm|redux-thunk@2.0.1](# "push:") (however, we promote another way to handle asynchronous operations, more on that later). It also uses [npm|redux-logger@2.6.1](# "push:") for logging.
+different implementations of it, and Reactuate is using [Redux](http://rackt.org/redux/) [npm|redux@3.3.1](# "push:") and its React binding [npm|react-redux@4.4.1](# "push:"). To enable asynchronous action creators, we have included [npm|redux-thunk@2.0.1](# "push:") (however, we promote another way to handle asynchronous operations, more on that later). It also uses [npm|redux-logger@2.6.1](# "push:") for logging.
 
 Our own version of `createStore` takes care of a few things automatically.
 
