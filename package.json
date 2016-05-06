@@ -66,6 +66,10 @@
   "peerDependencies": {
       "babel-core": "6.7.4"
   },
+  "devDependencies": {
+      "doctoc": "^1.0.0",
+      "litpro": "^0.12.1"
+  },
   "bugs": {
     "url": "https://github.com/reactuate/reactuate/issues"
   },

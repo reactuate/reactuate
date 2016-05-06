@@ -923,7 +923,7 @@ export default function(domain, initialState, ...cases) {
   let reducer = (state = initialState, action) => {
     let typedAction = action
     if (action['type'] === '@@reactuate/action') {
-      let actionCreator = domain.get('actions')[domain.withoutPrefix(action.meta.name)]
+      let actionCreator = domain.get('actions')[domain.withoutPrefix(action.payload.type)]
       if (!t.Nil.is(actionCreator)) {
         typedAction = actionCreator(action.payload.payload, action.payload.error, action.payload.meta)
       }
