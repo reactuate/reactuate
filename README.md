@@ -48,10 +48,7 @@ Reactuate is licensed under the terms of [Apache 2.0 license](LICENSE.md).
   - [Layout](#layout)
   - [Domain](#domain)
   - [Managing effects](#managing-effects)
-  - [Putting it all together](#putting-it-all-together)
-- [Example Application](#example-application)
 - [Appendix 1. Post-Installation Instructions](#appendix-1-post-installation-instructions)
-- [Appendix A. Package file](#appendix-a-package-file)
 - [Appendix B. .gitignore](#appendix-b-gitignore)
 - [Appendix B1. .npmignore](#appendix-b1-npmignore)
 
@@ -923,7 +920,7 @@ export default function(domain, initialState, ...cases) {
   let reducer = (state = initialState, action) => {
     let typedAction = action
     if (action['type'] === '@@reactuate/action') {
-      let actionCreator = domain.get('actions')[domain.withoutPrefix(action.meta.name)]
+      let actionCreator = domain.get('actions')[domain.withoutPrefix(action.payload.type)]
       if (!t.Nil.is(actionCreator)) {
         typedAction = actionCreator(action.payload.payload, action.payload.error, action.payload.meta)
       }
