@@ -1,6 +1,6 @@
 import ft from 'tcomb-form-types'
 
-import { t, Domain } from 'reactuate'
+import { t, Domain } from '../..'
 
 const domain = new Domain("counter")
 export default domain
@@ -9,12 +9,12 @@ const State = t.struct({
   counter: ft.Number.Integer
 }, 'State')
 
-import { createAction } from 'reactuate'
+import { createAction } from '../..'
 
 const incrementParameter = t.struct({increment: ft.Number.Integer}, 'incrementParameter')
 const IncrementCounter = createAction(domain, 'IncrementCounter',
                                       t.maybe(incrementParameter))
-import { createReducer } from 'reactuate'
+import { createReducer } from '../..'
 
 const initialState = State({counter: 0}, 'CounterState')
 

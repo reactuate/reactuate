@@ -1,5 +1,5 @@
 import { React, Route, Application,
-         connect, bindActionCreators } from 'reactuate'
+         connect, bindActionCreators } from '../'
 
 import counter from './counter'
 import counterAsync from './counter/async'
