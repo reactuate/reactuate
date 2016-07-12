@@ -11,6 +11,7 @@ export default class Application {
     this.routes = properties.routes
     this.element = properties.element || document.getElementById('app')
     this.domains = properties.domains || {}
+    this.basename = properties.basename;
     this.reducers = {}
     for (var key in this.domains) {
       if (!t.Nil.is(this.domains[key].reducer)) {
@@ -19,7 +20,8 @@ export default class Application {
     }
     if (!!this.routes) {
       this.createElement = properties.createElement
-      this.store = createStore(this.routes, this.domains)(combineReducers(this.reducers))
+      const storeCreator = createStore(this.routes, this.domains, this.basename)
+      this.store = storeCreator(combineReducers(this.reducers))
       this.router = createRouter(this.store, this.routes, this.createElement)
     }
   }

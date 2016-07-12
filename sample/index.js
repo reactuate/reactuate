@@ -61,7 +61,7 @@ class HomePage extends React.Component {
        <ul>
          <li><Link to="/">Home</Link></li>
          <li><Link to="/subpage/">A sub-page</Link></li>
-         <li><Link to="/unexisting/">An unexisting page</Link></li>
+         <li><Link to="/unexisting/">An unexisting page</Link>(Should not change the state)</li>
        </ul>
      </div>
     </div>)
@@ -79,5 +79,8 @@ const routes = (
   </Route>
 )
 
-const app = new Application({routes, domains: {counter, counterAsync}})
+const {pathname} = document.location;
+const basename = pathname.length > 1 ? pathname : null;
+
+const app = new Application({routes, domains: {counter, counterAsync}, basename})
 app.render()

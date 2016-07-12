@@ -1,4 +1,4 @@
-import { createHistory }                         from 'history'
+import { createHistory, useBasename }            from 'history'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider }                              from 'react-redux'
 import thunk                                     from 'redux-thunk'
@@ -8,7 +8,7 @@ import sagaMiddleware                            from 'redux-saga'
 
 import domainMiddleware                          from './domainMiddleware'
 
-export default function(routes, domains) {
+export default function(routes, domains, basename) {
   let sagas = []
   for (var domainName in domains) {
     let sagasDict = domains[domainName].get('sagas')
@@ -35,7 +35,10 @@ export default function(routes, domains) {
           }
         }
         })),
-    reduxReactRouter({routes, createHistory})
+    reduxReactRouter({
+      routes,
+      createHistory: basename ? (() => useBasename(createHistory)({basename})) : createHistory
+    })
   )(createStore)
   return store
 }
