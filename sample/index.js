@@ -1,5 +1,7 @@
 import { React, Route, Application,
-         connect, bindActionCreators } from 'reactuate'
+         connect, bindActionCreators } from '../'
+
+import { Link } from 'react-router';
 
 import counter from './counter'
 import counterAsync from './counter/async'
@@ -53,6 +55,14 @@ class HomePage extends React.Component {
        {this.props.counter}
        <button onClick={() => this.handleIncrement()}>Increment</button>
        <button onClick={() => this.handleIncrementDelayed()}>Increment with delay</button>
+       <hr />
+       <h5>Current router path</h5>
+       <pre>{this.props.route.path}</pre>
+       <ul>
+         <li><Link to="/">Home</Link></li>
+         <li><Link to="/subpage/">A sub-page</Link></li>
+         <li><Link to="/unexisting/">An unexisting page</Link>(Should not change the state)</li>
+       </ul>
      </div>
     </div>)
   }
@@ -65,7 +75,12 @@ HomePage = connect(state => ({counter: state.counter.counter}),
 const routes = (
   <Route component={App}>
     <Route path="/" component={HomePage} />
+    <Route path="/subpage/" component={HomePage} />
   </Route>
 )
 
-new Application({routes, domains: {counter, counterAsync}}).render()
+const {pathname} = document.location;
+const basename = pathname.length > 1 ? pathname : null;
+
+const app = new Application({routes, domains: {counter, counterAsync}, basename})
+app.render()

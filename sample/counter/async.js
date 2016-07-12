@@ -4,7 +4,7 @@ import { t,
          createSaga,
          createAction,
          fork,
-         take, put }    from 'reactuate'
+         take, put }    from '../..'
 
 import domain           from './index'
 
