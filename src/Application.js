@@ -15,6 +15,9 @@ export default class Application {
     this.reducers = {}
     for (var key in this.domains) {
       if (!t.Nil.is(this.domains[key].reducer)) {
+        if (key in this.domains) {
+          throw `Reactuate error: you already register "${key}" domain.`
+        }
         this.reducers[key] = this.domains[key].reducer
       }
     }
