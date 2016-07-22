@@ -38,7 +38,8 @@ export default function(routes, domains, basename) {
     reduxReactRouter({
       routes,
       createHistory: basename ? (() => useBasename(createHistory)({basename})) : createHistory
-    })
-  )(createStore)
+    }),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+    )(createStore)
   return store
 }
