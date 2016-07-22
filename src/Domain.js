@@ -14,6 +14,9 @@ export default class Domain {
 
   register(type, name, value) {
     this[type] = this[type] || {}
+    if(name in this[type]) {
+      throw `Reactuate error: in ${this.prefix} domain you already registered a "${name}" ${type}`
+    }
     this[type][name] = value
   }
 
